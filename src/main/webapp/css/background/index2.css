@@ -1,0 +1,150 @@
+.main {
+	margin-top: 10px;
+	overflow: scroll;
+}
+.map{
+	position: relative;
+	width: 1197px;
+	height: 937px;
+	background-image: url(../../img/back/map.jpg);
+}
+.info{
+	margin-top:35px;
+	width:560px;
+	height:850px;
+}
+.map .qianjiang {
+	position: absolute;
+	top:400px;
+	left:400px;
+}
+
+.map .qianjiang a {
+	color:red;
+	font-weight:bold;
+	font-size: 30px;
+	cursor:pointer;
+}
+
+.map .qianjiang a:hover {
+	font-size:50px;
+}
+
+.map .zhaoxi {
+	position:absolute;
+	top:200px;
+	left:480px;
+}
+
+.map .zhaoxi a {
+	color:red;
+	font-weight:bold;
+	font-size:20px;
+	cutsor:pointer;
+}
+
+.map .zhaoxi a:hover {
+	font-size: 30px;
+}
+
+.map .yunhe {
+	position: absolute;
+	top:200px;
+	left:600px;
+}
+
+.map .yunhe a {
+	color:red;
+	font-weight:bold;
+	font-size: 20px;
+	cutsor:pointer;
+}
+
+.map .yunhe a:hover {
+	font-size:30px;
+}
+
+.map .yongjiang {
+	position: absolute;
+	top:340px;
+	left:750px;
+}
+
+.map .yongjiang a {
+	color:red;
+	font-weight:bold;
+	font-size: 20px;
+	cutsor:pointer;
+}
+
+.map .yongjiang a:hover {
+	font-size:30px;
+}
+
+.map .jiaojiang {
+    position: absolute;
+    top:530px;
+    left:670px;
+}
+
+.map .jiaojiang a {
+    color:red;
+    font-weight:bold;
+    font-size: 20px;
+    cutsor:pointer;
+}
+
+.map .jiaojiang a:hover {
+    font-size:30px;
+}
+
+.map .oujiang {
+    position: absolute;
+    top:620px;
+    left:500px;
+}
+
+.map .oujiang a {
+    color:red;
+    font-weight:bold;
+    font-size: 25px;
+    cutsor:pointer;
+}
+
+.map .oujiang a:hover {
+    font-size:35px;
+}
+
+.map .feiyunjiang {
+    position: absolute;
+    top:720px;
+    left:520px;
+}
+
+.map .feiyunjiang a {
+    color:red;
+    font-weight:bold;
+    font-size: 20px;
+    cutsor:pointer;
+}
+
+.map .feiyunjiang a:hover {
+    font-size:30px;
+}
+
+.map .biejiang {
+    position: absolute;
+    top:770px;
+    left:580px;
+}
+
+.map .biejiang a {
+    color:red;
+    font-weight:bold;
+    font-size: 20px;
+    cutsor:pointer;
+}
+
+.map .biejiang a:hover {
+    font-size:30px;
+}

@@ -1,0 +1,43 @@
+.main {
+	margin-top: 10px;
+	overflow: scroll;
+}
+
+.cloudupload {
+	font-size: 36px;
+}
+
+.upload {
+	margin: 10px;
+	width: 738px;
+	height: 338px;
+	background: #FFF;
+}
+
+.text1 {
+	margin: 20px 0 10px 0;
+	font-size: 28px;
+	color: #777777;
+}
+
+.text2 {
+	font-size: 14px;
+	color: #c3c3c3;
+	margin: 0 0 10px;
+}
+
+.choose-button {
+	width: 136px;
+	height: 38px;
+	line-height: 38px;
+	text-align: center;
+	border-radius: 4px;
+	font-size: 15px;
+	cursor: pointer;
+	color: #fff;
+	background: #5CB85C;
+}
+
+.choose-button:hover {
+	background: #449D44;
+}

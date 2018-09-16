@@ -1,0 +1,103 @@
+*,
+*:before,
+*:after {
+	box-sizing: content-box;
+}
+
+ul.menu {
+	width: 50%;
+}
+
+ul.menu li a {
+	padding: 5px 8px;
+}
+
+ul.normal-list li a {
+	position: relative;
+	display: block;
+}
+
+ul.normal-list li a span.time {
+	position: absolute;
+	top: 0;
+	right: 0;
+	line-height: normal;
+}
+
+.left,
+.middle,
+.right {
+	margin: 0 1% 20px 0;
+	padding: 1%;
+}
+
+.main .left,
+.main .middle,
+.main .right {
+	height: 350px;
+	overflow: hidden;
+}
+
+.main .right {
+	width: 36%;
+	margin-right: 0;
+}
+
+.main h2.title {
+	position: relative;
+}
+
+.main h2.title a.more {
+	position: absolute;
+	right: 0;
+	top: 5px;
+	line-height: normal;
+}
+
+.unit .left {
+	margin-right: 1%;
+}
+
+.unit .right {
+	width: 67%;
+	margin-right: 0;
+}
+
+.footer .left {
+	padding: 0;
+}
+
+.footer .right {
+	margin-right: 0;
+	padding: 0;
+	width: 54%;
+}
+
+ul.slider-public li {
+	width: 18%;
+	padding: 1%;
+}
+
+.service-info ul.slider-public li {
+	padding: 1%;
+	width: 18%;
+}
+
+.slider-btn {
+	overflow: hidden;
+}
+
+.slider-content {
+	background: #fff;
+	overflow: hidden;
+	padding: 0;
+}
+
+.aboutsidebar ul li {
+	display: inline;
+}
+
+.aboutsidebar ul li a {
+	padding: 1%;
+	width: 22.8%;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>attendance</title>
+    <link rel="stylesheet" href="../../css/base03.css">
+    <link rel="stylesheet" href="../../css/controllerCommon/header.css">
+    <link rel="stylesheet" href="../../css/controllerCommon/left.css">
+    <link rel="stylesheet" href="../../css/attendance/attendance.css">
+    <link rel="stylesheet" href="../../css/bootstrap.css"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+<div class="header"></div>
+<div class="content">
+    <div class="nav"></div>
+    <div class="main">
+        <div class="main-title">
+            <div class="main-title-name">
+                考勤信息
+            </div>
+            <div class="main-title-line"></div>
+        </div>
+        <div class="main-select">
+            <div class="line-one">
+                <div class="select-unit">
+                    <div class="select-unit-a">
+                        起始时间:
+                    </div>
+                    <input placeholder="选择起始日期"
+                           type="text"
+                           style="float:left;width:136px;height:30px;border-radius: 5px;margin-left: 5px;"
+                           class="form-control" id="start">
+                    <div class="cb"></div>
+                </div>
+                <div class="select-unit">
+                    <div class="select-unit-a">
+                        终止时间:
+                    </div>
+                    <input type="text"
+                           placeholder="选择结束日期"
+                           style="float:left;width:136px;height:30px;border-radius: 5px;margin-left: 5px;"
+                           class="form-control" id="end">
+                    <div class="cb"></div>
+                </div>
+                <div class="select-unit">
+                    <div class="select-unit-c" id="reload">
+                        点击加载
+                    </div>
+                </div>
+                <div class="cb"></div>
+            </div>
+            <div class="main-select-line"></div>
+        </div>
+        <div class="record">
+            <div class="recordcontent">
+                <!--<div class="record-unit">-->
+                    <!--<img class="fl" src="../../img/head.png" alt="">-->
+                    <!--<div class="info fl">-->
+                        <!--<p><span>admin</span>的第<span>155</span>天打卡:</span></p>-->
+                        <!--<p>上班时间<span>7:55</span>,下班时间<span>18:05</span></p>-->
+                        <!--<p>2016/12/08</p>-->
+                    <!--</div>-->
+                    <!--<div class="cb"></div>-->
+                <!--</div>-->
+                <!--<div class="record-unit">-->
+                    <!--<img class="fl" src="../../img/head.png" alt="">-->
+                    <!--<div class="info fl">-->
+                        <!--<p><span>admin</span>的第<span>155</span>天打卡:</span></p>-->
+                        <!--<p>上班时间<span>7:55</span>,下班时间<span>18:05</span></p>-->
+                        <!--<p>2016/12/08</p>-->
+                    <!--</div>-->
+                    <!--<div class="cb"></div>-->
+                <!--</div>-->
+                <!--<div class="record-unit">-->
+                    <!--<img class="fl" src="../../img/head.png" alt="">-->
+                    <!--<div class="info fl">-->
+                        <!--<p><span>admin</span>的第<span>155</span>天打卡:</span></p>-->
+                        <!--<p>上班时间<span>7:55</span>,下班时间<span>18:05</span></p>-->
+                        <!--<p>2016/12/08</p>-->
+                    <!--</div>-->
+                    <!--<div class="cb"></div>-->
+                <!--</div>-->
+                <!--<div class="record-unit">-->
+                    <!--<img class="fl" src="../../img/head.png" alt="">-->
+                    <!--<div class="info fl">-->
+                        <!--<p><span>admin</span>的第<span>155</span>天打卡:</span></p>-->
+                        <!--<p>上班时间<span>7:55</span>,下班时间<span>18:05</span></p>-->
+                        <!--<p>2016/12/08</p>-->
+                    <!--</div>-->
+                    <!--<div class="cb"></div>-->
+                <!--</div>-->
+                <!--<div class="record-unit">-->
+                    <!--<img class="fl" src="../../img/head.png" alt="">-->
+                    <!--<div class="info fl">-->
+                        <!--<p><span>admin</span>的第<span>155</span>天打卡:</span></p>-->
+                        <!--<p>上班时间<span>7:55</span>,下班时间<span>18:05</span></p>-->
+                        <!--<p>2016/12/08</p>-->
+                    <!--</div>-->
+                    <!--<div class="cb"></div>-->
+                <!--</div>-->
+                <!--<div class="record-unit">-->
+                    <!--<img class="fl" src="../../img/head.png" alt="">-->
+                    <!--<div class="info fl">-->
+                        <!--<p><span>admin</span>的第<span>155</span>天打卡:</span></p>-->
+                        <!--<p>上班时间<span>7:55</span>,下班时间<span>18:05</span></p>-->
+                        <!--<p>2016/12/08</p>-->
+                    <!--</div>-->
+                    <!--<div class="cb"></div>-->
+                <!--</div>-->
+            </div>
+            <div class="paging">
+            </div>
+        </div>
+        <div class="cb"></div>
+    </div>
+</div>
+<script src="../../js/jquery-3.2.1.js"></script>
+<script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../js/jquery-ui.min.js"></script>
+<script src="../../js/back/research/datepicker.js" type="text/javascript"></script>
+<script src="../../jsUtil/PublicBefore.js"></script>
+<script src="../../js/controllerCommon/nav.js"></script>
+<script src="../../js/controllerCommon/header.js"></script>
+<script src="../../js/attendance/attendance.js"></script>
+</body>
+</html>

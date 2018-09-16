@@ -1,0 +1,25 @@
+.header {
+    height:54px;
+    background-color: #209e85;
+    color: #ffffff;
+}
+
+.header .name{
+    height:54px;
+    line-height: 54px;
+    font-size:25px;
+    color:#ffffff;
+    cursor:pointer;
+}
+
+.header .name:hover {
+    color:#87ceeb;
+}
+
+.header .login {
+    font-size: 15px;
+    line-height: 54px;
+    height: 54px;
+    color: #ffffff;
+    cursor: pointer;
+}

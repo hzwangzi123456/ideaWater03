@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/flex.css" />
+		<!--<link rel="stylesheet" type="text/css" href="../css/clean.css" />-->
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../css/font-awesome.css" />
+		<link rel="stylesheet" href="../css/background/bootstrap-responsive.min.css" />
+		<link rel="stylesheet" href="../css/background/matrix-media.css" />
+		<link rel="stylesheet" href="../css/background/matrix-style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/background/matrix-style2.css" />
+		<link rel="stylesheet" type="text/css" href="../css/background/upload.css" />
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	</head>
+
+	<body class="main" id="content">
+			<!--回home的header-->
+<!-- 		<div id="content-header"> -->
+			 <!-- <h1>图片上传</h1> -->
+<!-- 			  <img id="preview" /> -->
+<!-- 			  <form action="/watermonitor/PhotoController/fildUpload.do" enctype="multipart/form-data"  method="post"> -->
+<!-- 			    <input class="choose-button" type="file" name="file" id="file" onchange="imgPreview(this)"/> -->
+<!-- 			    <input id="submit" type="submit" value="提交"> -->
+<!-- 			  </form> -->
+<!-- 		</div> -->
+		<div class="upload flex-v flex-vc flex-hc">
+			<span class="cloudupload fa fa-cloud-upload"></span>
+			<span class="text1">截图后粘贴、拖拽图片到这里上传</span>
+			<span class="text2">或者</span>
+			<div class="choose-button" onclick="window.document.getElementById('files').click(); MyEventHub.emitEvent('track_event', ['上传', '选择文件']);"> 
+				点击选择文件
+			</div>
+		</div>
+		<script src="../js/jquery-3.2.1.js"></script>
+		<script src="../jsUtil/PublicBefore.js"></script>
+	</body>
+
+</html>

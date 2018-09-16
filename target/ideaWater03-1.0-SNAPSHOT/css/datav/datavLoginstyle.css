@@ -1,0 +1,88 @@
+﻿ul{text-decoration: none;list-style: none}
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: url(../../img/datav/1.jpg)repeat center 0px;
+    background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover; 
+	background-size: cover;
+}
+h1 {
+    font-size: 3em;
+    text-align: center;
+    color: #fff;
+    font-weight: 100;
+}
+/*-- main --*/
+.main-agileits {
+    padding: 5em 0 0;
+}
+.main-info {
+    width: 30%;
+    height:480px;
+    margin: 4em auto;
+    padding: 3em;
+}
+.form a {
+  text-decoration: none;
+  color: #fff;
+  -webkit-transition: .5s ease;
+  -moz-transition: .5s ease;
+  -o-transition: .5s ease;
+  -ms-transition: .5s ease;
+  transition: .5s ease;
+}
+.form a:hover {
+  color: #05e0e2;
+} 
+.form {
+    background: rgba(0, 0, 0, 0.36);
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px; 
+    border-radius: 20px;
+}
+
+/*-- button --*/
+.button {
+    border: 0;
+    outline: none;
+    padding: 1.1em;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    background:#05e0e2;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+    margin-top:2.2em;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px; 
+	border-radius: 5px;
+}
+.button:hover, .button:focus {
+    background: #00cacc;
+    letter-spacing: 7px;
+}
+.button-block {
+	display: block;
+	width: 100%;
+} 
+
+/*-- 轮播 --*/
+.lb{margin-bottom: 30px;background: url(../img/1.jpg);background-size: 100% 100%;height:725px ;}
+.container{width: 1024px;margin:0 auto;position: relative;}
+.pictureSlider{height: 518px;margin-bottom: 24px;}
+.turn_3d{text-align: center;color: #fff;font-weight: 400;font-size: 36px;padding: 28px 0;}
+.for_btn{position: relative;height:400px;overflow:hidden}
+.title{font-size: 30px;color:white}
+.poster-item{background: rgba(0, 0, 0, 0.36);height: 453px;width:336px;border-radius: 10px;padding:45px 23px 20px 23px;
+	transition: all 0.5s;cursor: default;
+	-moz-transition: all 0.5s;cursor: default;
+	-webkit-transition: all 0.5s;cursor: default;
+	-o-transition: all 0.5s;cursor: default;
+}

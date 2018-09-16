@@ -1,0 +1,598 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="水质监测大数据平台"/>
+    <meta name="description" content="农林水质监测大数据平台"/>
+    <meta name="robots" content="all"/>
+    <meta name="author" content="浙江农林大学信息工程实验室"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>水质监测大数据平台</title>
+
+    <link rel="stylesheet" href="../css/ie7.css"/>
+    <!-- 		<link hrel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> -->
+    <link href="../css/style.css" rel="stylesheet"/>
+    <link href="../css/reset.css" rel="stylesheet"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="../css/flexslider.css" rel="stylesheet"/>
+    <link href="../css/bootstrap1.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/righnav.css"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/index/index.css">
+
+    <style>
+        /* modal */
+
+        .modal_box {
+            display: block;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .4);
+            z-index: 9;
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30rem;
+            height: 20rem;
+            margin-left: -20rem;
+            margin-top: -10rem;
+            background: #fff;
+            border-radius: .2rem;
+        }
+
+        .top {
+            color: #333;
+            font-size: 2rem;
+            text-align: center;
+            height: 5rem;
+            line-height: 5.4rem;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .content1 {
+            height: rem;
+        }
+
+        .content1 div {
+            width: 1.98rem;
+            height: .6rem;
+            line-height: .6rem;
+            float: left;
+            text-align: center;
+            color: #333;
+            font-size: .22rem;
+            border-right: 1px solid #f1f1f1;
+        }
+
+        .content1 div:nth-child(2) {
+            border-right: none;
+        }
+
+        .wz_input {
+            margin: 0 auto 0 auto;
+            width: 80%;
+        }
+
+        .top02 {
+            color: #333;
+            font-size: 2rem;
+            text-align: center;
+            height: 5rem;
+            line-height: 5.4rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- dialog -->
+<div id="dlWin" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     data-backdrop="static"></div>
+<div id="dlWin1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     data-backdrop="static"></div>
+
+<!-- header -->
+<!--首页登录模块-->
+<!--<div class="login-content">-->
+<!--<div class="login clearfix">-->
+<!--<div id="inputdiv01" class="input-group fr" style="display:block">-->
+<!--<input type="text" name="username" placeholder="用户名"/>-->
+<!--<input type="password" name="password" placeholder="密码"/>-->
+<!--<input type="button" name="submit" value="登录" onclick="javascript:loginobject.initFromHead(this)"/>-->
+<!--</div>-->
+<!--<a style="display:none;margin-right:30px;" href="javascript:vipobject.logout()"></a>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="showImg">
+    <div class="blur"></div>
+    <!-- 	<img class="picture" src="../img/test/IMG_3817.png"> -->
+    <img class="close" src="../img/close20.png"/>
+</div>
+
+<div class="header-content" id="header">
+    <div class="header clearfix">
+        <h2 class="fl logo"><a href="#">水质监测大数据平台</a></h2>
+        <ul class="fl menu">
+            <li>
+                <a href="../html/404.html">关于我们</a>
+            </li>
+            <li>
+                <a href="../html/404.html">平台资讯</a>
+            </li>
+            <li>
+                <a href="../html/404.html">大数据系统</a>
+            </li>
+            <li>
+                <a href="../html/404.html">科研成果</a>
+            </li>
+            <li>
+                <a href="../html/404.html">综合服务</a>
+            </li>
+            <li>
+                <a href="../html/404.html">示范企业</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- single -->
+<div class="single-content">
+    <div class="single clearfix">
+        <div class="single-main-sidebar">
+            <ul class="fixed-tools">
+                <li>
+                    <a class="lv2 slider-btn" href="#part-one"><i class="icon1"></i>
+                        <h2>数据采集</h2></a>
+                </li>
+                <li>
+                    <a class="lv2 slider-btn" href="#part-two"><i class="icon2"></i>
+                        <h2>挖掘分析</h2></a>
+                </li>
+                <li>
+                    <a class="lv2 slider-btn" href="#part-three"><i class="icon3"></i>
+                        <h2>监测指标</h2></a>
+                </li>
+                <!--<li>-->
+                <!--<a class="lv2 slider-btn" href="#part-four"><i class="icon4"></i>-->
+                <!--<h2>决策服务</h2></a>-->
+                <!--</li>-->
+                <li>
+                    <a class="lv2 slider-btn" href="#part-five">
+                        <i class="icon5"></i>
+                        <h2>示范点</h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="single-main">
+            <header id="part-one">数据采集
+                <a class="lv2 slider-btn" href="#part-one">更多</a>
+            </header>
+            <ul class="clearfix data-collect">
+                <li>
+                    <a class="lv2" href="../background/research04.html">
+                        <h2>定点采集</h2>
+                        <img style="height: 141px;" src="../img/index/instrument_collection.jpg"/>
+                        <span style="font-size:16px;">在监测点安置监测仪器，监测仪器通过各个传感器模块，获取相应水质数据，并将其上传至服务器。 </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="lv2" href="../html/plane/plane.html">
+                        <h2>无人机采集</h2>
+                        <img style="height: 141px;" src="../img/index/uva_collection.jpg "/>
+                        <span style="font-size:16px;">使用无人机航拍技术，获取河道表面最新图像信息，可以直观的看到河道整体情况，了解水质情况。</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="lv2 " href="../html/ship/ship.html">
+                        <h2>移动监测</h2>
+                        <img style="height: 141px;" src="../img/index/ship_collection.jpg "/>
+                        <span style="font-size:16px;">在移动检测船上安置摄像头，实时查看检测点的水体情况，了解水体表面的实时信息以及仪器的工作状况。</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="lv2 " href="../html/manualcollect/manualcollect.html">
+                        <h2>人工采集</h2>
+                        <img style="height: 141px;" src="../img/index/manual_collection.jpg "/>
+                        <span style="font-size:16px;">相关水质专业检测人员，不定期至河道各地段采集相关材料，考察该地段水质情况，并做相关记录。</span>
+                    </a>
+                </li>
+                <!--<li>-->
+                <!--<a class="lv2 " href="../html/404.html">-->
+                <!--<h2>数据分析</h2>-->
+                <!--<img style="height: 141px;" src="../img/source/pg-c.jpg"/>-->
+                <!--<span style="font-size:16px;">针对水质监测过程中收集统计的数据，向地方政府相关部门、示范区负责企业和个人收集，经分析整理后入库，与其他采集数据共同作为预测预警的数据基础。</span>-->
+                <!--</a>-->
+                <!--</li>-->
+            </ul>
+            <header id="part-two">挖掘分析
+                <a class="lv2 slider-btn" href="#part-two">更多</a>
+            </header>
+            <!--
+            <ul class="single-main-b clearfix">
+                <li onclick="showImg('../img/index/ph-img02.png')" style="cursor:pointer;">
+                    <h1 style="margin-top: 10px;">水质监测数据分析</h1>
+                    <img src="../img/index/ph-img02.png" style="height:300px;width:520px;margin-top: 15px;"/>
+                </li>
+                <li onclick="showImg('../img/index/map02.png')" style="cursor:pointer;">
+                    <h1 style="margin-top: 10px;">水质检测点分布</h1>
+                    <img src="../img/index/map02.png" style="height:300px;width:520px;margin-top: 15px;"/>
+                </li>
+                <li >
+                    <h1></h1>
+                    <img src="" alt="">
+                </li>
+            </ul>
+            -->
+            <ul class="mining-analysis">
+                <li onclick="showImg('../img/index/ph-img02.png')" style="cursor:pointer;">
+                    <h1 style="margin-top: 10px;">水质监测数据分析</h1>
+                    <img src="../img/index/ph-img02.png" style="height:300px;width:520px;margin-top: 15px;"/>
+                </li>
+                <li onclick="showImg('../img/index/map02.png')" style="cursor:pointer;">
+                    <h1 style="margin-top: 10px;">水质检测点分布</h1>
+                    <img src="../img/index/map02.png" style="height:300px;width:520px;margin-top: 15px;"/>
+                </li>
+                <li>
+                    <a href="../html/watershow/watershow.html">
+                        <h1 style="margin-top: 10px;">水质变化演示</h1>
+                        <img src="../img/index/east-lake.png" style="height:300px;width:520px;margin-top: 15px;" alt="">
+                    </a>
+                </li>
+            </ul>
+            <div class="cb"></div>
+
+            <header id="part-three">监测指标
+                <a class="lv2 slider-btn" href="#part-three">更多</a>
+            </header>
+            <ul class="single-main-c clearfix">
+                <li>
+                    <h1 style="margin-top: 5px;">PH值</h1>
+                    <img style="margin-top: 10px;height:100px;width: 187px;" src="../img/index/ph-unit.jpg"/>
+                </li>
+                <li>
+                    <h1 style="margin-top: 5px;">水温</h1>
+                    <img style="margin-top: 10px;height:100px;width: 187px;"
+                         src="../img/index/watertemperature-unit.jpg"/>
+                </li>
+                <li>
+                    <h1 style="margin-top: 5px;">溶解氧</h1>
+                    <img style="margin-top: 10px;height:100px;width: 187px;"
+                         src="../img/index/dissolved_oxygen-unit.jpg"/>
+                </li>
+                <li>
+                    <h1 style="margin-top: 5px;">电导率</h1>
+                    <img style="margin-top: 10px;height:100px;width: 187px;" src="../img/index/conductivity-unit.jpg"/>
+                </li>
+                <li>
+                    <h1 style="margin-top: 5px;">浊度</h1>
+                    <img style="margin-top: 10px;height:100px;width: 187px;" src="../img/index/ntu-unit.jpg"/>
+                </li>
+            </ul>
+            <!--<header id="part-four">决策服务-->
+            <!--<a class="lv2 slider-btn" href="#part-four">更多</a>-->
+            <!--</header>-->
+            <!--<ul class="single-main-d clearfix ">-->
+            <!--<li>-->
+            <!--<a class="lv2" href="javascript:vipobject.judgeHrefFun('../html/404.html')" id="sendmail ">-->
+            <!--<h2>发送短信</h2><img src="../img/source/fa.jpg"/></a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a class="lv2" href="javascript:vipobject.judgeHrefFun('../html/404.html')">-->
+            <!--<h2>服务记录</h2></a>-->
+            <!--<span><h3>发送主题：冬小麦拔节期管理</h3><h4>发送日期：2017-4-13</h4>-->
+            <!--发送内容：当前全省小麦处于拔节期，是产量形成的关键时期，应重视肥水管理工作。同时有效预防晚霜冻害，做好防治病虫草害工作。春田趁墒或造墒适时播种。-->
+            <!--</span>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a class="lv2 " href="javascript:vipobject.judgeHrefFun('../html/404.html')">-->
+            <!--<h2>决策服务</h2></a>-->
+            <!--<ul>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质改良决策</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质管理决策</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质养分管理决策</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质水分管理决策</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</li>-->
+            <!--</ul>--><!--<header id="part-four">决策服务-->
+            <!--<a class="lv2 slider-btn" href="#part-four">更多</a>-->
+            <!--</header>-->
+            <!--<ul class="single-main-d clearfix ">-->
+            <!--<li>-->
+            <!--<a class="lv2" href="javascript:vipobject.judgeHrefFun('../html/404.html')" id="sendmail ">-->
+            <!--<h2>发送短信</h2><img src="../img/source/fa.jpg"/></a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a class="lv2" href="javascript:vipobject.judgeHrefFun('../html/404.html')">-->
+            <!--<h2>服务记录</h2></a>-->
+            <!--<span><h3>发送主题：冬小麦拔节期管理</h3><h4>发送日期：2017-4-13</h4>-->
+            <!--发送内容：当前全省小麦处于拔节期，是产量形成的关键时期，应重视肥水管理工作。同时有效预防晚霜冻害，做好防治病虫草害工作。春田趁墒或造墒适时播种。-->
+            <!--</span>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a class="lv2 " href="javascript:vipobject.judgeHrefFun('../html/404.html')">-->
+            <!--<h2>决策服务</h2></a>-->
+            <!--<ul>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质改良决策</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质管理决策</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质养分管理决策</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="javascript:vipobject.judgeHrefFun('../html/404.html')">+ 水质水分管理决策</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <header id="part-five">
+                示范点
+                <a class="lv2 slider-btn" href="#part-five">更多</a>
+            </header>
+            <ul class="mining-analysis clearfix">
+                <li class="h200i">
+                    <a id="hgjc" href="xinan/login.html">
+                        <h2>新安示范点</h2><img src="../img/xinan/xinanbackground.jpg"/></a>
+                </li>
+                <li class="h200i">
+                    <a id="scjc" href="wuzhen/login.html">
+                        <h2>乌镇示范点</h2><img src="../img/wuzhen/wuzhen.jpg"/></a>
+                </li>
+                <li class="h200i">
+                    <a id="scjc02" href="donghu/login.html">
+                        <h2>东湖示范点</h2><img src="../img/donghu/donghu.jpg"/></a>
+                </li>
+                <!--<li onclick="showImg('../img/index/ph-img02.png')" style="cursor:pointer;">-->
+                    <!--<h1 style="margin-top: 10px;">水质监测数据分析</h1>-->
+                    <!--<img src="../img/index/ph-img02.png" style="height:300px;width:520px;margin-top: 15px;"/>-->
+                <!--</li>-->
+                <!--<li onclick="showImg('../img/index/map02.png')" style="cursor:pointer;">-->
+                    <!--<h1 style="margin-top: 10px;">水质检测点分布</h1>-->
+                    <!--<img src="../img/index/map02.png" style="height:300px;width:520px;margin-top: 15px;"/>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="../html/watershow/watershow.html">-->
+                        <!--<h1 style="margin-top: 10px;">水质变化演示</h1>-->
+                        <!--<img src="../img/index/east-lake.png" style="height:300px;width:520px;margin-top: 15px;" alt="">-->
+                    <!--</a>-->
+                <!--</li>-->
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+
+<div class="footer-content">
+    <div class="footer clearfix">
+        <div class="fl left">
+            <ul class="footer-menu clearfix">
+                <li class="fl">
+                    <select class="lang"
+                            onChange="javascript:window.open(this.options[this.selectedIndex].value);this.selectedIndex=0">
+                        <option value="" selected="selected">政府机构网站<i class="fa fa-angle-right"></i></option>
+                        <option value="http://www.most.gov.cn">+ 科技部</option>
+                        <option value="http://www.moa.gov.cn/">+ 农业部</option>
+                        <option value="http://www.zjkjt.gov.cn/">+ 浙江省科技厅</option>
+                    </select>
+                </li>
+                <li class="fl">
+                    <select class="lang"
+                            onChange="javascript:window.open(this.options[this.selectedIndex].value);this.selectedIndex=0">
+                        <option value="" selected="selected">科研院所网站<i class="fa fa-angle-right"></i></option>
+                        <option value="http://www.zjfc.edu.cn/">+ 浙江农林大学</option>
+                        <option value="http://www.cas.cn/">+ 中国科学院</option>
+                        <option value="http://www.caas.net.cn/">+ 中国农业科学院</option>
+                    </select>
+                </li>
+                <li class="fl">
+                    <select class="lang"
+                            onChange="javascript:window.open(this.options[this.selectedIndex].value);this.selectedIndex=0">
+                        <option value="" selected="selected">常用相关网站<i class="fa fa-angle-right"></i></option>
+                        <option value="http://www.agri.gov.cn/" target="blank">+ 中国农业信息网</option>
+                        <option value="http://www.zjwater.com/">+ 浙江水利</option>
+                        <option value="http://www.zjweu.edu.cn/">+ 浙江水利水电学院</option>
+                    </select>
+                </li>
+            </ul>
+            <p class="copyright">这里是IPC备号　&copy;版权所有 浙江农林大学
+                <a href="#"> </a>
+            </p>
+        </div>
+        <div class="fl right">
+            <ul class="footer-menu">
+                <li class="fl address">
+                    <p>　　　　　　浙江农林大学智能监测技术实验室　</p>
+                    </a>
+                    <p>　　　　　　地址：浙江杭州临安环城北路88号</p>
+                </li>
+                <li class="fl sns">
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1172634092&site=qq&menu=yes"><img
+                            border="0" src="http://wpa.qq.com/pa?p=2:1172634092:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+                    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1172634092&site=qq&menu=yes"><img
+                            border="0" src="http://wpa.qq.com/pa?p=2:1172634092:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<a href="#header" class="go-top" title="返回顶部"><i class="fa fa-arrow-circle-up"></i></a>
+<!--<div id="over_box" class="over-dialog"></div>-->
+<!--<div id="modal_box" class="login-dialog">-->
+<!--<div class="modal">
+    <div style="position:absolute;right:5px;top:5px;"><img style="width:50px;"src="../img/index/close.png" onclick="modalClose()"/></div>
+    <div class="top02">登录</div>
+    <div class="top02"><input class="wz_input" type="text" name="username" placeholder="用户名" /></div>
+    <div class="top02"><input class="wz_input" type="password" name="password" placeholder="密码" /></div>
+    <div class="top02"><input class="wz_input" style="border-radius:20px;background-color:#4876FF" type="button" name="submit" value="登录" onclick="javascript:loginobject.initFromModal(this)"/></div>
+</div>-->
+<iframe id="iframe01" class="login-dialog" src="login.html" width="100%" height="100%"></iframe>
+<!--</div>-->
+<!-- jQ -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.flexslider-min.js"></script>
+<!-- banner slider -->
+<script src="../js/base.js"></script>
+<!-- callback -->
+<script src="../js/bootstrap.js" type="text/javascript"></script>
+<script src="../jsUtil/PublicBefore.js"></script>
+<script src="../js/index/index.js"></script>
+
+<script>
+    //只能输入数字或者字母
+    var reg = /^[0-9a-zA-Z]+$/;
+
+    window.alert = function alertw(name) {
+        var iframe = document.createElement("IFRAME");
+        iframe.style.display = "none";
+        iframe.setAttribute("src", 'data:text/plain,');
+        document.documentElement.appendChild(iframe);
+        window.frames[0].window.alert(name);
+        iframe.parentNode.removeChild(iframe);
+    }
+
+    //弹出登录框
+    function showDialog() {
+        console.log("show dialog");
+        $("#iframe01").css('display', 'block');
+//				$("#over_box").css('display', 'block');
+    }
+    //收回登录框
+    // 			function hideDialog() {
+    // 				console.log("hide dialog");
+    // 				$("#iframe01").css('display', 'none');
+    // 				$("#over_box").css('display', 'none');
+    // 			}
+    //vip对象,用来处理vip的事情
+    var vipobject = {
+        vip: 0, //0：不是vip，1：是vip
+        judgeHrefFun: function (address) {
+            if (this.vip == 1) {
+                window.location.href = address;
+                return;
+            }
+// 					showDialog();
+            window.location.href = "login02.html";
+            console.log("不是vip");
+            return;
+        },
+        logout: function () {
+            this.vip = 0;
+            $("#inputdiv01").css('display', 'block');
+            $("#inputdiv01").next().css('display', 'none');
+            doAjax(PROJECT_NAME + "/UserController/logout.do", {}, function (data) {
+                var redata = strToJson(data);
+                if (redata.isSucced == true) {
+                    console.log(redata.msg);
+                    return;
+                }
+                if (redata.isSucced == false) {
+                    console.log(redata.msg);
+                    return;
+                }
+            });
+        }
+    };
+    // 			var over = document.getElementById("modal_box");
+    // 			over.addEventListener("click", hideDialog);
+    // 			$("#iframe01").click(function(){
+    // 				console.log("hide dialog");
+    // 				$("#iframe01").css('display','none');
+    // 				$("#modal_box").css('display', 'none');
+    // 				$("#over_box").css('display', 'none');
+    // 			});
+    //
+
+    $(function () {
+        doAjaxSyn(PROJECT_NAME + "/UserController/findSessionByLogin.do", {}, function (data) {
+            var redata = strToJson(data);
+            if (redata.isSucced == false) {
+                console.log(redata.msg);
+                $("#inputdiv01").css('display', 'block');
+                $("#inputdiv01").next().css('display', 'none');
+                return;
+            }
+            $("#inputdiv01").css('display', 'none');
+            $("#inputdiv01").next().text("欢迎你，" + redata.username);
+            $("#inputdiv01").next().css('display', 'block');
+            vipobject.vip = 1;
+        });
+    });
+    var loginobject = {
+        username: '',
+        password: '',
+        login: function () {
+            if (this.username.length == 0) {
+                alert("输入的账号不能为空");
+                return;
+            }
+            if (this.password.length == 0) {
+                alert("输入的密码不能为空");
+                return;
+            }
+            if (!reg.test(this.username)) {
+                alert("账号只能输入字母或者数字组合");
+                return;
+            }
+            if (!reg.test(this.password)) {
+                alert("密码只能输入字母或者数字组合");
+                return;
+            }
+            doAjax(PROJECT_NAME + "/UserController/login.do", {
+                username: this.username,
+                password: this.password
+            }, function (data) {
+                var redata = strToJson(data);
+                if (redata.isSucced == true) {
+                    console.log(redata.msg);
+                    vipobject.vip = 1;//表示登录成功
+                    window.location.href = "index.html";
+                    return;
+                }
+                if (redata.isSucced == false) {
+                    console.log(redata.msg);
+                    alert("账号密码错误");
+                    return;
+                }
+            });
+        },
+        initFromHead: function (me) {
+            this.username = $(me).prev().prev().val().trim();
+            this.password = $(me).prev().val().trim();
+            this.login();
+        },
+        initFromModal: function (me) {
+            this.password = $(me).parent().prev().children().val().trim();
+            this.username = $(me).parent().prev().prev().children().val().trim();
+            this.login();
+            window.parent.$("#iframe01").css("display", "none");
+        }
+    };
+
+
+</script>
+</body>
+
+</html>

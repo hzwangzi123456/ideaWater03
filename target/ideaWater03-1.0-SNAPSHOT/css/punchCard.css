@@ -1,0 +1,340 @@
+body{
+    background-color: #EEEEEE;
+}
+
+.bgcFDFDFD {
+    background-color: #FDFDFD;
+}
+
+.header {
+    height:54px;
+    background-color: #209e85;
+    color: #ffffff;
+}
+
+.header .name{
+    height:54px;
+    line-height: 54px;
+    font-size:25px;
+    color:#ffffff;
+}
+
+.header .login {
+    font-size:15px;
+    line-height: 54px;
+    height:54px;
+    color:#ffffff;
+    cursor: pointer;
+}
+
+.header .login:hover {
+    color:#00FFFF;
+}
+
+.content .record {
+    z-index: 1;
+    width : 770px;
+    display: none;
+}
+
+.content .record .paging {
+    padding-left: 30px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-bottom:40px;
+}
+
+.content .record .recordname {
+    height: 44px;
+    line-height: 44px;
+    font-size: 23px;
+    color: #333;
+    margin-top: 30px;
+    margin-left:20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 9px;
+}
+
+.content .record .recordcontent {
+    width : 800px;
+}
+
+.content .record .recordcontent .unit {
+    width : 700px;
+    height : 120px;
+    margin-left:20px;
+    border-bottom: 1px solid #eee;
+}
+
+.record .paging .btlist {
+    cursor: pointer;
+    text-align:center;
+    border:1px solid #DDDDDD;
+    magrin-left:5px;
+    float:left;
+    width:40px;
+    height:30px;
+    display: inline;
+    line-height: 30px;
+    font-size: 13px;
+    color: #4FA5DC;
+}
+
+.record .paging .btactive {
+    background-color: #F5F5F5;
+    color:#B2B0A7;
+}
+
+.recordcontent .unit img{
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.recordcontent .unit .info {
+    width:330px;
+    height:100px;
+    margin-top:18px;
+    margin-left:20px;
+}
+
+.recordcontent .unit .info p {
+    font-size: 16px;
+    line-height: 20px;
+    height:20px;
+    color: #333;
+    margin-bottom:6px;
+}
+
+.recordcontent .unit .info p:last-child {
+    font-size: 18px;
+    line-height: 20px;
+    height:20px;
+    color: #29C192;
+    margin-bottom:6px;
+}
+    
+
+
+.calendar {
+    width:770px;
+    margin-left:30px;
+    margin-bottom:200px;
+}
+
+.calendar .calendarheader {
+    height:44px;
+    width:770px;
+    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.calendar .calendarname {
+    height:44px;
+    line-height: 44px;
+    font-size:23px;
+    color:#333;
+}
+
+.calendar .days {
+    height:44px;
+    line-height: 44px;
+    font-size:20px;
+    color:#333;
+    margin-right: 10px;
+}
+
+.calendar table{
+    background-color: #E4E4E4;
+    width:770px;
+    height:440px;
+}
+
+.calendar table .pre {
+    cursor: pointer;
+}
+
+.calendar table .next {
+    cursor:pointer;
+}
+
+thead tr:first-child {
+    font-size: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    height:60px;
+    border-bottom: #aaa solid 1px;
+}
+
+thead tr:nth-child(2) {
+    height:28px;
+    font-size:15px;
+    background-color:#cecfd2;
+    border-bottom: #aaa solid 1px;
+}
+
+thead tr:nth-child(2) td {
+    width:110px;
+}
+
+td {
+    text-align: center;
+}
+
+tbody td {
+	position:relative;
+    font-size: 15px;
+    color: #333;
+}
+
+tbody td.otherday {
+    color: #bbb;
+}
+
+.title {
+    font-size:20px;
+}
+
+.calendar .parameter {
+    height:40px;
+    width:770px;
+    background: #EEEDED;
+    margin-bottom:30px;
+}
+
+.parameter > div{
+    line-height: 40px;
+    font-size: 13px;
+    width:256px;
+    height:40px;
+    text-align: center;
+}
+
+.parameter .normal .ico {
+    position: relative;
+    top:3px;
+    width:16px;
+    height:16px;
+    background: #4dc3a9;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.parameter .earlier .ico {
+    position: relative;
+    top:3px;
+    width:16px;
+    height:16px;
+    background: #eede8e;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.parameter .late .ico {
+    position: relative;
+    top:3px;
+    width:16px;
+    height:16px;
+    background: red;
+    border-radius: 100%;
+    display: inline-block;
+}
+
+.content .nav {
+    margin-top:30px;
+    width: 370px;
+    height: 295px;
+}
+
+.content .nav .navname {
+    width:350px;
+    height:50px;
+    line-height: 50px;
+    font-size:20px;
+    color:#333;
+    border-bottom: 5px solid #eee;
+}
+
+.content .nav ul {
+    margin-top:20px;
+}
+
+.content .nav li {
+    padding-left: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+    cursor:pointer;
+}
+
+.content .nav li:hover {
+    background-color: #E4E4E4;
+    border-left:5px solid #209e85;
+}
+
+.content .detail {
+    width:370px;
+    height:300px;
+}
+
+.content .detail p {
+    margin-top:10px;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 500;
+}
+.content .detail p:first-child {
+    padding-left: 5px;
+    color: #333;
+    border-left: 3px solid #3dc69b;
+}
+
+.content .detail p:nth-child(2) {
+    margin-top:30px;
+    padding-left: 5px;
+    color: #29C192;
+}
+
+.tdYellow {
+	position: absolute;
+	top: 13px;
+    left: 34px;
+    border-radius:100%;
+	background-color:#eede8e;
+	width:35px;
+	height:35px;
+	line-height:35px;
+	font-size: 15px;
+	color:#FFFFFF;
+}
+
+.tdRed {
+	position: absolute;
+	top: 13px;
+    left: 34px;
+    border-radius:100%;
+	background-color:#FF0000;
+	width:35px;
+	height:35px;
+	line-height:35px;
+	font-size: 15px;
+	color:#FFFFFF;
+}
+
+.tdGreen {
+	position: absolute;
+	top: 13px;
+    left: 34px;
+    border-radius:100%;
+	background-color:#4DC3A9;
+	width:35px;
+	height:35px;
+	line-height:35px;
+	font-size: 15px;
+	color:#FFFFFF;
+}
+

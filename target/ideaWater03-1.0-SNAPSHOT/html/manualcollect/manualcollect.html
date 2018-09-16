@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>plane</title>
+    <link rel="stylesheet" href="../../css/base03.css">
+    <link rel="stylesheet" href="../../css/controllerCommon/header.css">
+    <link rel="stylesheet" href="../../css/manualcollect/manualcollect.css">
+</head>
+<body class="bgcEEE">
+<div class="header"></div>
+<div class="content mga">
+    <div class="content-title">
+        人工采集
+    </div>
+    <div class="box">
+        <ul>
+            <li><img src="../../img/manualcollect/laboratory01.JPG" alt=""></li>
+            <li><img src="../../img/manualcollect/laboratory02.JPG" alt=""></li>
+            <li><img src="../../img/manualcollect/laboratory03.JPG" alt=""></li>
+            <li><img src="../../img/manualcollect/laboratory04.JPG" alt=""></li>
+            <li><img src="../../img/manualcollect/laboratory05.JPG" alt=""></li>
+            <li><img src="../../img/manualcollect/laboratory06.JPG" alt=""></li>
+            <li><img src="../../img/manualcollect/laboratory07.JPG" alt=""></li>
+            <!--<li><img src="../../img/head.png" alt=""></li>-->
+            <!--<li><img src="../images/02.jpg" alt=""></li>-->
+        </ul>
+        <!--<div class="arrow">-->
+        <!--<img id="leftArrow" class="fl" src="../images/leftarrowhead.png" alt="">-->
+        <!--<img id="rightArrow" class="fr" src="../images/rightarrowhead.png" alt="">-->
+        <!--</div>-->
+        <div class="circle">
+            <span class="current"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<script src="../../js/jquery-3.2.1.js"></script>
+<script src="../../js/manualcollect/manualcollect.js"></script>
+<script src="../../js/controllerCommon/header.js"></script>
+<script src="../../jsUtil/wheelPicture.js"></script>
+<script>
+    $(function () {
+        //7张宽度900px轮播图
+        wheelPictureFunction(7, 900);
+    });
+</script>
+</body>
+</html>

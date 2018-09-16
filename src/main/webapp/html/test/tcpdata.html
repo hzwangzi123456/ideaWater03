@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>tcpdata.html</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="../../css/base03.css" />
+<style>
+p {
+	font-size: 25px;
+	margin-top: 10px;
+}
+
+span {
+	color: blue;
+}
+
+th {
+	width: 150px;
+	font-size: 18px;
+	height: 40px;
+	line-height: 30px;
+}
+
+td {
+	text-align: center;
+	font-size: 18px;
+	height: 30px;
+	line-height: 30px;
+}
+</style>
+</head>
+<body>
+	<table border="1">
+		<thead>
+			<tr>
+				<th style="width:200px;">dateTime</th>
+				<th>instrumentId</th>
+				<th>ammoniaNitrogen</th>
+				<th>conductivity</th>
+				<th>dissolvedOxygen</th>
+				<th>ntu</th>
+				<th>p</th>
+				<th>ph</th>
+				<th>waterTemperature</th>
+			</tr>
+		</thead>
+		<tbody>
+<!-- 			<tr> -->
+<!-- 				<td>2017-09-26 22:11:00</td> -->
+<!-- 				<td>W01</td> -->
+<!-- 				<td>100</td> -->
+<!-- 				<td>100</td> -->
+<!-- 				<td>100</td> -->
+<!-- 				<td>100</td> -->
+<!-- 				<td>100</td> -->
+<!-- 				<td>100</td> -->
+<!-- 				<td>100</td> -->
+<!-- 			</tr> -->
+		</tbody>
+	</table>
+	<script src="../../js/jquery-3.2.1.js"></script>
+	<script src="../../jsUtil/PublicBefore.js"></script>
+	<script>
+		$(function() {
+			doAjax(
+					PROJECT_NAME
+							+ "YascmfDatasController/findYascmfDatasByPojo.do",
+					{},
+					function(data) {
+						var resdata = strToJson(data);
+						if (!judgeAjaxData(resdata)) {
+							return;
+						}
+						var html = '';
+						$('tbody').html('');
+						for ( var i = 0; i < resdata.length; i++) {
+							html += '<tr>';
+// 							resdata[i].dateTime=resdata[i].dateTime.slice(0,resdata[i].dateTime.length-2);
+							html += '<td>' + resdata[i].dateTime.slice(0,resdata[i].dateTime.length-2) + '</td>';
+							html += '<td>' + resdata[i].instrumentId + '</td> ';
+							html += '<td>' + resdata[i].ammoniaNitrogen
+									+ '</td> ';
+							html += '<td>' + resdata[i].conductivity + '</td> ';
+							html += '<td>' + resdata[i].dissolvedOxygen
+									+ '</td> ';
+							html += '<td>' + resdata[i].ntu + '</td> ';
+							html += '<td>' + resdata[i].p + '</td> ';
+							html += '<td>' + resdata[i].ph + '</td> ';
+							html += '<td>' + resdata[i].waterTemperature
+									+ '</td> ';
+							html += '</tr>';
+						}
+						$('tbody').append(html);
+					});
+		});
+	</script>
+</body>
+</html>

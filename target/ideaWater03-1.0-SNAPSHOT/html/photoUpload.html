@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>photoUpload.html</title>
+
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<input accept="image/*" name="upimage" id="upload_file" type="file">
+<textarea id="base64_output" name="Word" style=" width:820px"></textarea>
+<br/>
+position:<input id="position" type="text" value="">
+introduce:<input id="introduce" type="text" value="">
+<button id="bt01">点击我</button>
+<script src="../js/jquery.min.js"></script>
+<script src="../jsUtil/PublicBefore.js"></script>
+<script src="../jsUtil/Date.js"></script>
+<script>
+    document.getElementById("upload_file").onchange = function () {
+        gen_base64();
+    };
+    function $_(id) {
+        return document.getElementById(id);
+    }
+    function gen_base64() {
+        var file = $_('upload_file').files[0];
+        r = new FileReader();  //本地预览
+        r.onload = function () {
+            $_('base64_output').value = r.result;
+        }
+        r.readAsDataURL(file);    //Base64
+    }
+
+    $('#bt01').click(function () {
+        var base64Array = new Array();
+        var n = 1;
+        while (n--) {
+            base64Array.push($('#base64_output').val());
+        }
+        console.log(JSON.stringify(base64Array));
+        doAjax(PROJECT_NAME + "PhotoController/insertPhoto.do", {
+            base64Array: JSON.stringify(base64Array),
+            dateTime: new Date().Format("yyyy-MM-dd hh:mm:ss"),
+            position: $('#position').val(),
+            introduce: $('#introduce').val()
+        }, function (data) {
+            var redata = strToJson(data);
+            if(!judgeAjaxData(redata)) {
+                return ;
+            }
+        });
+    });
+</script>
+</body>
+</html>
