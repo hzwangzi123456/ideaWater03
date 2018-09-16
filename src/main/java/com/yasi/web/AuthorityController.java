@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class AuthorityController extends BaseController {
 	private static Logger logger = Logger.getLogger(AuthorityController.class);
 
+
 	/**注入业务接口层**/
 	@Autowired
 	private AuthorityBo authorityBo;
