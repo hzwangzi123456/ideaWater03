@@ -6,9 +6,11 @@ import com.yasi.vo.YascmfDatas;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -55,23 +57,27 @@ public class YascmfDatasController extends BaseController {
     }
 
     @RequestMapping("/findYascmfDatasByPojo.do")
-    public void findYascmfDatasByPojo() {
+    @ResponseBody
+    public Object findYascmfDatasByPojo(String callback) {
         List<YascmfDatas> result = yascmfDatasBo.findYascmfDatasByPojo(yascmfDatas);
         if (result == null || result.size() == 0) {
-            setFailure("未找到数据");
-            return;
+            return "未找到数据";
         }
-        setAjaxObject(result);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
     }
 
     @RequestMapping("/findYascmfDatasByTime.do")
-    public void findYascmfDatasByTime() {
+    @ResponseBody
+    public Object findYascmfDatasByTime(String callback) {
         List<YascmfDatas> result = yascmfDatasBo.findYascmfDatasByTime(yascmfDatas.getInstrumentId(), start, end);
         if (result == null || result.size() == 0) {
-            setFailure("未找到数据");
-            return;
+            return "未找到数据";
         }
-        setAjaxObject(result);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
     }
 
 //	@RequestMapping("/processTCPDatas.do")

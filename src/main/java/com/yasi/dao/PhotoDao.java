@@ -17,7 +17,7 @@ public interface PhotoDao {
      * insert Photo
      * @param vo Photo
      */
-    void insertPhoto(Photo vo);
+    int insertPhoto(Photo vo);
 
     /**
      * find Photo by pojo

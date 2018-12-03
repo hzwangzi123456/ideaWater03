@@ -40,6 +40,9 @@ introduce:<input id="introduce" type="text" value="">
             base64Array.push($('#base64_output').val());
         }
         console.log(JSON.stringify(base64Array));
+        console.log(new Date().Format("yyyy-MM-dd hh:mm:ss"));
+        console.log($('#position').val());
+        console.log($('#introduce').val());
         doAjax(PROJECT_NAME + "PhotoController/insertPhoto.do", {
             base64Array: JSON.stringify(base64Array),
             dateTime: new Date().Format("yyyy-MM-dd hh:mm:ss"),

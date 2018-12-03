@@ -17,7 +17,7 @@ public interface PhotoBo {
      * @param vo Photo
      * @throws SysRuntimeException
      */
-    void insertPhoto(Photo vo) throws SysRuntimeException;
+    boolean insertPhoto(Photo vo) throws SysRuntimeException;
 
     /**
      * find Photo by pojo

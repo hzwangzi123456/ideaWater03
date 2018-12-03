@@ -6,9 +6,11 @@ import com.yasi.vo.YascmfAreas;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -47,25 +49,29 @@ public class YascmfAreasController extends BaseController {
     }
 
     @RequestMapping("findYascmfAreasByPojo.do")
-    public void findYascmfAreasByPojo() {
+    @ResponseBody
+    public Object findYascmfAreasByPojo(String callback) {
         List<YascmfAreas> resarr = yascmfAreasbo.findYascmfAreasByPojo(yascmfAreas);
         if (resarr == null || resarr.size() == 0) {
-            setFailure("未找到YascmfAreas");
-            return;
+            return "未找到YascmfAreas";
         }
-        setAjaxObject(resarr);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resarr);
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
     }
 
     @RequestMapping("findYascmfAreasCity.do")
-    public void findYascmfAreasCity() {
+    @ResponseBody
+    public Object findYascmfAreasCity(String callback) {
         List<String> resarr = yascmfAreasbo.findYascmfAreasCity();
 //		System.out.println(JSON.toJSONString(rearr).toString());
 //		CheckUtil.Look(resarr);
         if (resarr == null || resarr.size() == 0) {
-            setFailure("未找到YascmfAreasCity");
-            return;
+            return "未找到YascmfAreasCity";
         }
-        setAjaxObject(resarr);
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resarr);
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
     }
 
 }

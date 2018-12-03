@@ -1,6 +1,7 @@
 package com.common.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +30,9 @@ public class DateUtil {
     public static final long MillisecondsPerDay = 24 * 60 * 60 * 1000;
     public static final long MillisecondsPerHour = 60 * 60 * 1000;
     public static final long MillisecondsPerMinute = 60 * 1000;
+    public static final long SecondsPerMinute = 60;
+    public static final long SecondsPerHour = 60 * 60;
+
 
     public DateUtil() {
         super();
@@ -260,6 +264,16 @@ public class DateUtil {
         return y_m_d_h_m_sFormat.format(date);
     }
 
+    /**
+     * 日期格式字符串戳转换成时间戳
+     * @param dateStr 日期格式字符串
+     * @return
+     * @throws ParseException
+     */
+    public static long date2TimeStamp(String dateStr) throws ParseException {
+        long l = y_m_d_h_m_sFormat.parse(dateStr).getTime() / 1000;
+        return l;
+    }
 
 //	public static void main(String[] args) {
 //		System.out.println(getDateStringFromStrDayAdd(DateUtil.y_m_dFormat,DateUtil.getCurDateStrY_m_d(),-3));

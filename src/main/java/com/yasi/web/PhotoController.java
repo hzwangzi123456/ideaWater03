@@ -135,24 +135,28 @@ public class PhotoController extends BaseController {
 
     @RequestMapping("insertPhoto")
     public void insertPhoto(String base64Array, String dateTime, String position, String introduce) {
-        System.out.println("base64Array:" + base64Array);
-        System.out.println("dateTime:" + dateTime);
-        System.out.println("position:" + position);
-        System.out.println("introduce:" + introduce);
+        logger.info("base64Array:" + base64Array);
+        logger.info("dateTime:" + dateTime);
+        logger.info("position:" + position);
+        logger.info("introduce:" + introduce);
         JSONArray array = JSON.parseArray(base64Array);
         if (introduce == null || introduce == "") {
-            setFailure("未收到instroduce");
+            logger.error("未收到introduce");
+            setFailure("未收到introduce");
             return;
         }
         if (position == null || position == "") {
+            logger.error("未收到postion");
             setFailure("未收到postion");
             return;
         }
         if (dateTime == null || dateTime == "") {
+            logger.error("未收到dateTime");
             setFailure("未收到dateTime");
             return;
         }
         if (base64Array == null || base64Array == "") {
+            logger.error("未收到base64Array");
             setFailure("未收到base64Array");
             return;
         }
@@ -166,13 +170,20 @@ public class PhotoController extends BaseController {
             try {
                 //将字符串转换成为byte数组
                 b02 = array.getString(i).getBytes("UTF8");
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                logger.error("上传失败:" + e.getMessage());
                 setFailure("上传失败");
             }
             vo.setByteArray(b02);
-            photoBo.insertPhoto(vo);
-            setSuccess("上传成功");
+            boolean b = photoBo.insertPhoto(vo);
+            if (b) {
+                logger.info("上传成功");
+                setSuccess("上传成功");
+            } else {
+                logger.error("上传失败");
+                setFailure("上传失败");
+            }
         }
     }
 

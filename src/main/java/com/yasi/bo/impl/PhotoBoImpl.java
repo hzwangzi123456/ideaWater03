@@ -16,29 +16,34 @@ import java.util.Objects;
  * @date 17/10/19 下午11:25.
  */
 @Service
-public class PhotoBoImpl implements PhotoBo{
+public class PhotoBoImpl implements PhotoBo {
 
-	@Autowired
-	private PhotoDao photoDao;
-	
-	@Override
-	public void insertPhoto(Photo vo) throws SysRuntimeException {
-		photoDao.insertPhoto(vo);
-	}
+    @Autowired
+    private PhotoDao photoDao;
 
-	@Override
-	public List<Photo> findPhotoByPojo(Photo vo) throws SysRuntimeException {
-		return photoDao.findPhotoByPojo(vo);
-	}
+    @Override
+    public boolean insertPhoto(Photo vo) throws SysRuntimeException {
+        int i = photoDao.insertPhoto(vo);
+        if (i == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	@Override
-	public List<Photo> findPhotoByWhere(Map<String, Objects> map) throws SysRuntimeException {
-		return photoDao.findPhotoByWhere(map);
-	}
+    @Override
+    public List<Photo> findPhotoByPojo(Photo vo) throws SysRuntimeException {
+        return photoDao.findPhotoByPojo(vo);
+    }
 
-	@Override
-	public void deletePhotoByKey(Photo vo) throws SysRuntimeException {
-		 photoDao.deletePhotoByKey(vo);
-		 return;
-	}
+    @Override
+    public List<Photo> findPhotoByWhere(Map<String, Objects> map) throws SysRuntimeException {
+        return photoDao.findPhotoByWhere(map);
+    }
+
+    @Override
+    public void deletePhotoByKey(Photo vo) throws SysRuntimeException {
+        photoDao.deletePhotoByKey(vo);
+        return;
+    }
 }
