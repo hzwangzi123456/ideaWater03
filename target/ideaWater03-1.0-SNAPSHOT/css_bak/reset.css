@@ -1,0 +1,27 @@
+@media screen and (max-width: 1440px) {
+	.banner-content {
+		position: relative;
+		height: 700px;
+	}
+	.data-content {
+		position: absolute;
+		left: 50%;
+		margin-left: -550px;
+		bottom: 5px;
+		z-index: 15;
+	}
+}
+
+@media screen and (max-width: 1366px) {
+	.banner-content {
+		position: relative;
+		height: 690px;
+	}
+	.data-content {
+		position: absolute;
+		left: 50%;
+		margin-left: -550px;
+		bottom: 5px;
+		z-index: 15;
+	}
+}

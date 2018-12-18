@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>findEmployeeRecordByVoTest</title>
+</head>
+<body>
+
+<script src="../js/jquery-3.2.1.js"></script>
+<script src="../jsUtil/PublicBefore.js"></script>
+<script>
+    $(function () {
+        doAjaxSyn(PROJECT_NAME + "/EmployeeController/findEmployeeRecordByVo.do", {startTimeTIMESTAMP:'2017-09-01 00:00:00',endTimeTIMESTAMP:'2017-09-10 23:59:59'}, function (data) {
+            var redata = strToJson(data);
+            if (!judgeAjaxData(redata)) {
+                return;
+            }
+            console.log(redata);
+        });
+    });
+</script>
+</body>
+</html>

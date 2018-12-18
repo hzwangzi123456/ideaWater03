@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<button>submit</button>
+	<script src="../js/jquery-3.2.1.js"></script>
+	<script src="../jsUtil/PublicBefore.js"></script>
+	<script>
+		//得到[min,max]之间的随机数
+		function GetRandomNum(Min, Max) {
+			var Range = Max - Min;
+			var Rand = Math.random();//[0,1)
+			return (Min + Math.round(Rand * Range));//Math.round(num)对num进行四舍五入
+		}
+		
+		//若num是一位数字，增加前导0
+		function leadZero(num) {
+			if(num >=0 && num <= 9) {
+				return "0" + num;
+			}
+			return "" + num;
+		}
+		
+		$('button').click(function() {
+			doAjax(PROJECT_NAME + "RecordController/testRecord.do", {
+			/* 	workHour : leadZero(GetRandomNum(0, 23)) + ":"
+									+ leadZero(GetRandomNum(0, 59)),
+							offHour : leadZero(GetRandomNum(0, 23)) + ":"
+									+ leadZero(GetRandomNum(0, 59)),
+							username : "wz",
+							dateTime : "2017-" + leadZero(GetRandomNum(2, 6)) + "-"
+									+ leadZero(GetRandomNum(1, 30)), */
+				page : 2,
+				rows : 6,
+				total: 100,
+				sort : 'dateTime',
+				order : 'ASC'
+			}, function(data) {
+				var resdata = strToJson(data);
+				if (resdata == null) {
+					console.log("后台未发送response");
+					return;
+				}
+				if ("isSucced" in resdata == true) {
+					console.log(resdata.msg);
+					return;
+				}
+				console.log(resdata);
+			});
+		});
+	</script>
+</body>
+</html>

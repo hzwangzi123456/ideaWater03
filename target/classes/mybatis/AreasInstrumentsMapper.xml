@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yasi.dao.AreasInstrumentsDao">
+	<!-- *********************************公共嵌入块********************************* -->
+	<!-- 所有输出列 -->
+	<sql id="publicOutCol">
+		yascmf_areas.prefix AS prefix,
+		yascmf_areas.province AS province,
+		yascmf_areas.city AS city,
+		yascmf_areas.county AS county,
+		yascmf_areas.extra AS extra,
+		yascmf_areas.created_at AS createdAt,
+		yascmf_areas.updated_at AS updatedAt,
+		yascmf_areas.num AS num,
+		yascmf_instruments.instrument_id AS instrumentId,
+		yascmf_instruments.license AS license,
+		yascmf_instruments.instrument_model AS instrumentModel,
+		yascmf_instruments.manufacturer AS manufacturer,
+		yascmf_instruments.date_of_manufacture AS dateOfManufacture,
+		yascmf_instruments.date_of_into_used AS dateOfIntoUsed,
+		yascmf_instruments.day_of_unusual AS dayOfUnusual,
+		yascmf_instruments.coordinate AS coordinate
+	</sql>
+
+	<!-- 所有输入列 -->
+	<sql id="publicInCol">
+		#{prefix},#{province},#{city},#{county},#{extra},#{createdAt},#{updatedAt},#{num},#{instrumentId,jdbcType=VARCHAR},
+		#{license,jdbcType=VARCHAR}, #{instrumentModel,jdbcType=VARCHAR},
+		#{manufacturer,jdbcType=VARCHAR}, #{dateOfManufacture,jdbcType=DATE},
+		#{dateOfIntoUsed,jdbcType=DATE},
+		#{dayOfUnusual,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR}
+	</sql>
+
+	<sql id="publicInsertCol">
+		prefix,province,city,county,extra,created_at,updated_at,num,instrument_id,
+		license, instrument_model, manufacturer, date_of_manufacture,
+		date_of_into_used,
+		day_of_unusual, coordinate
+	</sql>
+
+	<!-- 所有设值列 -->
+	<sql id="publicSet">
+		prefix = #{prefix},
+		province = #{province},
+		city = #{city},
+		county = #{county},
+		extra = #{extra},
+		created_at = #{createdAt},
+		updated_at = #{updatedAt},
+		num = #{num},
+		instrument_id = #{instrumentId,jdbcType=VARCHAR},
+		license = #{license,jdbcType=VARCHAR},
+		instrument_model = #{instrumentModel,jdbcType=VARCHAR},
+		manufacturer = #{manufacturer,jdbcType=VARCHAR},
+		date_of_manufacture = #{dateOfManufacture,jdbcType=DATE},
+		date_of_into_used = #{dateOfIntoUsed,jdbcType=DATE},
+		day_of_unusual = #{dayOfUnusual,jdbcType=INTEGER},
+		coordinate = #{coordinate,jdbcType=VARCHAR}
+	</sql>
+
+	<!-- 主键条件 -->
+	<sql id="publicWhereKey">
+	</sql>
+
+	<!-- 所有条件 -->
+	<sql id="publicWhere">
+		WHERE 1=1
+		<if test="prefix != null and prefix != ''">
+			AND yascmf_areas.prefix = #{prefix}
+		</if>
+		<if test="province != null and province != ''">
+			AND yascmf_areas.province = #{province}
+		</if>
+		<if test="city != null and city != ''">
+			AND yascmf_areas.city = #{city}
+		</if>
+		<if test="county != null and county != ''">
+			AND yascmf_areas.county = #{county}
+		</if>
+		<if test="extra != null and extra !=''">
+			AND yascmf_areas.extra = #{extra}
+		</if>
+		<if test="createdAt != null and createdAt != ''">
+			AND yascmf_areas.created_at = #{createdAt}
+		</if>
+		<if test="updatedAt != null and updatedAt != ''">
+			AND yascmf_areas.updated_at = #{updatedAt}
+		</if>
+		<if test="num != null">
+			AND yascmf_areas.num = #{num}
+		</if>
+		<if test="instrumentId != null">
+			AND yascmf_instruments.instrument_id = #{instrumentId,jdbcType=VARCHAR}
+		</if>
+		<if test="license != null">
+			AND yascmf_instruments.license = #{license,jdbcType=VARCHAR}
+		</if>
+		<if test="instrumentModel != null">
+			AND yascmf_instruments.instrument_model =
+			#{instrumentModel,jdbcType=VARCHAR}
+		</if>
+		<if test="manufacturer != null">
+			AND yascmf_instruments.manufacturer = #{manufacturer,jdbcType=VARCHAR}
+		</if>
+		<if test="dateOfManufacture != null">
+			AND yascmf_instruments.date_of_manufacture =
+			#{dateOfManufacture,jdbcType=DATE}
+		</if>
+		<if test="dateOfIntoUsed != null">
+			AND yascmf_instruments.date_of_into_used =
+			#{dateOfIntoUsed,jdbcType=DATE}
+		</if>
+		<if test="dayOfUnusual != null">
+			AND yascmf_instruments.day_of_unusual = #{dayOfUnusual,jdbcType=INTEGER}
+		</if>
+		<if test="coordinate != null">
+			AND yascmf_instruments.coordinate = #{coordinate,jdbcType=VARCHAR}
+		</if>
+	</sql>
+
+	<!-- *********************************添加********************************* -->
+	<!-- 新增 -->
+	<!-- <insert id="insertEmp" parameterType="EmpVO" > INSERT INTO test2.emp 
+		(<include refid="publicInsertCol"/>) VALUES (<include refid="publicInCol"/>) 
+		</insert> -->
+
+	<!-- *********************************修改********************************* -->
+	<!-- 修改 -->
+	<!-- <update id="updateSignTaskRec" parameterType="SignTaskRecVO" > -->
+	<!-- UPDATE activity.sign_task_rec SET <include refid="publicSet"/> -->
+	<!-- <include refid="publicWhereKey"/> -->
+	<!-- </update> -->
+
+	<!-- *********************************删除********************************* -->
+	<!-- 删除 -->
+	<!-- <delete id="delSignTaskRecByKey" parameterType="SignTaskRecVO" > -->
+	<!-- DELETE FROM activity.sign_task_rec -->
+	<!-- <include refid="publicWhereKey"/> -->
+	<!-- </delete> -->
+
+	<!-- *********************************查询********************************* -->
+
+	<select id="findAreasInstrumentsByPojo" parameterType="AreasInstrumentsVO"
+		resultType="AreasInstrumentsVO">
+		SELECT
+		<include refid="publicOutCol" />
+		FROM yasi.yascmf_areas
+		LEFT JOIN yasi.yascmf_instruments ON
+		left(yascmf_instruments.instrument_id, 1) = yascmf_areas.prefix
+		<include refid="publicWhere" />
+		ORDER BY prefix DESC
+	</select>
+	<!-- 根据主键查询信息 -->
+	<!-- <select id="findSignTaskRecByKey" parameterType="SignTaskRecVO" resultType="SignTaskRecVO" 
+		> -->
+	<!-- SELECT <include refid="publicOutCol"/> FROM activity.sign_task_rec -->
+	<!-- <include refid="publicWhereKey"/> -->
+	<!-- </select> -->
+
+	<!-- 获取记录数 -->
+	<!-- <select id="findSignTaskRecCountByPojo" parameterType="SignTaskRecVO" 
+		resultType="java.lang.Integer"> -->
+	<!-- SELECT count(*) FROM activity.sign_task_rec <include refid="publicWhere"/> -->
+	<!-- </select> -->
+
+	<!-- 对象条件查询 -->
+	<!-- <select id="findYascmfContentsByPojo" parameterType="YascmfContentsVO" 
+		resultType="YascmfContentsVO"> SELECT <include refid="publicOutCol"/> FROM 
+		yasi.yascmf_contents <include refid="publicWhere"/> </select> -->
+
+	<!-- map条件查询 -->
+	<!-- <select id="findSignTaskRecByWhere" parameterType="java.util.Map" resultType="SignTaskRecVO"> -->
+	<!-- SELECT <include refid="publicOutCol"/> FROM activity.sign_task_rec -->
+	<!-- <include refid="publicWhere"/> -->
+	<!-- <if test="sortName != null and sortName != '' and orderName != null 
+		and orderName!=''"> -->
+	<!-- order by ${sortName} ${orderName} -->
+	<!-- </if> -->
+	<!-- <if test="pageStart != null and rows != null"> -->
+	<!-- LIMIT #{pageStart},#{rows} -->
+	<!-- </if> -->
+	<!-- </select> -->
+
+	<!-- 查询分页记录 -->
+	<!-- <select id="findSignTaskRecByPage" parameterType="java.util.Map" resultType="SignTaskRecVO"> -->
+	<!-- SELECT <include refid="publicOutCol"/> FROM activity.sign_task_rec -->
+	<!-- <include refid="publicWhere"/> -->
+	<!-- <if test="sortName != null and sortName != '' and orderName != null 
+		and orderName!=''"> -->
+	<!-- order by ${sortName} ${orderName} -->
+	<!-- </if> -->
+	<!-- LIMIT #{pageStart},#{rows} -->
+	<!-- </select> -->
+
+	<!-- 根据条件获取列表信息 -->
+	<!-- <select id="findSignTaskRecListByQueryStr" parameterType="java.lang.String" 
+		resultType="SignTaskRecVO" > -->
+	<!-- SELECT <include refid="publicOutCol"/> FROM activity.sign_task_rec 
+		WHERE 1=1 -->
+	<!-- <![CDATA[ -->
+	<!-- ${querySql} -->
+	<!-- ]]> -->
+	<!-- </select> -->
+
+
+</mapper>

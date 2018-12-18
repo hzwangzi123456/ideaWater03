@@ -1,0 +1,33 @@
+    .anchorBL{  
+        display:none;  
+    }  
+    .BMap_bubble_title{  
+        color:black;  
+        font-size:13px;  
+        font-weight: bold;  
+        text-align:left;  
+    }  
+    .BMap_pop div:nth-child(1){  
+        border-radius:7px 0 0 0;  
+    }  
+    .BMap_pop div:nth-child(3){  
+        border-radius:0 7px 0 0;background:#ABABAB;;  
+        /*background: #ABABAB;*/  
+        width:23px;  
+        width:0px;height;0px;  
+    }  
+    .BMap_pop div:nth-child(3) div{  
+        border-radius:7px;  
+    }  
+    .BMap_pop div:nth-child(5){  
+        border-radius:0 0 0 7px;  
+    }  
+    .BMap_pop div:nth-child(5) div{  
+        border-radius:7px;  
+    }  
+    .BMap_pop div:nth-child(7){  
+        border-radius:0 0 7px 0 ;  
+    }  
+    .BMap_pop div:nth-child div(7){  
+        border-radius:7px ;  
+    }  

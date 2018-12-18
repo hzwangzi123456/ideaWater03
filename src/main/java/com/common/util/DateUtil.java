@@ -11,6 +11,12 @@ import java.util.Date;
  * @date 17/10/19 下午11:25.
  */
 public class DateUtil {
+
+    public static void main(String[] args) {
+        String s = DateUtil.getCurDateStrMiao_();
+        System.out.println(s);
+    }
+
     public static final DateFormat haomiaoFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
     public static final DateFormat ymdFormat = new SimpleDateFormat("yyyyMMdd");
     public static final DateFormat y_m_dFormat = new SimpleDateFormat("yyyy-MM-dd");

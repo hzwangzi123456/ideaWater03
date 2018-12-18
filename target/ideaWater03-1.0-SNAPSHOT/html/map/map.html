@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>map</title>
+    <link rel="stylesheet" href="../../css/base03.css">
+    <link rel="stylesheet" href="../../css/controllerCommon/header.css">
+    <link rel="stylesheet" href="../../css/controllerCommon/left.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/map/map.css">
+</head>
+<body>
+<div class="header"></div>
+<div class="content">
+    <div class="nav"></div>
+    <div class="instruments-nav">
+        <div class="instruments-nav-title">
+            设备分布
+        </div>
+        <div class="instruments-nav-link">
+            <div class="link-name">
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                东湖
+            </div>
+            <ul class="link-content" style="display: none;">
+                <li>D01</li>
+                <li>D02</li>
+                <li>D03</li>
+            </ul>
+        </div>
+        <div class="instruments-nav-link">
+            <div class="link-name">
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                北京
+            </div>
+            <ul class="link-content" style="display: none;">
+                <li>B01</li>
+                <li>B02</li>
+                <li>B03</li>
+            </ul>
+        </div>
+    </div>
+    <div class="map">
+        <div class="map-title">
+            地图
+        </div>
+        <div class="map-title-line"></div>
+        <div id="container" class="map-container"></div>
+    </div>
+    <div class="cb"></div>
+</div>
+<div id="infowindow" style="display: none;">
+    <div class="infowindow">
+        <div class="infowindow-title">
+            <div class="infowindow-instrument">
+                W01
+            </div>
+            <a class="infowindow-link" href="../dataShow/dataShow.html">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                详细
+            </a>
+            <div class="cb"></div>
+        </div>
+        <div class="infowindow-line"></div>
+        <div class="infowindow-province">
+            <div class="province-name">
+                省份:
+            </div>
+            <div class="province-value">
+                浙江
+            </div>
+            <div class="cb"></div>
+        </div>
+        <div class="infowindow-city">
+            <div class="city-name">
+                城市:
+            </div>
+            <div class="city-value">
+                杭州
+            </div>
+        </div>
+        <div class="infowindow-country">
+            <div class="country-name">
+                城区:
+            </div>
+            <div class="country-value">
+                临安
+            </div>
+        </div>
+        <div class="infowindow-address">
+            <div class="address-name">
+                具体地址:
+            </div>
+            <div class="address-value">
+                东湖
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../js/jquery-3.2.1.js"></script>
+<script src="../../js/controllerCommon/nav.js"></script>
+<script src="../../js/controllerCommon/header.js"></script>
+<script src="../../jsUtil/PublicBefore.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=Q7dkbNcmGpXwgH9KmHaVvhEXPGDWPXV6" type="text/javascript"></script>
+<script src="../../js/controllerCommon/nav.js"></script>
+<script src="../../js/map/map.js"></script>
+</body>
+</html>
