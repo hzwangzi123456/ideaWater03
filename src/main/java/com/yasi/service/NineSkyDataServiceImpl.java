@@ -33,7 +33,7 @@ public class NineSkyDataServiceImpl implements NineSkyDataService{
         try {
             Integer insert = mapper.insert(module);
             if (insert == 1) {
-                nineSkyResData.setMessage("上传数据成功");
+                nineSkyResData.setMessage("success");
                 nineSkyResData.setUploadPeriod(30);
                 //获取返回时间,举例如2013-06-20 12:34:07
                 nineSkyResData.setResultTime(DateUtil.getCurDateStrMiao_());
@@ -42,7 +42,7 @@ public class NineSkyDataServiceImpl implements NineSkyDataService{
                 logger.error("NineSkyDataService[]insert[]插入数据出错:");
                 //上传数据失败
                 nineSkyResData.setResult(1);
-                nineSkyResData.setMessage("插入数据返回值不为1,出错");
+                nineSkyResData.setMessage("insert data fail");
                 nineSkyResData.setUploadPeriod(30);
                 //获取返回时间,举例如2013-06-20 12:34:07
                 nineSkyResData.setResultTime(DateUtil.getCurDateStrMiao_());
@@ -51,7 +51,7 @@ public class NineSkyDataServiceImpl implements NineSkyDataService{
             logger.error("NineSkyDataService[]insert[]插入数据出错:" + e.getMessage());
             //上传数据失败
             nineSkyResData.setResult(1);
-            nineSkyResData.setMessage("插入数据出错:" + e.getMessage());
+            nineSkyResData.setMessage("insert data fail:" + e.getMessage());
             nineSkyResData.setUploadPeriod(30);
             //获取返回时间,举例如2013-06-20 12:34:07
             nineSkyResData.setResultTime(DateUtil.getCurDateStrMiao_());
