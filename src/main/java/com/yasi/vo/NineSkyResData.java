@@ -23,9 +23,9 @@ public class NineSkyResData implements Serializable{
     private String message;
 
     /**
-     * 上传周期（秒）默认30秒
+     * 上传周期（秒）默认10分钟
      */
-    private int uploadPeriod = 30;
+    private int uploadPeriod = 10 * 60;
 
     /**
      * 返回时间 举例：2018-01-01 23:59:59
