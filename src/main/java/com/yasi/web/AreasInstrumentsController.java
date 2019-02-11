@@ -2,9 +2,12 @@ package com.yasi.web;
 
 import com.alibaba.fastjson.JSON;
 import com.common.base.BaseController;
+import com.yasi.bean.InstrumentLocation;
 import com.yasi.bo.AreasInstrumentsBo;
 import com.yasi.dto.InstrumentsResDto;
+import com.yasi.enums.InstrumentLocationType;
 import com.yasi.vo.AreasInstruments;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -73,6 +76,46 @@ public class AreasInstrumentsController extends BaseController {
             map.put("list", null);
             logger.error("getInstruments[]调用服务层出错:" + e.getMessage());
         }
+        return map;
+    }
+
+    /**
+     * 查询设备详细信息
+     */
+    @RequestMapping("getInstrumentLocation.do")
+    public Map getInstrumentLocation() {
+        //获取设备id
+        String instrumentId = request.getParameter("instrumentId");
+
+        HashMap<String, Object> map = new HashMap<>();
+        if (StringUtils.isEmpty(instrumentId)) {
+            map.put("result", 1);
+            map.put("msg", "设备id为空");
+            return map;
+        }
+
+        InstrumentLocationType[] values = InstrumentLocationType.values();
+        InstrumentLocation bean = new InstrumentLocation();
+
+        for (InstrumentLocationType i : values) {
+            if (i.getInstrumentId().equals(instrumentId)) {
+                bean.setId(i.getId());
+                bean.setInstrumentId(i.getInstrumentId());
+                bean.setCity(i.getCity());
+                bean.setCountry(i.getCountry());
+                bean.setArea(i.getArea());
+                HashMap<String, Object> map1 = (HashMap<String, Object>) bean.bean2Map();
+                map.put("result", 0);
+                map.put("msg", "查询成功");
+                map.putAll(map1);
+                return map;
+            }
+        }
+
+        //未找到设备
+        map.put("result", 1);
+        map.put("msg", "未找到该设备");
+        logger.error("getInstrumentLocation[]设备id:" + instrumentId);
         return map;
     }
 }
