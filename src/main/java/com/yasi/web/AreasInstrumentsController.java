@@ -11,13 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author wangzi
@@ -65,7 +65,7 @@ public class AreasInstrumentsController extends BaseController {
      * 查询所有设备接口
      */
     @RequestMapping("getInstruments.do")
-    public Map getInstruments() {
+    public Object getInstruments(String callback) {
         HashMap<String, Object> map = new HashMap<>();
         try {
             InstrumentsResDto resDto = areasInstrumentsBo.getInstruments();
@@ -76,14 +76,16 @@ public class AreasInstrumentsController extends BaseController {
             map.put("list", null);
             logger.error("getInstruments[]调用服务层出错:" + e.getMessage());
         }
-        return map;
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(map);
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
     }
 
     /**
      * 查询设备详细信息
      */
     @RequestMapping("getInstrumentLocation.do")
-    public Map getInstrumentLocation() {
+    public Object getInstrumentLocation(String callback) {
         //获取设备id
         String instrumentId = request.getParameter("instrumentId");
 
@@ -91,7 +93,9 @@ public class AreasInstrumentsController extends BaseController {
         if (StringUtils.isEmpty(instrumentId)) {
             map.put("result", 1);
             map.put("msg", "设备id为空");
-            return map;
+            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(map);
+            mappingJacksonValue.setJsonpFunction(callback);
+            return mappingJacksonValue;
         }
 
         InstrumentLocationType[] values = InstrumentLocationType.values();
@@ -108,7 +112,9 @@ public class AreasInstrumentsController extends BaseController {
                 map.put("result", 0);
                 map.put("msg", "查询成功");
                 map.putAll(map1);
-                return map;
+                MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(map);
+                mappingJacksonValue.setJsonpFunction(callback);
+                return mappingJacksonValue;
             }
         }
 
@@ -116,6 +122,8 @@ public class AreasInstrumentsController extends BaseController {
         map.put("result", 1);
         map.put("msg", "未找到该设备");
         logger.error("getInstrumentLocation[]设备id:" + instrumentId);
-        return map;
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(map);
+        mappingJacksonValue.setJsonpFunction(callback);
+        return mappingJacksonValue;
     }
 }
