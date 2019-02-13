@@ -37,7 +37,7 @@ public class NineSkyController extends BaseController {
         nineSkyResData.setUploadPeriod(30);
         nineSkyResData.setResultTime("" + DateUtil.getCurDateStrMiao_());
 
-        if (StringUtil.isEmpty(nineSkyData.getDateTime())) {
+        if (StringUtil.isEmpty(nineSkyData.getDateTime()) || nineSkyData.getDateTime().length() != 19) {
             nineSkyResData.setMessage("dateTime is invalid");
             logger.error("CustomerController[]insert[]上传时间不合法:" + nineSkyData.getDateTime());
             return nineSkyResData;

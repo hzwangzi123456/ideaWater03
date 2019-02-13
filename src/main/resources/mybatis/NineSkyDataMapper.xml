@@ -34,12 +34,30 @@
     </sql>
 
     <sql id="cols_all">
-    conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
+    id,conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
     ntu_state, do_state, fl_state, date_time, instrument_id, location
+    </sql>
+
+    <sql id="publicSet">
+        conductivity = #{conductivity},
+        temperature = #{temperature},
+        ph = #{ph},
+        ntu = #{ntu},
+        dissolved_oxygen = #{dissolvedOxygen},
+        flow = #{flow},
+        ct_state = #{ctState},
+        ph_state = #{phState},
+        ntu_state = #{ntuState},
+        do_state = #{doState},
+        fl_state = #{flState},
+        date_time = #{dateTime},
+        instrument_id = #{instrumentId},
+        location = #{location}
     </sql>
 
     <!-- 主键条件 -->
     <sql id="publicWhereKey">
+        id = #{id}
     </sql>
 
     <!-- 所有条件 -->
@@ -96,4 +114,21 @@
         VALUES
         (<include refid="vals"/>)
     </insert>
+
+    <!-- 修改 -->
+     <update id="update" parameterType="com.yasi.model.NineSkyData" >
+     UPDATE <include refid="tb"/> SET <include refid="publicSet"/>
+     WHERE
+     <include refid="publicWhereKey"/>
+     </update>
+
+    <!-- 查询 -->
+    <select id="findByPojo" parameterType="com.yasi.model.NineSkyData"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="cols_all" />
+        FROM <include refid="tb"/>
+        <include refid="publicWhere" />
+    </select>
+
 </mapper>
