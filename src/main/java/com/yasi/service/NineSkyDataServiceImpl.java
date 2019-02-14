@@ -1,20 +1,25 @@
 package com.yasi.service;
 
 import com.common.system.SysRuntimeException;
+import com.common.util.CollectionUtil;
 import com.common.util.DateUtil;
 import com.yasi.dao.NineSkyDataMapper;
+import com.yasi.dto.NineSkyDataGetDto;
+import com.yasi.dto.NineSkyDataGetResDto;
 import com.yasi.model.NineSkyData;
-import com.yasi.vo.NineSkyResData;
+import com.yasi.dto.NineSkyResData;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author wangzi
  * @date 18/12/18 下午3:57.
  */
 @Service
-public class NineSkyDataServiceImpl implements NineSkyDataService{
+public class NineSkyDataServiceImpl implements NineSkyDataService {
 
     @Autowired
     private NineSkyDataMapper mapper;
@@ -58,5 +63,29 @@ public class NineSkyDataServiceImpl implements NineSkyDataService{
             return nineSkyResData;
         }
         return null;
+    }
+
+    @Override
+    public NineSkyDataGetResDto findByTime(NineSkyDataGetDto dto) {
+        NineSkyDataGetResDto resDto = new NineSkyDataGetResDto();
+        try {
+            List<NineSkyData> list = mapper.findByTime(dto);
+            if (CollectionUtil.isEmpty(list)) {
+                resDto.setResult(0);
+                resDto.setMsg("未查到数据");
+                resDto.setList(null);
+            } else {
+                resDto.setResult(0);
+                resDto.setMsg("查询成功");
+                resDto.setList(list);
+            }
+        } catch (Exception e) {
+            logger.error("findByTime[]调用mapper异常:" + e.getMessage());
+            resDto.setResult(1);
+            resDto.setMsg("内部错误");
+            resDto.setList(null);
+            return resDto;
+        }
+        return resDto;
     }
 }

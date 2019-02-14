@@ -3,9 +3,12 @@ package com.yasi.web;
 import com.common.base.BaseController;
 import com.common.util.DateUtil;
 import com.common.util.StringUtil;
+import com.yasi.dto.NineSkyDataGetDto;
+import com.yasi.dto.NineSkyDataGetResDto;
+import com.yasi.dto.NineSkyResData;
 import com.yasi.model.NineSkyData;
 import com.yasi.service.NineSkyDataService;
-import com.yasi.vo.NineSkyResData;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,7 +29,6 @@ public class NineSkyController extends BaseController {
 
     @Autowired
     private NineSkyDataService service;
-
 
     @RequestMapping(value = "insert.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public NineSkyResData insert(@RequestBody NineSkyData nineSkyData) {
@@ -136,4 +138,57 @@ public class NineSkyController extends BaseController {
         return resData;
     }
 
+    /**
+     * 根据日期和设备id查询久天数据
+     *
+     * @return
+     */
+    @RequestMapping("findByTime.do")
+    public Object findByTime() {
+        NineSkyDataGetResDto resDto = new NineSkyDataGetResDto();
+        try {
+            //校验参数合法性
+            String instrumentId = request.getParameter("instrumentId");
+            String start = request.getParameter("start");
+            String end = request.getParameter("end");
+
+            if (StringUtils.isEmpty(instrumentId) || !"L01".equals(instrumentId)) {
+                logger.error("findByTime[]instrumentId参数不合法:" + instrumentId);
+                resDto.setMsg("设备id参数不合法");
+                resDto.setResult(1);
+                resDto.setList(null);
+                return resDto;
+            }
+
+            if (StringUtils.isEmpty(start) || start.length() != 19) {
+                logger.error("findByTime[]start参数不合法:" + start);
+                resDto.setMsg("start参数不合法");
+                resDto.setResult(1);
+                resDto.setList(null);
+                return resDto;
+            }
+
+            if (StringUtils.isEmpty(end) || end.length() != 19) {
+                logger.error("findByTime[]end参数不合法:" + end);
+                resDto.setMsg("end参数不合法");
+                resDto.setResult(1);
+                resDto.setList(null);
+                return resDto;
+            }
+
+            NineSkyDataGetDto dto = new NineSkyDataGetDto();
+            dto.setInstrumentId(instrumentId);
+            dto.setStart(start);
+            dto.setEnd(end);
+            //组装dto
+            resDto = service.findByTime(dto);
+            return resDto;
+        } catch (Exception e) {
+            logger.error("findByTime[]调用服务层:" + e.getMessage());
+            resDto.setMsg("内部错误");
+            resDto.setResult(1);
+            resDto.setList(null);
+            return resDto;
+        }
+    }
 }

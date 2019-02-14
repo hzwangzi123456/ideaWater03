@@ -1,4 +1,4 @@
-package com.yasi.vo;
+package com.yasi.dto;
 
 import lombok.Data;
 

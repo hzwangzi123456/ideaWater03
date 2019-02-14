@@ -1,5 +1,6 @@
 package com.yasi.dao;
 
+import com.yasi.dto.NineSkyDataGetDto;
 import com.yasi.model.NineSkyData;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,4 +35,6 @@ public interface NineSkyDataMapper extends GenericMapper<NineSkyData> {
 
     @Override
     Integer update(NineSkyData vo);
+
+    List<NineSkyData> findByTime(NineSkyDataGetDto dto);
 }

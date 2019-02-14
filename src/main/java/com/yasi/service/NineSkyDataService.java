@@ -1,7 +1,9 @@
 package com.yasi.service;
 
+import com.yasi.dto.NineSkyDataGetDto;
+import com.yasi.dto.NineSkyDataGetResDto;
+import com.yasi.dto.NineSkyResData;
 import com.yasi.model.NineSkyData;
-import com.yasi.vo.NineSkyResData;
 
 /**
  * @author wangzi
@@ -10,8 +12,15 @@ import com.yasi.vo.NineSkyResData;
 public interface NineSkyDataService {
     /**
      * 插入久天数据
-     * @param vo 数据
+     * @param module
      * @return
      */
     NineSkyResData insert(NineSkyData module);
+
+    /**
+     * 根据日期和设备id查询久天数据
+     * @param dto
+     * @return
+     */
+    NineSkyDataGetResDto findByTime(NineSkyDataGetDto dto);
 }

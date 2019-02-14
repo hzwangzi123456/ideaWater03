@@ -131,4 +131,15 @@
         <include refid="publicWhere" />
     </select>
 
+    <!-- 根据时间查询 -->
+    <select id="findByTime" resultMap="BaseResultMap">
+        SELECT <include refid="cols_all"/> FROM <include refid="tb"/>
+        <![CDATA[
+		WHERE instrument_id = #{instrumentId}
+		AND date_time > #{start}
+		AND date_time < #{end}
+		]]>
+        ORDER BY date_time ASC;
+    </select>
+
 </mapper>
