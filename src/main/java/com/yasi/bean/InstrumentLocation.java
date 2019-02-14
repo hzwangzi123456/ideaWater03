@@ -51,6 +51,7 @@ public class InstrumentLocation {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("id", id);
         map.put("instrumentId", instrumentId);
+        map.put("province",province);
         map.put("city", city);
         map.put("country", country);
         map.put("area", area);
