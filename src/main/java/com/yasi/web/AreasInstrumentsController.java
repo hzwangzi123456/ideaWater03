@@ -105,6 +105,7 @@ public class AreasInstrumentsController extends BaseController {
             if (i.getInstrumentId().equals(instrumentId)) {
                 bean.setId(i.getId());
                 bean.setInstrumentId(i.getInstrumentId());
+                bean.setProvince(i.getProvince());
                 bean.setCity(i.getCity());
                 bean.setCountry(i.getCountry());
                 bean.setArea(i.getArea());
