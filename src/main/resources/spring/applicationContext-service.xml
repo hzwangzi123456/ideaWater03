@@ -9,6 +9,6 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
     <!-- 配置Service扫描 -->
-    <context:component-scan base-package="com.yasi.bo" />
-    <context:component-scan base-package="com.yasi.service" />
+    <context:component-scan base-package="com.*.bo" />
+    <context:component-scan base-package="com.*.service" />
 </beans>

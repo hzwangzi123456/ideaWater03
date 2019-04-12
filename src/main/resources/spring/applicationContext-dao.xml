@@ -60,7 +60,7 @@
     <!-- 配置Mapper扫描 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 设置Mapper扫描包 -->
-        <property name="basePackage" value="com.yasi.dao"/>
+        <property name="basePackage" value="com.*.dao"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 

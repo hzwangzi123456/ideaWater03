@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -144,7 +145,7 @@ public class NineSkyController extends BaseController {
      * @return
      */
     @RequestMapping("findByTime.do")
-    public Object findByTime() {
+    public Object findByTime(String callback) {
         NineSkyDataGetResDto resDto = new NineSkyDataGetResDto();
         try {
             //校验参数合法性
@@ -157,7 +158,9 @@ public class NineSkyController extends BaseController {
                 resDto.setMsg("设备id参数不合法");
                 resDto.setResult(1);
                 resDto.setList(null);
-                return resDto;
+                MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resDto);
+                mappingJacksonValue.setJsonpFunction(callback);
+                return mappingJacksonValue;
             }
 
             if (StringUtils.isEmpty(start) || start.length() != 19) {
@@ -165,7 +168,9 @@ public class NineSkyController extends BaseController {
                 resDto.setMsg("start参数不合法");
                 resDto.setResult(1);
                 resDto.setList(null);
-                return resDto;
+                MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resDto);
+                mappingJacksonValue.setJsonpFunction(callback);
+                return mappingJacksonValue;
             }
 
             if (StringUtils.isEmpty(end) || end.length() != 19) {
@@ -173,7 +178,9 @@ public class NineSkyController extends BaseController {
                 resDto.setMsg("end参数不合法");
                 resDto.setResult(1);
                 resDto.setList(null);
-                return resDto;
+                MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resDto);
+                mappingJacksonValue.setJsonpFunction(callback);
+                return mappingJacksonValue;
             }
 
             NineSkyDataGetDto dto = new NineSkyDataGetDto();
@@ -182,13 +189,17 @@ public class NineSkyController extends BaseController {
             dto.setEnd(end);
             //组装dto
             resDto = service.findByTime(dto);
-            return resDto;
+            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resDto);
+            mappingJacksonValue.setJsonpFunction(callback);
+            return mappingJacksonValue;
         } catch (Exception e) {
             logger.error("findByTime[]调用服务层:" + e.getMessage());
             resDto.setMsg("内部错误");
             resDto.setResult(1);
             resDto.setList(null);
-            return resDto;
+            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(resDto);
+            mappingJacksonValue.setJsonpFunction(callback);
+            return mappingJacksonValue;
         }
     }
 }

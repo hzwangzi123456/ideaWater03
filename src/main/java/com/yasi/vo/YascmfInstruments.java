@@ -6,20 +6,44 @@ import java.util.Date;
  * @date 17/10/19 下午11:25.
  */
 public class YascmfInstruments {
+    /**
+     * 设备id
+     */
     private String instrumentId;
 
+    /**
+     * 许可证
+     */
     private String license;
 
+    /**
+     * 设备模型
+     */
     private String instrumentModel;
 
+    /**
+     * 制造商
+     */
     private String manufacturer;
 
+    /**
+     * 制造日期
+     */
     private Date dateOfManufacture;
 
+    /**
+     * 投入使用日期
+     */
     private Date dateOfIntoUsed;
 
+    /**
+     * 不寻常的一天
+     */
     private Integer dayOfUnusual;
 
+    /**
+     * 坐标
+     */
     private String coordinate;
 
     public String getInstrumentId() {

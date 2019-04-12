@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.yasi.dao.PhotoDao">
+<mapper namespace="com.jt.dao.UploadPhotoDao">
     <!-- *********************************公共嵌入块********************************* -->
     <!-- 所有输出列 -->
     <sql id="publicOutCol">
-		photo.date_time AS dateTime,
-		photo.byte_array AS byteArray,
-		photo.introduce AS introduce,
-		photo.id AS id,
-		photo.position AS position
+		picture.date AS date,
+		picture.filePath AS filePath,
+		picture.picId AS picId,
+		picture.id AS id
 	</sql>
 
     <!-- 所有输入列 -->
     <sql id="publicInCol">
-		#{dateTime},#{byteArray},#{introduce},#{id},#{position}
+		#{date},#{filePath},#{picId}
 	</sql>
 
     <sql id="publicInsertCol">
-		 date_time, byte_array,introduce,id,position
+        date,filePath,picId
 	</sql>
 
     <!-- 所有设值列 -->
     <sql id="publicSet">
-      name = #{name,jdbcType=VARCHAR},
-      instrument_id = #{instrumentId,jdbcType=VARCHAR},
-      date_time = #{dateTime},
-      byte_array = #{byteArray},
-      introduce = #{introduce},
-      id = #{id},
-      position = #{position}
+      date = #{date,jdbcType=VARCHAR},
+      filePath = #{filePath,jdbcType=VARCHAR},
+      picId = #{picId,jdbcType=VARCHAR}
 	</sql>
 
     <!-- 主键条件 -->
@@ -40,27 +35,21 @@
     <!-- 所有条件 -->
     <sql id="publicWhere">
         WHERE 1=1
-        <if test="dateTime != null">
-            AND date_time = #{dateTime}
+        <if test="date != null">
+          AND date = #{date}
         </if>
-        <if test="byteArray != null">
-            AND byte_array = #{byteArray}
+        <if test="filePath != null">
+          AND filePath = #{filePath}
         </if>
-        <if test="introduce != null">
-            AND introduce = #{introduce}
-        </if>
-        <if test="id != null">
-            AND id = #{id}
-        </if>
-        <if test="position != null">
-            AND position = #{position}
+        <if test="picId != null">
+          AND picId = #{picId}
         </if>
     </sql>
 
     <!-- *********************************添加********************************* -->
     <!-- 新增 -->
-    <insert id="insertPhoto" parameterType="PhotoVO">
-        INSERT INTO yasi.photo (<include refid="publicInsertCol"/>)
+    <insert id="addPhoto" parameterType="com.jt.bean.Picture">
+        INSERT INTO jt.picture (<include refid="publicInsertCol"/>)
         VALUES (<include refid="publicInCol"/>)
     </insert>
 
@@ -73,10 +62,10 @@
 
     <!-- *********************************删除********************************* -->
     <!-- 删除 -->
-    <delete id="deletePhotoByKey">
-        DELETE FROM yasi.photo
-        <include refid="publicWhereKey"/>
-    </delete>
+    <!--<delete id="deletePhotoByKey">-->
+        <!--DELETE FROM yasi.photo-->
+        <!--<include refid="publicWhereKey"/>-->
+    <!--</delete>-->
     <!-- *********************************查询********************************* -->
     <!-- 根据主键查询信息 -->
     <!--     <select id="findSignTaskRecByKey" parameterType="SignTaskRecVO" resultType="SignTaskRecVO" > -->
@@ -90,36 +79,36 @@
     <!--     </select>  -->
 
     <!-- 对象条件查询 -->
-    <select id="findPhotoByPojo" parameterType="PhotoVO" resultType="PhotoVO">
-        SELECT
-        <include refid="publicOutCol"/>
-        FROM yasi.photo
-        <include refid="publicWhere"/>
-        ORDER BY date_time ASC
-    </select>
+    <!--<select id="findPhotoByPojo" parameterType="PhotoVO" resultType="PhotoVO">-->
+        <!--SELECT-->
+        <!--<include refid="publicOutCol"/>-->
+        <!--FROM yasi.photo-->
+        <!--<include refid="publicWhere"/>-->
+        <!--ORDER BY date_time ASC-->
+    <!--</select>-->
 
 
     <!-- map条件查询 -->
-    <select id="findPhotoByWhere" parameterType="java.util.Map" resultType="PhotoVO">
-        SELECT
-        <include refid="publicOutCol"/>
-        FROM yasi.photo
-        <include refid="publicWhere"/>
-        <if test="startDateTime != null and startDateTime != ''">
-            AND date_time >= #{startDateTime}
-        </if>
-        <if test="endDateTime != null and endDateTime != ''">
-            <![CDATA[
-            AND date_time <= #{endDateTime}
-            ]]>
-        </if>
-        <if test="sortName != null and sortName != '' and orderName != null and orderName!=''">
-            order by ${sortName} ${orderName}
-        </if>
-        <if test="pageStart != null and rows != null">
-            LIMIT #{pageStart},#{rows}
-        </if>
-    </select>
+    <!--<select id="findPhotoByWhere" parameterType="java.util.Map" resultType="PhotoVO">-->
+        <!--SELECT-->
+        <!--<include refid="publicOutCol"/>-->
+        <!--FROM yasi.photo-->
+        <!--<include refid="publicWhere"/>-->
+        <!--<if test="startDateTime != null and startDateTime != ''">-->
+            <!--AND date_time >= #{startDateTime}-->
+        <!--</if>-->
+        <!--<if test="endDateTime != null and endDateTime != ''">-->
+            <!--<![CDATA[-->
+            <!--AND date_time <= #{endDateTime}-->
+            <!--]]>-->
+        <!--</if>-->
+        <!--<if test="sortName != null and sortName != '' and orderName != null and orderName!=''">-->
+            <!--order by ${sortName} ${orderName}-->
+        <!--</if>-->
+        <!--<if test="pageStart != null and rows != null">-->
+            <!--LIMIT #{pageStart},#{rows}-->
+        <!--</if>-->
+    <!--</select>-->
 
     <!-- 查询分页记录 -->
     <!--     <select id="findSignTaskRecByPage"  parameterType="java.util.Map" resultType="SignTaskRecVO"> -->
