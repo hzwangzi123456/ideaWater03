@@ -129,10 +129,10 @@ public class UploadPhotoController {
         try {
             //使用Apache文件上传组件处理文件上传步骤：
             //1、创建一个DiskFileItemFactory工厂
-            logger.info("创建一个DiskFileItemFactory工厂");
+            logger.debug("创建一个DiskFileItemFactory工厂");
             DiskFileItemFactory factory = new DiskFileItemFactory();
             //2、创建一个文件上传解析器
-            logger.info("创建一个文件上传解析器");
+            logger.debug("创建一个文件上传解析器");
             ServletFileUpload upload = new ServletFileUpload(factory);
             upload.setFileSizeMax(-1);//设置上传文件最大大小
             //解决上传文件名的中文乱码
@@ -147,7 +147,7 @@ public class UploadPhotoController {
                 return resDto.dto2map();
             }
             //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
-            logger.info("使用ServletFileUpload解析器解析上传数据");
+            logger.debug("使用ServletFileUpload解析器解析上传数据");
             List<FileItem> list = upload.parseRequest(request);
             for (FileItem item : list) {
                 //如果fileitem中封装的是普通输入项的数据
@@ -165,7 +165,8 @@ public class UploadPhotoController {
                     if (filename == null || filename.trim().equals("")) {
                         continue;
                     }
-                    String extendName = filename.split("\\.")[1];
+                    String[] strs =  filename.split("\\.");
+                    String extendName = strs[strs.length - 1];
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
                     filename = filename.substring(filename.lastIndexOf("\\") + 1);
