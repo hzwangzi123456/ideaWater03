@@ -46,12 +46,10 @@ public class FileUtils {
             file.transferTo(dest);
             return true;
         } catch (IllegalStateException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             logger.error("保存文件出错:" + e.getMessage());
             return false;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             logger.error("保存文件出错:" + e.getMessage());
             return false;

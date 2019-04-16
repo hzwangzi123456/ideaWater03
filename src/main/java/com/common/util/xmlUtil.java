@@ -216,7 +216,6 @@ public class xmlUtil {
             XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(new File("/Users/ziwang/Desktop/test2.xml")), format);
             xmlWriter.write(document);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return xmlResult;
