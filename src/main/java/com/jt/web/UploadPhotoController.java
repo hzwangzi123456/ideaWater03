@@ -7,18 +7,16 @@ import com.common.util.UuidUtil;
 import com.jt.bean.Picture;
 import com.jt.dto.UploadPhotoResDto;
 import com.jt.service.UploadPhotoService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +37,8 @@ import java.util.Map;
 @RestController
 @Scope("prototype")
 @RequestMapping(value = "/UploadPhotoController")
+@Slf4j
 public class UploadPhotoController {
-    private static Logger logger = Logger
-            .getLogger(UploadPhotoController.class);
 
     //本地调试路径
     private static final String local = File.separator + "Users" + File.separator + "ziwang" + File.separator + "Desktop" + File.separator + "test";
@@ -51,8 +48,7 @@ public class UploadPhotoController {
 
     @RequestMapping("/test.do")
     public void test() {
-        logger.info("进入test方法");
-
+        log.info("进入test方法");
     }
 
     /**
@@ -62,9 +58,10 @@ public class UploadPhotoController {
      * @param id   携带的参数
      * @return
      */
+    @Deprecated
     @RequestMapping("/fileUpload.do")
     public Map upload(@RequestParam("fileName") MultipartFile file, String id) {
-        logger.info("进入upload方法[]file:" + file + "[]id:" + id);
+        log.info("upload[]进入upload方法[]file:{},id:{}", file, id);
         // 要上传的目标文件存放路径
         String localPath = local;
 
@@ -79,10 +76,10 @@ public class UploadPhotoController {
 
         String fileName = UuidUtil.get32UUID();
         try {
-            logger.info("调用FileUtils.upload方法");
+            log.info("upload[]调用FileUtils.upload方法");
             // 上传成功或者失败的提示
             if (FileUtils.upload(file, localPath, fileName)) {
-                logger.info(id + ":上传成功");
+                log.info(id + ":上传成功");
                 resDto.setMsg(id + ":上传成功");
                 resDto.setResult(0);
                 resDto.setResultTime(DateUtil.getCurDateStrMiao_());
@@ -92,29 +89,29 @@ public class UploadPhotoController {
                 picture.setDate(DateUtil.getCurDateStrMiao_());
                 Boolean result = service.addPhoto(picture);
                 if (result) {
-                    logger.info(fileName + "入库成功");
+                    log.info("upload[]{}入库成功", fileName);
                 } else {
-                    logger.error(fileName + "入库失败");
+                    log.error("upload[]{}入库失败", fileName);
                 }
             } else {
-                logger.error(fileName + "上传失败");
+                log.error("upload[]{}上传失败", fileName);
                 resDto.setMsg(id + ":上传失败");
                 resDto.setResult(1);
                 resDto.setResultTime(DateUtil.getCurDateStrMiao_());
             }
         } catch (Exception e) {
-            logger.error("内部错误:" + e.getMessage());
+            log.error("upload[]内部错误:{}", e.getMessage());
             resDto.setMsg("内部错误");
             resDto.setResult(1);
             resDto.setResultTime(DateUtil.getCurDateStrMiao_());
         }
-        logger.info("返回upload方法:" + resDto.dto2map());
+        log.info("upload[]返回upload方法:{}", resDto.dto2map());
         return resDto.dto2map();
     }
 
     @RequestMapping(value = "/fileUpload02.do")
     public Map fileUpload02(HttpServletRequest request, HttpServletResponse response) {
-        logger.info("进入fileUpload02方法");
+        log.info("fileUpload02[]进入fileUpload02方法");
 
         String savePath = local;
         UploadPhotoResDto resDto = new UploadPhotoResDto();
@@ -129,10 +126,10 @@ public class UploadPhotoController {
         try {
             //使用Apache文件上传组件处理文件上传步骤：
             //1、创建一个DiskFileItemFactory工厂
-            logger.debug("创建一个DiskFileItemFactory工厂");
+            log.debug("fileUpload02[]创建一个DiskFileItemFactory工厂");
             DiskFileItemFactory factory = new DiskFileItemFactory();
             //2、创建一个文件上传解析器
-            logger.debug("创建一个文件上传解析器");
+            log.debug("fileUpload02[]创建一个文件上传解析器");
             ServletFileUpload upload = new ServletFileUpload(factory);
             upload.setFileSizeMax(-1);//设置上传文件最大大小
             //解决上传文件名的中文乱码
@@ -140,14 +137,14 @@ public class UploadPhotoController {
 //            3、判断提交上来的数据是否是上传表单的数据
             if (!ServletFileUpload.isMultipartContent(request)) {
                 //按照传统方式获取数据
-                logger.error("没有文件上传");
+                log.error("fileUpload02[]没有文件上传");
                 resDto.setResult(0);
                 resDto.setMsg("没有文件上传");
                 resDto.setResultTime(DateUtil.getCurDateStrMiao_());
                 return resDto.dto2map();
             }
             //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
-            logger.debug("使用ServletFileUpload解析器解析上传数据");
+            log.debug("fileUpload02[]使用ServletFileUpload解析器解析上传数据");
             List<FileItem> list = upload.parseRequest(request);
             for (FileItem item : list) {
                 //如果fileitem中封装的是普通输入项的数据
@@ -156,16 +153,17 @@ public class UploadPhotoController {
                     //解决普通输入项的数据的中文乱码问题
                     String value = item.getString("UTF-8");
                     //value = new String(value.getBytes("iso8859-1"),"UTF-8");
-                    logger.info("fileitem中封装的是普通输入项的数据[]" + name + ":" + value);
+                    log.info("fileUpload02[]fileitem中封装的是普通输入项的数据 name:{},value:{}", name, value);
                     model.setPicId(value);
                 } else {//如果fileitem中封装的是上传文件
                     //得到上传的文件名称，
                     String filename = item.getName();
-                    logger.info("上传的文件名称:" + filename);
+                    model.setOldFilename(filename);
+                    log.info("fileUpload02[]上传的文件名称:" + filename);
                     if (filename == null || filename.trim().equals("")) {
                         continue;
                     }
-                    String[] strs =  filename.split("\\.");
+                    String[] strs = filename.split("\\.");
                     String extendName = strs[strs.length - 1];
                     //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
@@ -174,7 +172,7 @@ public class UploadPhotoController {
                     InputStream in = item.getInputStream();
                     //文件路径
                     path = savePath + File.separator + UuidUtil.get32UUID() + "." + extendName;
-                    logger.info("上传的文件路径:" + path);
+                    log.info("fileUpload02[]上传的文件路径:" + path);
                     model.setFilePath(path);
                     //创建一个文件输出流
                     FileOutputStream out = new FileOutputStream(path);
@@ -193,70 +191,27 @@ public class UploadPhotoController {
                     out.close();
                     //删除处理文件上传时生成的临时文件
                     item.delete();
-                    logger.info("文件上传成功！");
+                    log.info("fileUpload02[]文件上传成功！");
                 }
             }
             model.setDate(DateUtil.getCurDateStrMiao_());
             //入库
             Boolean aBoolean = service.addPhoto(model);
             if (!aBoolean) {
-                logger.error("内部错误:" + "入库失败");
+                log.error("fileUpload02[]内部错误:" + "入库失败");
             } else {
-                logger.info("入库成功");
+                log.info("fileUpload02[]入库成功");
 
             }
         } catch (Exception e) {
-            logger.error("内部错误:" + e.getMessage());
+            log.error("fileUpload02[]内部错误:" + e.getMessage());
             resDto.setMsg("内部错误");
             resDto.setResult(1);
             resDto.setResultTime(DateUtil.getCurDateStrMiao_());
         }
         resDto.setResultTime(DateUtil.getCurDateStrMiao_());
-        logger.info("离开fileUpload02方法");
+        log.info("fileUpload02[]离开fileUpload02方法");
         return resDto.dto2map();
-    }
-
-    @RequestMapping(value = "/fileUpload03.do")
-    public String fileInteraction(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        //操作成功则返回OK
-        String result = "";
-        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-        //解析request，将结果放置在list中
-        Map<String, List<MultipartFile>> fileMap = multiRequest.getMultiFileMap();
-        for (String key : fileMap.keySet()) {
-            List<MultipartFile> files = fileMap.get(key);
-            for (MultipartFile file : files) {
-                if (!file.isEmpty()) {
-                    String fileNamePath = file.getOriginalFilename();
-                    String[] params = fileNamePath.split("\\.");
-                    String filename = "";
-                    int i = 0;
-                    for (String str : params) {
-                        i = i + 1;
-                        if (StringUtils.isNotEmpty(filename)) {
-                            if (i == params.length) {
-                                filename = filename + "." + str;
-                            } else {
-                                filename = filename + "/" + str;
-                            }
-                        } else {
-                            filename = str;
-                        }
-                    }
-                    // 文件保存路径
-                    String filePath = request.getSession().getServletContext().getRealPath("/") + "upload/wxfile/" + filename;
-                    File iFile = new File(filePath);
-                    File iFileParent = iFile.getParentFile();
-                    if (!iFileParent.exists()) {
-                        iFileParent.mkdirs();
-                    }
-                    // 转存文件
-                    file.transferTo(new File(filePath));
-                    result = "ok";
-                }
-            }
-        }
-        return result;
     }
 
 }

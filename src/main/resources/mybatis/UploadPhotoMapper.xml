@@ -8,16 +8,17 @@
 		picture.date AS date,
 		picture.filePath AS filePath,
 		picture.picId AS picId,
-		picture.id AS id
+		picture.id AS id,
+		picture.oldFilename AS oldFilename
 	</sql>
 
     <!-- 所有输入列 -->
     <sql id="publicInCol">
-		#{date},#{filePath},#{picId}
+		#{date},#{filePath},#{picId},#{oldFilename}
 	</sql>
 
     <sql id="publicInsertCol">
-        date,filePath,picId
+        date,filePath,picId,oldFilename
 	</sql>
 
     <!-- 所有设值列 -->
@@ -25,6 +26,7 @@
       date = #{date,jdbcType=VARCHAR},
       filePath = #{filePath,jdbcType=VARCHAR},
       picId = #{picId,jdbcType=VARCHAR}
+      oldFilename = #{oldFilename,jdbcType=VARCHAR}
 	</sql>
 
     <!-- 主键条件 -->
@@ -43,6 +45,9 @@
         </if>
         <if test="picId != null">
           AND picId = #{picId}
+        </if>
+        <if test="oldFilename != null">
+          AND oldFilename = #{oldFilename}
         </if>
     </sql>
 

@@ -21,6 +21,11 @@ public class Picture implements Serializable {
     private int id;
 
     /**
+     * 原文件名
+     */
+    private String oldFilename;
+
+    /**
      * 照片路径
      */
     private String filePath;
