@@ -31,7 +31,13 @@ public class UploadPhotoResDto implements Serializable {
     private String resultTime;
 
     /**
+     * 上传周期（秒）默认60分钟
+     */
+    private int uploadPeriod = 60 * 60;
+
+    /**
      * dto转map
+     *
      * @return
      */
     public Map dto2map() {
@@ -39,6 +45,7 @@ public class UploadPhotoResDto implements Serializable {
         map.put("result", this.result);
         map.put("msg", this.msg);
         map.put("resultTime", this.resultTime);
+        map.put("uploadPeriod", this.uploadPeriod);
         return map;
     }
 }
