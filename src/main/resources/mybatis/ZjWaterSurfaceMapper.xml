@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hlj.dao.ZjWaterSurfaceDao">
+    <!-- *********************************公共嵌入块********************************* -->
+    <!-- 所有输出列 -->
+    <sql id="publicOutCol">
+		zj_water_surface.grab_time AS grabTime,
+		zj_water_surface.mtName AS mtName,
+		zj_water_surface.monitorTime AS monitorTime,
+		zj_water_surface.pH AS pH,
+		zj_water_surface.DO AS DO,
+		zj_water_surface.CODmn AS CODmn,
+		zj_water_surface.TP AS TP,
+		zj_water_surface.NH3N AS NH3N
+	</sql>
+
+    <sql id="tb">
+        hlj.zj_water_surface
+    </sql>
+
+    <!-- 所有输入列 -->
+    <sql id="publicInCol">
+		#{grabTime},#{mtName},#{monitorTime},#{pH},#{DO},#{CODmn},#{TP},#{NH3N}
+	</sql>
+
+    <sql id="publicInsertCol">
+		 grab_time,mtName,monitorTime,pH,DO,CODmn,TP,NH3N
+	</sql>
+
+    <!-- 所有设值列 -->
+    <sql id="publicSet">
+      grab_time = #{grabTime,jdbcType=VARCHAR},
+      mtName = #{mtName,jdbcType=VARCHAR},
+      monitorTime = #{monitorTime,jdbcType=VARCHAR},
+      pH = #{pH,jdbcType=VARCHAR},
+      DO = #{DO,jdbcType=VARCHAR},
+      CODmn = #{CODmn,jdbcType=VARCHAR},
+      TP = #{TP,jdbcType=VARCHAR},
+      NH3N = #{NH3N,jdbcType=VARCHAR}
+	</sql>
+
+    <!-- 主键条件 -->
+    <sql id="publicWhereKey">
+		WHERE id = #{id}
+	</sql>
+
+    <!-- 所有条件 -->
+    <sql id="publicWhere">
+        WHERE 1=1
+        <if test="grabTime != null">
+            AND grab_time = #{grabTime}
+        </if>
+        <if test="mtName != null">
+            AND mtName = #{mtName}
+        </if>
+        <if test="monitorTime != null">
+            AND monitorTime = #{monitorTime}
+        </if>
+        <if test="pH != null">
+            AND pH = #{pH}
+        </if>
+        <if test="DO != null">
+            AND DO = #{DO}
+        </if>
+        <if test="CODmn != null">
+            AND CODmn = #{CODmn}
+        </if>
+        <if test="DO != null">
+            AND DO = #{DO}
+        </if>
+        <if test="TP != null">
+            AND TP = #{TP}
+        </if>
+        <if test="NH3N != null">
+            AND NH3N = #{NH3N}
+        </if>
+    </sql>
+
+    <!-- *********************************添加********************************* -->
+    <!-- 新增 -->
+    <insert id="addWaterSurface" parameterType="com.hlj.bean.ZjWaterSurface">
+        INSERT INTO <include refid="tb"/> (<include refid="publicInsertCol"/>)
+        VALUES (<include refid="publicInCol"/>)
+    </insert>
+
+    <!-- 新增list -->
+    <insert id="insertForeach" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into <include refid="tb"/>
+        (<include refid="publicInsertCol"/>)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.grabTime},
+            #{item.mtName},
+            #{item.monitorTime},
+            #{item.pH},
+            #{item.DO},
+            #{item.CODmn},
+            #{item.TP},
+            #{item.NH3N}
+            )
+        </foreach>
+    </insert>
+
+    <!-- *********************************修改********************************* -->
+    <!-- 修改 -->
+    <!--     <update id="updateSignTaskRec" parameterType="SignTaskRecVO" >  -->
+    <!--         UPDATE activity.sign_task_rec SET <include refid="publicSet"/>  -->
+    <!--         <include refid="publicWhereKey"/>   -->
+    <!--     </update>  -->
+
+    <!-- *********************************删除********************************* -->
+    <!-- 删除 -->
+    <!--<delete id="deletePhotoByKey">-->
+        <!--DELETE FROM yasi.photo-->
+        <!--<include refid="publicWhereKey"/>-->
+    <!--</delete>-->
+    <!-- *********************************查询********************************* -->
+    <!-- 根据主键查询信息 -->
+    <!--     <select id="findSignTaskRecByKey" parameterType="SignTaskRecVO" resultType="SignTaskRecVO" > -->
+    <!-- 	    SELECT <include refid="publicOutCol"/>  FROM activity.sign_task_rec  -->
+    <!-- 	    <include refid="publicWhereKey"/>  -->
+    <!--     </select> -->
+
+    <!-- 获取记录数 -->
+    <!--     <select id="findSignTaskRecCountByPojo"  parameterType="SignTaskRecVO" resultType="java.lang.Integer"> -->
+    <!--         SELECT count(*) FROM activity.sign_task_rec <include refid="publicWhere"/>     -->
+    <!--     </select>  -->
+
+    <!-- 对象条件查询 -->
+    <!--<select id="findPhotoByPojo" parameterType="PhotoVO" resultType="PhotoVO">-->
+        <!--SELECT-->
+        <!--<include refid="publicOutCol"/>-->
+        <!--FROM yasi.photo-->
+        <!--<include refid="publicWhere"/>-->
+        <!--ORDER BY date_time ASC-->
+    <!--</select>-->
+
+
+    <!-- map条件查询 -->
+    <!--<select id="findPhotoByWhere" parameterType="java.util.Map" resultType="PhotoVO">-->
+        <!--SELECT-->
+        <!--<include refid="publicOutCol"/>-->
+        <!--FROM yasi.photo-->
+        <!--<include refid="publicWhere"/>-->
+        <!--<if test="startDateTime != null and startDateTime != ''">-->
+            <!--AND date_time >= #{startDateTime}-->
+        <!--</if>-->
+        <!--<if test="endDateTime != null and endDateTime != ''">-->
+            <!--<![CDATA[-->
+            <!--AND date_time <= #{endDateTime}-->
+            <!--]]>-->
+        <!--</if>-->
+        <!--<if test="sortName != null and sortName != '' and orderName != null and orderName!=''">-->
+            <!--order by ${sortName} ${orderName}-->
+        <!--</if>-->
+        <!--<if test="pageStart != null and rows != null">-->
+            <!--LIMIT #{pageStart},#{rows}-->
+        <!--</if>-->
+    <!--</select>-->
+
+    <!-- 查询分页记录 -->
+    <!--     <select id="findSignTaskRecByPage"  parameterType="java.util.Map" resultType="SignTaskRecVO"> -->
+    <!-- 		SELECT <include refid="publicOutCol"/> FROM activity.sign_task_rec  -->
+    <!-- 		<include refid="publicWhere"/>  -->
+    <!-- 		<if test="sortName != null and sortName != '' and orderName != null and orderName!=''">   -->
+    <!-- 	        order by ${sortName}  ${orderName} -->
+    <!-- 	    </if>   -->
+    <!-- 		LIMIT #{pageStart},#{rows} -->
+    <!--     </select> -->
+
+    <!-- 根据条件获取列表信息 -->
+    <!-- 	<select id="findSignTaskRecListByQueryStr" parameterType="java.lang.String" resultType="SignTaskRecVO" > -->
+    <!-- 	    SELECT <include refid="publicOutCol"/> FROM activity.sign_task_rec WHERE 1=1  -->
+    <!-- 	    <![CDATA[ -->
+    <!-- 	    ${querySql} -->
+    <!-- 	    ]]> -->
+    <!--     </select> -->
+
+
+</mapper>

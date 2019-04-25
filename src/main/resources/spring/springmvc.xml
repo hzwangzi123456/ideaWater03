@@ -32,4 +32,11 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!-- 定时任务线程池 -->
+    <!--<bean id="userThreadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+        <!--<property name="corePoolSize" value="10"></property>-->
+        <!--<property name="maxPoolSize" value="100"></property>-->
+        <!--<property name="queueCapacity" value="2000"></property>-->
+        <!--<property name="threadFactory" value="threadFactory"/>-->
+    <!--</bean>-->
 </beans>
