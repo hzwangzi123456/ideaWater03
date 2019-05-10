@@ -19,8 +19,9 @@ function distant(dis, col) {
     this.col = col;
 }
 
-//站点信息
+//站点信息,采集点
 var Zhan = new Array();
+//采集点的数据
 var ZhanCol = new Array();
 Zhan[0] = new point(381, 115);
 ZhanCol[0] = 0;//0
@@ -40,6 +41,7 @@ Zhan[7] = new point(257, 250);
 ZhanCol[7] = 14;//14
 //边框的点
 var i, j, ymin, ymax, m;
+//湖一圈的点
 var _Data = new Array();
 _Data[0] = new point(380, 114);
 _Data[1] = new point(401, 115);
@@ -156,7 +158,8 @@ for (i = 1; i <= 104; i++) {
         ymin = _Data[i].y;
 }
 //X轴扫描记录数组
-var pp = new Array(); //先声明一维
+//湖与y横线的交点的x坐标
+var pp = new Array(); //先声明一维,pp[3][2]=5,y=5情况下,第3个交点的x坐标为5
 for (i = 0; i < 500; i++) { //一维长度
     pp[i] = new Array(); //在声明二维
     for (j = 0; j < 10; j++) { //二维长度为5
@@ -179,7 +182,7 @@ for (i = ymin; i <= ymax; i++) {
                 / (_Data[j + 1].y - _Data[j].y) + _Data[j].x;
             pp[i][kk[i]++] = x;
         }
-        if (_Data[j + 1].y == i) {
+        if (_Data[j + 1].y == i) {//尖尖头和y横线重合
             x = _Data[j + 1].x;
             if (i < _Data[j].y && i < _Data[j + 2].y) {
                 pp[i][kk[i]++] = x;
@@ -195,7 +198,7 @@ for (i = ymin; i <= ymax; i++) {
 //每行交点排序
 var t;
 for (m = ymin; m <= ymax; m++) {
-    for (i = 0; i < kk[m] - 1; i++) {
+    for (i = 0; i < kk[m] - 1; i++) {//每一行的所有交点进行冒泡排序
         for (j = i + 1; j < kk[m]; j++)
             if (pp[m][i] > pp[m][j]) {
                 t = pp[m][i];
@@ -205,6 +208,7 @@ for (m = ymin; m <= ymax; m++) {
 
     }
 }
+//不重要
 var wColor = new Array();
 wColor[0] = new point(0, 15);
 wColor[1] = new point(0, 31);
@@ -261,26 +265,30 @@ function paint() {
     var _Juli = new Array();
     var tt;//= new distant;
 
-    for (wi = ymin; wi <= ymax; wi++) {
-        for (wj = 0; wj < kk[wi]; wj = wj + 2) {
-            for (wm = pp[wi][wj]; wm <= pp[wi][wj + 1]; wm = wm + 2) {
+    for (wi = ymin; wi <= ymax; wi++) {// +2
+        for (wj = 0; wj < kk[wi]; wj = wj + 2) {//必定是偶数,两个两个进行匹配
+            for (wm = pp[wi][wj]; wm <= pp[wi][wj + 1]; wm = wm + 2) {//第一个交点到第二个交点之间的像素点2px
 
                 num = 0;
                 for (m1 = 0; m1 < 8 - 1; m1++) {
                     for (m2 = m1 + 1; m2 < 8; m2++) {
                         //var lp = new point(wm,wi);
+                        //lp就是要求的某个像素点,湖内部的点
                         lp.x = wm;
                         lp.y = wi;
 
                         //dis=GetNearestDistance(Zhan[m1],Zhan[m2],lp);
                         // col=(ZhanCol[m1]+ZhanCol[m2])/2;
                         // _Juli[num++]=new distant(dis,col);
+
+                        //Juli数组就是放该像素点到所有线段(站点之间的连线)的距离和颜色
                         _Juli[num] = new distant;
                         _Juli[num++] = GetNearestDistance(Zhan[m1],
                             Zhan[m2], lp, m1, m2);
                         //  _Juli[num++]=new distant(wwdis.dis,wwdis.col);
                     }
                 }
+                //冒泡取了最短的12条,这里可以调,那个效果好
                 var wk = 12;
                 for (m1 = 0; m1 < wk; m1++) {
                     for (m2 = m1 + 1; m2 < num; m2++) {
@@ -295,6 +303,7 @@ function paint() {
                         }
                     }
                 }
+                //将前12个取平均值
                 col = 0;
                 for (m1 = 0; m1 < wk; m1++)
                     col = col + _Juli[m1].col;
@@ -302,6 +311,7 @@ function paint() {
                 // col=_Juli[0].col;
                 context.beginPath();
                 // context.fillStyle="rgb(0,255,255)";
+                //画颜色
                 if (col <= 50) {
                     col = Math.floor(255 * 2 * col / 100);
                     context.fillStyle = "rgb(0,0," + col + ")";
@@ -314,6 +324,8 @@ function paint() {
                 /*  if(col>30) col=30;
                  if(col<1) col=0;
                  context.fillStyle="rgb(0,"+wColor[col].x+","+wColor[col].y+")"; */
+                //开始画这个lp的颜色,lp就是一个像素点
+                //可以存下来,颜色,x,y
                 context.fillRect(wm, wi, 2, 2);
             }
 
@@ -326,13 +338,23 @@ function GetPointDistance(p1, p2) {
         * (p1.y - p2.y));
 }
 
+/**
+ * 求p3点到线的距离和颜色
+ * @param PA 一个站点
+ * @param PB 另一个站点
+ * @param P3 像素点(待求)
+ * @param wm1 PA站点的序号
+ * @param wm2 PB站点的序号
+ * @returns {distant}
+ * @constructor
+ */
 function GetNearestDistance(PA, PB, P3, wm1, wm2) {
     var wwdis = new distant;
     var wwcol;
     //----------图2--------------------
     var a, b, c;
     a = GetPointDistance(PB, P3);
-    if (a <= 0.00001) {
+    if (a <= 0.00001) {  //p3在PB站点附近就默认是PB的站点的颜色为像素点的颜色
         wwcol = ZhanCol[wm2];
         wwdis.dis = 0.0;
         wwdis.col = wwcol;
@@ -340,14 +362,16 @@ function GetNearestDistance(PA, PB, P3, wm1, wm2) {
     }
 
     b = GetPointDistance(PA, P3);
-    if (b <= 0.00001) {
+    if (b <= 0.00001) { //p3在PA站点附近就默认是PA的站点的颜色为像素点的颜色
         wwcol = ZhanCol[wm1];
         wwdis.dis = 0.0;
         wwdis.col = wwcol;
         return wwdis;
     }
+
+    //一般来说站点不会很接近
     c = GetPointDistance(PA, PB);
-    if (c <= 0.00001) {
+    if (c <= 0.00001) { //PA和PB很接近的话,就是a或者b的距离
         wwcol = ZhanCol[wm2];
         wwdis.dis = a;
         wwdis.col = wwcol;
@@ -356,20 +380,23 @@ function GetNearestDistance(PA, PB, P3, wm1, wm2) {
     //如果PA和PB坐标相同，则退出函数，并返回距离
     //------------------------------
 
-    if (a * a >= b * b + c * c) {//--------图3--------
+    //如果是钝角返回b
+    if (a * a >= b * b + c * c) {//延长线外的高无法判断,就取了b为距离
         wwcol = ZhanCol[wm1];
         wwdis.dis = b;
         wwdis.col = wwcol;
         return wwdis;
-    }//如果是钝角返回b
-    if (b * b >= a * a + c * c) {//--------图4-------
+    }
+
+    //如果是钝角返回a
+    if (b * b >= a * a + c * c) {//延长线外的高无法判断,就取了a为距离
         wwcol = ZhanCol[wm1];
         wwdis.dis = a;
         wwdis.col = wwcol;
         return wwdis;
-    } //如果是钝角返回a
+    }
 
-    //图1
+    //正常情况下,求高
     var l = (a + b + c) / 2; //周长的一半
     var s = Math.sqrt(l * (l - a) * (l - b) * (l - c)); //海伦公式求面积，也可以用矢量求
     var d = 2 * s / c;
