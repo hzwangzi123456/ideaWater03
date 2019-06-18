@@ -9,24 +9,30 @@
 		picture.filePath AS filePath,
 		picture.picId AS picId,
 		picture.id AS id,
-		picture.oldFilename AS oldFilename
+		picture.oldFilename AS oldFilename,
+		picture.voltage AS voltage,
+		picture.temp AS temp,
+		picture.humi AS humi
 	</sql>
 
     <!-- 所有输入列 -->
     <sql id="publicInCol">
-		#{date},#{filePath},#{picId},#{oldFilename}
+		#{date},#{filePath},#{picId},#{oldFilename},#{voltage},#{temp},#{humi}
 	</sql>
 
     <sql id="publicInsertCol">
-        date,filePath,picId,oldFilename
+        date,filePath,picId,oldFilename,voltage,temp,humi
 	</sql>
 
     <!-- 所有设值列 -->
     <sql id="publicSet">
       date = #{date,jdbcType=VARCHAR},
       filePath = #{filePath,jdbcType=VARCHAR},
-      picId = #{picId,jdbcType=VARCHAR}
-      oldFilename = #{oldFilename,jdbcType=VARCHAR}
+      picId = #{picId,jdbcType=VARCHAR},
+      oldFilename = #{oldFilename,jdbcType=VARCHAR},
+      voltage = #{voltage,jdbcType=VARCHAR},
+      temp = #{temp,jdbcType=VARCHAR},
+      humi = #{humi,jdbcType=VARCHAR}
 	</sql>
 
     <!-- 主键条件 -->
@@ -49,7 +55,17 @@
         <if test="oldFilename != null">
           AND oldFilename = #{oldFilename}
         </if>
+        <if test="voltage != null">
+          AND voltage = #{voltage}
+        </if>
+        <if test="temp != null">
+          AND temp = #{temp}
+        </if>
+        <if test="humi != null">
+          AND humi = #{humi}
+        </if>
     </sql>
+
 
     <!-- *********************************添加********************************* -->
     <!-- 新增 -->
@@ -72,6 +88,11 @@
         <!--<include refid="publicWhereKey"/>-->
     <!--</delete>-->
     <!-- *********************************查询********************************* -->
+    <select id="getPhoto" resultType="com.jt.bean.Picture">
+        SELECT <include refid="publicOutCol"/> FROM jt.picture
+        <include refid="publicWhere"/>
+        ORDER BY date DESC
+    </select>
     <!-- 根据主键查询信息 -->
     <!--     <select id="findSignTaskRecByKey" parameterType="SignTaskRecVO" resultType="SignTaskRecVO" > -->
     <!-- 	    SELECT <include refid="publicOutCol"/>  FROM activity.sign_task_rec  -->

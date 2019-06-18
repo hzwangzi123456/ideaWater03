@@ -38,6 +38,11 @@
     ntu_state, do_state, fl_state, date_time, instrument_id, location
     </sql>
 
+    <sql id="insert_all">
+    conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
+    ntu_state, do_state, fl_state, date_time, instrument_id, location
+    </sql>
+
     <sql id="publicSet">
         conductivity = #{conductivity},
         temperature = #{temperature},
@@ -110,7 +115,7 @@
     <insert id="insert" parameterType="com.yasi.model.NineSkyData">
         INSERT INTO
         <include refid="tb"/>
-        (<include refid="cols_all"/>)
+        (<include refid="insert_all"/>)
         VALUES
         (<include refid="vals"/>)
     </insert>

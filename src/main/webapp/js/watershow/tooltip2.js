@@ -39,6 +39,9 @@ Zhan[6] = new point(367, 392);
 ZhanCol[6] = 52;//52
 Zhan[7] = new point(257, 250);
 ZhanCol[7] = 14;//14
+Zhan[0] = new point(397,91);
+ZhanCol[0] = 165;
+
 //边框的点
 var i, j, ymin, ymax, m;
 //湖一圈的点
@@ -151,15 +154,21 @@ _Data[104] = new point(376, 115);
 _Data[105] = new point(380, 114);
 _Data[106] = new point(401, 115);
 ymin = ymax = _Data[0].y
+xmin = xmax = _Data[0].x
 for (i = 1; i <= 104; i++) {
     if (_Data[i].y > ymax)
         ymax = _Data[i].y;
     if (_Data[i].y < ymin)
         ymin = _Data[i].y;
+    if (_Data[i].x > xmax) 
+        xmax = _Data[i].x;
+    if (_Data[i].x < xmin) 
+        xmin = _Data[i].x
 }
+
 //X轴扫描记录数组
 //湖与y横线的交点的x坐标
-var pp = new Array(); //先声明一维,pp[3][2]=5,y=5情况下,第3个交点的x坐标为5
+var pp = new Array(); //先声明一维,pp[3][2]=5,y=3情况下,第3个交点的x坐标为5
 for (i = 0; i < 500; i++) { //一维长度
     pp[i] = new Array(); //在声明二维
     for (j = 0; j < 10; j++) { //二维长度为5

@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimerTask;
@@ -44,7 +45,7 @@ public class Timer {
     public Timer() {
         //线程池中有十个线程
         this.scheduExec = Executors.newScheduledThreadPool(10);
-        log.info("SEtimer[]创建好线程池");
+        Timer.log.info("SEtimer[]创建好线程池");
     }
 
     /**
@@ -61,8 +62,10 @@ public class Timer {
         return time;
     }
 
+    @PostConstruct
     public void start() {
-        //启动地表水任务`
+        log.info("初始化定时任务");
+        //启动地表水任务
         init(new WsTask01());
         //启动饮用水任务
         init(new WdTask());
@@ -85,27 +88,27 @@ public class Timer {
         @Override
         public void run() {
             log.info("地表水任务[]开始执行");
-            DownLoadDto dto = new DownLoadDto();
-            dto.setUrl("http://112.124.7.188/projects/zj_water/zj_water_surface.sqlite3");
-            dto.setFileName("zj_water_surface.sqlite3");
-            dto.setDownDir("/Users/ziwang/Desktop/test/sqliteFile/");
-            dto.setTableName("zj_water_surface");
-            Boolean aBoolean = download.downLoad(dto);
-            if (!aBoolean) {
-                log.info("地表水任务[]结束任务");
-                return;
-            }
             try {
+                DownLoadDto dto = new DownLoadDto();
+                dto.setUrl("http://112.124.7.188/projects/zj_water/zj_water_surface.sqlite3");
+                dto.setFileName("zj_water_surface.sqlite3");
+                dto.setDownDir("/Users/ziwang/Desktop/test/sqliteFile/");
+                dto.setTableName("zj_water_surface");
+                Boolean aBoolean = download.downLoad(dto);
+                if (!aBoolean) {
+                    Timer.log.info("地表水任务[]结束任务");
+                    return;
+                }
                 String curDateStrY_m_d = getCurDateStrY_m_d();
                 String sql = "select * from zj_water_surface where grab_time LIKE '" + curDateStrY_m_d + "%'";
                 Boolean result = writeService.addWaterSurface(sql);
                 if (result) {
-                    log.info("地表水任务 run[]插入数据库成功");
+                    Timer.log.info("地表水任务 run[]插入数据库成功");
                 } else {
-                    log.error("地表水任务 run[]插入数据库失败");
+                    Timer.log.error("地表水任务 run[]插入数据库失败");
                 }
             } catch (Exception e) {
-                log.error(e.getMessage());
+                Timer.log.error(e.getMessage());
             }
             log.info("地表水任务[]结束");
         }
@@ -119,17 +122,17 @@ public class Timer {
         @Override
         public void run() {
             log.info("饮用水任务开始");
-            DownLoadDto dto = new DownLoadDto();
-            dto.setUrl("http://112.124.7.188/projects/zj_water/zj_water_drinking.sqlite3");
-            dto.setFileName("zj_water_drinking.sqlite3");
-            dto.setDownDir("/Users/ziwang/Desktop/test/sqliteFile/");
-            dto.setTableName("zj_water_drinking");
-            Boolean aBoolean = download.downLoad(dto);
-            if (!aBoolean) {
-                log.info("饮用水任务结束");
-                return;
-            }
             try {
+                DownLoadDto dto = new DownLoadDto();
+                dto.setUrl("http://112.124.7.188/projects/zj_water/zj_water_drinking.sqlite3");
+                dto.setFileName("zj_water_drinking.sqlite3");
+                dto.setDownDir("/Users/ziwang/Desktop/test/sqliteFile/");
+                dto.setTableName("zj_water_drinking");
+                Boolean aBoolean = download.downLoad(dto);
+                if (!aBoolean) {
+                    log.info("饮用水任务结束");
+                    return;
+                }
                 String curDateStrY_m_d = getCurDateStrY_m_d();
                 String sql = "select * from zj_water_drinking where grab_time LIKE '" + curDateStrY_m_d + "%'";
                 Boolean result = writeService.addWaterDrinking(sql);

@@ -39,4 +39,19 @@ public class Picture implements Serializable {
      * 图片上传时间 举例:yyyy-MM-dd HH:mm:ss
      */
     private String date;
+
+    /**
+     * 电压
+     */
+    private String voltage;
+
+    /**
+     * 温度
+     */
+    private String temp;
+
+    /**
+     * 湿度
+     */
+    private String humi;
 }

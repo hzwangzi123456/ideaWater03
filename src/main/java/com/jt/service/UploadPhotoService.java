@@ -1,6 +1,9 @@
 package com.jt.service;
 
 import com.jt.bean.Picture;
+import com.jt.bean.PictureVo;
+
+import java.util.List;
 
 /**
  * @author wangzi
@@ -15,4 +18,10 @@ public interface UploadPhotoService {
      * @return
      */
     Boolean addPhoto(Picture model);
+
+    /**
+     * 得到所有照片
+     * @return
+     */
+    List<PictureVo> getPhoto();
 }

@@ -34,13 +34,14 @@ public class NineSkyController extends BaseController {
     @RequestMapping(value = "insert.do", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public NineSkyResData insert(@RequestBody NineSkyData nineSkyData) {
         logger.info("CustomerController[]insert[]进入方法");
+        logger.info("nineSkyData:" + nineSkyData);
         NineSkyResData nineSkyResData = new NineSkyResData();
         nineSkyResData.setResult(1);
         nineSkyResData.setMessage("");
         nineSkyResData.setUploadPeriod(30);
         nineSkyResData.setResultTime("" + DateUtil.getCurDateStrMiao_());
 
-        if (StringUtil.isEmpty(nineSkyData.getDateTime()) || nineSkyData.getDateTime().length() != 19) {
+        if (StringUtil.isEmpty(nineSkyData.getDateTime())) {
             nineSkyResData.setMessage("dateTime is invalid");
             logger.error("CustomerController[]insert[]上传时间不合法:" + nineSkyData.getDateTime());
             return nineSkyResData;

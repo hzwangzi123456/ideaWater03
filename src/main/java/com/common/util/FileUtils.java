@@ -1,15 +1,21 @@
 package com.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author wangzi
  * @date 19/4/10 下午8:48.
  */
+@Slf4j
 public class FileUtils {
 
     private static Logger logger = Logger
@@ -54,6 +60,26 @@ public class FileUtils {
             logger.error("保存文件出错:" + e.getMessage());
             return false;
         }
-
     }
+
+    /**
+     * 读取TEXT文件
+     * @param pathname 文件绝对路径
+     * @return 每一行的字符串生成的List
+     */
+    public static List<String> readText(String pathname) {
+        List<String> strs = new ArrayList<>();
+        try {
+            FileReader reader = new FileReader(pathname);
+            BufferedReader br = new BufferedReader(reader);
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                strs.add(line);
+            }
+        } catch (Exception e) {
+            log.error("读取文件出错:{}", e.getMessage());
+        }
+        return strs;
+    }
+
 }

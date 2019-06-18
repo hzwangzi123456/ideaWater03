@@ -1,10 +1,11 @@
 package com.jt.web;
-
 import com.common.util.DateUtil;
 import com.common.util.FileUtils;
 import com.common.util.StringUtil;
 import com.common.util.UuidUtil;
 import com.jt.bean.Picture;
+import com.jt.bean.PictureVo;
+import com.jt.dto.GetPhotoResDto;
 import com.jt.dto.UploadPhotoResDto;
 import com.jt.service.UploadPhotoService;
 import lombok.extern.slf4j.Slf4j;
@@ -154,7 +155,18 @@ public class UploadPhotoController {
                     String value = item.getString("UTF-8");
                     //value = new String(value.getBytes("iso8859-1"),"UTF-8");
                     log.info("fileUpload02[]fileitem中封装的是普通输入项的数据 name:{},value:{}", name, value);
-                    model.setPicId(value);
+                    if ("id".equals(name)) {
+                        model.setPicId(value);
+                    }
+                    if ("voltage".equals(name)) {
+                        model.setVoltage(value);
+                    }
+                    if ("temp".equals(name)) {
+                        model.setTemp(value);
+                    }
+                    if ("humi".equals(name)) {
+                        model.setHumi(value);
+                    }
                 } else {//如果fileitem中封装的是上传文件
                     //得到上传的文件名称，
                     String filename = item.getName();
@@ -214,4 +226,15 @@ public class UploadPhotoController {
         return resDto.dto2map();
     }
 
+    @RequestMapping(value = "/getPhoto.do")
+    public Map getPhoto() {
+        GetPhotoResDto resDto = new GetPhotoResDto();
+        resDto.setResult(0);
+        resDto.setMsg("调用成功");
+        resDto.setLists(null);
+
+        List<PictureVo> vos = service.getPhoto();
+        resDto.setLists(vos);
+        return resDto.dto2map();
+    }
 }
