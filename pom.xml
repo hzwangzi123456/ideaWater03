@@ -330,5 +330,14 @@
         <!--</dependency>-->
 
     </dependencies>
+    <build>
+        <finalName>ideaWater03</finalName><!--install 后包的名字-->
 
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

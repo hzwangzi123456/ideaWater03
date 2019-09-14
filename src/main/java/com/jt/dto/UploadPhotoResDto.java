@@ -31,9 +31,9 @@ public class UploadPhotoResDto implements Serializable {
     private String resultTime;
 
     /**
-     * 上传周期（秒）默认60分钟 60 * 60
+     * 上传周期（秒）默认1800秒 30 * 60
      */
-    private int uploadPeriod = 60 * 60;
+    private int uploadPeriod = 30 * 60;
 
     /**
      * dto转map
