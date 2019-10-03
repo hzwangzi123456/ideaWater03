@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,13 +52,15 @@ public class UploadPhotoServiceImpl implements UploadPhotoService {
             vo.setHumi("");
 
             String filePath = p.getFilePath();
-            String[] split = filePath.split("/");
-            vo.setUrl("http://120.55.47.216:8060/pictures/" + split[split.length-1]);
-            vo.setDate(p.getDate());
-            vo.setHumi(p.getHumi());
-            vo.setTemp(p.getTemp());
-            vo.setVoltage(p.getVoltage());
-            pictureVos.add(vo);
+            String[] split = filePath.split(File.separator);
+            if (split.length != 0) {
+                vo.setUrl("http://116.62.78.62:8060/pictures/" + split[split.length-1]);
+                vo.setDate(p.getDate());
+                vo.setHumi(p.getHumi());
+                vo.setTemp(p.getTemp());
+                vo.setVoltage(p.getVoltage());
+                pictureVos.add(vo);
+            }
         }
         return pictureVos;
     }

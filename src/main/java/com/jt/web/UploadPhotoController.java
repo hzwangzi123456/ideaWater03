@@ -1,4 +1,5 @@
 package com.jt.web;
+import com.common.SysConf;
 import com.common.util.DateUtil;
 import com.common.util.FileUtils;
 import com.common.util.StringUtil;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,14 +44,27 @@ import java.util.Map;
 public class UploadPhotoController {
 
     //本地调试路径
-    private static final String local = File.separator + "Users" + File.separator + "ziwang" + File.separator + "Desktop" + File.separator + "test";
+//    private static final String local = File.separator + "Users" + File.separator + "ziwang" + File.separator + "Desktop" + File.separator + "test";
 
     @Autowired
     private UploadPhotoService service;
 
+    @Autowired
+    private SysConf sysConf;
+
+//    private static String local = "";
+
+
     @RequestMapping("/test.do")
-    public void test() {
+    public Map test() {
         log.info("进入test方法");
+        System.out.println(sysConf.getPATH());
+        System.out.println(sysConf.getUploadPeriod());
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("path","" + sysConf.getPATH());
+        map.put("uploadperiod", "" + sysConf.getUploadPeriod());
+        return map;
     }
 
     /**
@@ -64,7 +79,7 @@ public class UploadPhotoController {
     public Map upload(@RequestParam("fileName") MultipartFile file, String id) {
         log.info("upload[]进入upload方法[]file:{},id:{}", file, id);
         // 要上传的目标文件存放路径
-        String localPath = local;
+        String localPath = sysConf.getPATH();
 
         UploadPhotoResDto resDto = new UploadPhotoResDto();
 
@@ -114,7 +129,7 @@ public class UploadPhotoController {
     public Map fileUpload02(HttpServletRequest request, HttpServletResponse response) {
         log.info("fileUpload02[]进入fileUpload02方法");
 
-        String savePath = local;
+        String savePath = sysConf.getPATH();
         UploadPhotoResDto resDto = new UploadPhotoResDto();
         resDto.setResult(0);
         resDto.setMsg("上传成功");
