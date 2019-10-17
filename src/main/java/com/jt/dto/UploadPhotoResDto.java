@@ -36,6 +36,11 @@ public class UploadPhotoResDto implements Serializable {
     private int uploadPeriod = 30 * 60;
 
     /**
+     * 是否开启翻转，1：不开启，2：开启
+     */
+    private Integer inversionSwitch;
+
+    /**
      * dto转map
      *
      * @return
@@ -46,6 +51,7 @@ public class UploadPhotoResDto implements Serializable {
         map.put("msg", this.msg);
         map.put("resultTime", this.resultTime);
         map.put("uploadPeriod", this.uploadPeriod);
+        map.put("inversionSwitch", this.inversionSwitch);
         return map;
     }
 }

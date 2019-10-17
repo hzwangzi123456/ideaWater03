@@ -1,13 +1,17 @@
 package com.jt.web;
+
 import com.common.SysConf;
 import com.common.util.DateUtil;
 import com.common.util.FileUtils;
 import com.common.util.StringUtil;
 import com.common.util.UuidUtil;
+import com.constant.InversionEnum;
 import com.jt.bean.Picture;
 import com.jt.bean.PictureVo;
 import com.jt.dto.GetPhotoResDto;
 import com.jt.dto.UploadPhotoResDto;
+import com.jt.entity.EquipmentDO;
+import com.jt.service.EquipmentService;
 import com.jt.service.UploadPhotoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
@@ -50,22 +54,25 @@ public class UploadPhotoController {
     private UploadPhotoService service;
 
     @Autowired
+    private EquipmentService equipmentService;
+
+    @Autowired
     private SysConf sysConf;
 
 //    private static String local = "";
 
 
-    @RequestMapping("/test.do")
-    public Map test() {
-        log.info("进入test方法");
-        System.out.println(sysConf.getPATH());
-        System.out.println(sysConf.getUploadPeriod());
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put("path","" + sysConf.getPATH());
-        map.put("uploadperiod", "" + sysConf.getUploadPeriod());
-        return map;
-    }
+//    @RequestMapping("/test.do")
+//    public Map test() {
+////        log.info("进入test方法");
+////        System.out.println(sysConf.getPATH());
+////        System.out.println(sysConf.getUploadPeriod());
+////
+////        HashMap<String, String> map = new HashMap<>();
+////        map.put("path","" + sysConf.getPATH());
+////        map.put("uploadperiod", "" + sysConf.getUploadPeriod());
+//        return map;
+//    }
 
     /**
      * 上传文件接口
@@ -129,7 +136,7 @@ public class UploadPhotoController {
     public Map fileUpload02(HttpServletRequest request, HttpServletResponse response) {
         log.info("fileUpload02[]进入fileUpload02方法");
 
-        String savePath = sysConf.getPATH();
+//        String savePath = sysConf.getPATH();
         UploadPhotoResDto resDto = new UploadPhotoResDto();
         resDto.setResult(0);
         resDto.setMsg("上传成功");
@@ -150,7 +157,7 @@ public class UploadPhotoController {
             upload.setFileSizeMax(-1);//设置上传文件最大大小
             //解决上传文件名的中文乱码
             upload.setHeaderEncoding("UTF-8");
-//            3、判断提交上来的数据是否是上传表单的数据
+            //3、判断提交上来的数据是否是上传表单的数据
             if (!ServletFileUpload.isMultipartContent(request)) {
                 //按照传统方式获取数据
                 log.error("fileUpload02[]没有文件上传");
@@ -162,6 +169,8 @@ public class UploadPhotoController {
             //4、使用ServletFileUpload解析器解析上传数据，解析结果返回的是一个List<FileItem>集合，每一个FileItem对应一个Form表单的输入项
             log.debug("fileUpload02[]使用ServletFileUpload解析器解析上传数据");
             List<FileItem> list = upload.parseRequest(request);
+            InputStream in = null;
+            String filename = null;
             for (FileItem item : list) {
                 //如果fileitem中封装的是普通输入项的数据
                 if (item.isFormField()) {
@@ -172,20 +181,29 @@ public class UploadPhotoController {
                     log.info("fileUpload02[]fileitem中封装的是普通输入项的数据 name:{},value:{}", name, value);
                     if ("id".equals(name)) {
                         model.setPicId(value);
-                    }
-                    if ("voltage".equals(name)) {
+                    } else if ("voltage".equals(name)) {
                         model.setVoltage(value);
-                    }
-                    if ("temp".equals(name)) {
+                    } else if ("temp".equals(name)) {
                         model.setTemp(value);
-                    }
-                    if ("humi".equals(name)) {
+                    } else if ("humi".equals(name)) {
                         model.setHumi(value);
+                    } else if ("equipmentId".equals(name)) {
+                        EquipmentDO entity = equipmentService.getByid(Long.valueOf(value));
+                        if (entity == null) {
+                            log.error("上传equipmentId错误,equipmentId:{}", value);
+                            resDto.setMsg("上传equipmentId错误");
+                            resDto.setResult(1);
+                            resDto.setResultTime(DateUtil.getCurDateStrMiao_());
+                            return resDto.dto2map();
+                        } else {
+                            path = entity.getPicDir();
+                            resDto.setInversionSwitch(entity.getInversionSwitch());
+                        }
                     }
                 } else {//如果fileitem中封装的是上传文件
                     //得到上传的文件名称，
-                    String filename = item.getName();
-                    model.setOldFilename(filename);
+                    filename = item.getName();
+                    model.setOldFilename(filename.trim());
                     log.info("fileUpload02[]上传的文件名称:" + filename);
                     if (filename == null || filename.trim().equals("")) {
                         continue;
@@ -196,31 +214,33 @@ public class UploadPhotoController {
                     //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
                     filename = filename.substring(filename.lastIndexOf("\\") + 1);
                     //获取item中的上传文件的输入流
-                    InputStream in = item.getInputStream();
-                    //文件路径
-                    path = savePath + File.separator + UuidUtil.get32UUID() + "." + extendName;
-                    log.info("fileUpload02[]上传的文件路径:" + path);
-                    model.setFilePath(path);
-                    //创建一个文件输出流
-                    FileOutputStream out = new FileOutputStream(path);
-                    //创建一个缓冲区
-                    byte buffer[] = new byte[1024];
-                    //判断输入流中的数据是否已经读完的标识
-                    int len = 0;
-                    //循环将输入流读入到缓冲区当中，(len=in.read(buffer))>0就表示in里面还有数据
-                    while ((len = in.read(buffer)) > 0) {
-                        //使用FileOutputStream输出流将缓冲区的数据写入到指定的目录(savePath + "\\" + filename)当中
-                        out.write(buffer, 0, len);
-                    }
-                    //关闭输入流
-                    in.close();
-                    //关闭输出流
-                    out.close();
-                    //删除处理文件上传时生成的临时文件
+                    in = item.getInputStream();
                     item.delete();
-                    log.info("fileUpload02[]文件上传成功！");
                 }
             }
+            //文件路径
+            log.info("fileUpload02[]上传的文件路径:" + path);
+            model.setFilePath(path);
+            //创建一个文件输出流
+            FileOutputStream out = new FileOutputStream((path + filename).trim());
+            //创建一个缓冲区
+            byte buffer[] = new byte[1024];
+            //判断输入流中的数据是否已经读完的标识
+            int len = 0;
+            //循环将输入流读入到缓冲区当中，(len=in.read(buffer))>0就表示in里面还有数据
+            while ((len = in.read(buffer)) > 0) {
+                //使用FileOutputStream输出流将缓冲区的数据写入到指定的目录(savePath + "\\" + filename)当中
+                out.write(buffer, 0, len);
+            }
+            //关闭输入流
+            in.close();
+            //关闭输出流
+            out.close();
+            //删除处理文件上传时生成的临时文件
+
+            log.info("fileUpload02[]文件上传成功！");
+            model.setFilePath((path + model.getOldFilename()).trim());
+            log.info("文件路径：" + model.getFilePath());
             model.setDate(DateUtil.getCurDateStrMiao_());
             //入库
             Boolean aBoolean = service.addPhoto(model);
