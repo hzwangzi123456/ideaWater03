@@ -40,4 +40,17 @@ public class EquipmentTest {
         List<EquipmentDO> equipmentDOS = equipmentDao.selectByExample(null);
         System.out.println(equipmentDOS);
     }
+
+    @Test
+    public void Tes1t() throws Exception {
+        List<Integer> integers = null;
+//        for(Integer et:integers) {
+//            System.out.println(et);
+//        }
+
+        integers.forEach(e -> {
+//            System.out.println(e);
+        });
+
+    }
 }

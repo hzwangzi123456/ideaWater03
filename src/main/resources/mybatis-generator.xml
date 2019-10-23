@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="testTables" targetRuntime="MyBatis3">
+		<property name="mybatisVersion" value="3.4.0"/>
+		<!-- JavaBean 实现 序列化 接口 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+		</plugin>
+		<!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <!-- 自定义物理分页  可生成支持Mysql数据的limit  不支持Oracle -->
+        <plugin type="org.mybatis.generator.plugins.page.PaginationPlugin" />
+        <!-- 自定义查询指定字段  -->
+        <plugin type="org.mybatis.generator.plugins.field.FieldsPlugin" />
+        <!-- 开启支持内存分页   可生成 支持内存分布的方法及参数  
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        -->
+        <!-- generate entity时，生成hashcode和equals方法
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		 -->
+		<!-- 此处是将Example改名为Criteria 当然 想改成什么都行~    -->      
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">  
+	        <property name="searchString" value="entity(.*)DOExample$" />
+	        <!-- 替换后
+	        <property name="replaceString" value="Criteria" />  
+	         -->
+	        <property name="replaceString" value="query$1Query" />
+        </plugin>  
+		<!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->        
+        <plugin type="org.mybatis.generator.plugins.rename.RenameSqlMapperPlugin">  
+	        <property name="searchString" value="DOMapper" />
+	        <property name="replaceString" value="Dao" />
+        </plugin>  
+         
+		<!-- 此处是将UserMapper改名为UserDao 接口 当然 想改成什么都行~  -->        
+        <plugin type="org.mybatis.generator.plugins.rename.RenameJavaMapperPlugin">  
+	        <property name="searchString" value="DOMapper$" />
+	        <property name="replaceString" value="Dao" />
+        </plugin>  
+        
+ 
+		
+		<commentGenerator type="org.mybatis.generator.plugins.comment.MyCommentGenerator">
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 
+			<property name="suppressAllComments" value="true" />
+			-->
+		</commentGenerator>
+		
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+			<!--connectionURL="jdbc:mysql://47.110.145.62:3306/fingo-test?failOverReadOnly=false"-->
+						<!--userId="root" password="Root123!@#">-->
+		<!--</jdbcConnection>-->
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/fingo-test"
+						userId="root" password="123456">
+		</jdbcConnection>
+		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg" 
+			userId="yycg"
+			password="yycg">
+		</jdbcConnection> -->
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver type="org.mybatis.generator.plugins.type.MyJavaTypeResolverImpl">
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetPackage="com.bujiang.magic.common.entity"
+			targetProject="./src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+        <!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="com.bujiang.magic.dao.xml"
+			targetProject="./src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.bujiang.magic.dao.mapper"
+			targetProject="./src">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<!-- 指定数据库表 -->
+		<!-- 用户模块表  -->
+		<!--
+		<table schema="" tableName="cuser" domainObjectName="user">
+			<columnOverride column="cpassword" property="password"></columnOverride>
+		</table>
+		<table schema="" tableName="article" domainObjectName="article"/>
+		<table schema="" tableName="article_comment" domainObjectName="articleComment"/>
+		<table schema="" tableName="indexConfig" domainObjectName="indexConfig"/>
+
+		  
+		<table tableName="freight_template_item" domainObjectName="FreightTemplateItem" ></table>
+		-->
+
+		<!--<table tableName="split_order" domainObjectName="SplitOrder" ></table>-->
+		<!--<table tableName="split_order_product" domainObjectName="SplitOrderProduct" ></table>-->
+		<!--<table tableName="forwarder_company" domainObjectName="ForwarderCompany" ></table>-->
+		<!--<table tableName="logistics_single" domainObjectName="LogisticsSingle" ></table>-->
+		<!--<table tableName="logistics_info" domainObjectName="LogisticsInfo" >-->
+			<!--<columnOverride column="logistics_content" jdbcType="VARCHAR" />-->
+		<!--</table>-->
+		<!--<table tableName="orders" domainObjectName="OrderDO" />-->
+		<!--</table>-->
+		<!--<table tableName="bank_info" domainObjectName="BankInfo" ></table>-->
+		<!--<table tableName="fingo_payment_info" domainObjectName="PaymentInfo" ></table>-->
+		<!--<table tableName="app_version" domainObjectName="AppVersionDO" ></table>-->
+		<!--<table tableName="orders_products" domainObjectName="OrderProductDO" ></table>-->
+		<!--<table tableName="refund_order_new" domainObjectName="RefundOrderDO" >-->
+			<!--<columnOverride column="refund_picture_proofs" jdbcType="VARCHAR" />-->
+		<!--</table>-->
+		<!--<table tableName="bank_info" domainObjectName="BankInfoDO" ></table>-->
+		<!--<table tableName="good" domainObjectName="GoodDO" ></table>-->
+		<!--<table tableName="language_field" domainObjectName="LanguageFieldDO" ></table>-->
+		<!--<table tableName="language_field_content" domainObjectName="LanguageFieldContentDO" >-->
+			<!--<columnOverride column="field_value" jdbcType="VARCHAR" />-->
+		<!--</table>-->
+		<!--<table tableName="purchase_order_product" domainObjectName="PurchaseOrderProductDO" >-->
+			<!--<columnOverride column="source_order_no" jdbcType="VARCHAR" />-->
+		<!--</table>-->
+		<!--<table tableName="warehouse" domainObjectName="WarehouseDO" ></table>-->
+		<table tableName="warehouse_product" domainObjectName="WarehouseProductDO"></table>
+		<table tableName="t_in_country" domainObjectName="CountryDO"></table>
+		<!--<table tableName="warehouse_receive_note" domainObjectName="WarehouseReceiveNoteDO" ></table>-->
+		<!--<table tableName="warehouse_receive_product" domainObjectName="WarehouseReceiveProductDO" ></table>-->
+		<!--<table tableName="warehouse_out_note" domainObjectName="WarehouseOutNoteDO" ></table>-->
+		<!--<table tableName="warehouse_out_product" domainObjectName="WarehouseOutProductDO" ></table>-->
+	</context>
+</generatorConfiguration>

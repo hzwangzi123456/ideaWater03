@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -171,6 +172,7 @@ public class UploadPhotoController {
             List<FileItem> list = upload.parseRequest(request);
             InputStream in = null;
             String filename = null;
+            int flag = 0;
             for (FileItem item : list) {
                 //如果fileitem中封装的是普通输入项的数据
                 if (item.isFormField()) {
@@ -188,7 +190,16 @@ public class UploadPhotoController {
                     } else if ("humi".equals(name)) {
                         model.setHumi(value);
                     } else if ("equipmentId".equals(name)) {
-                        EquipmentDO entity = equipmentService.getByid(Long.valueOf(value));
+                        flag = 1;
+                        if (StringUtils.isBlank(value)) {
+                            log.error("上传equipmentId错误,equipmentId为空");
+                            resDto.setMsg("上传equipmentId错误,equipmentId为空");
+                            resDto.setResult(1);
+                            resDto.setResultTime(DateUtil.getCurDateStrMiao_());
+                            return resDto.dto2map();
+                        }
+
+                        EquipmentDO entity = equipmentService.getByid(Long.valueOf(value.trim()));
                         if (entity == null) {
                             log.error("上传equipmentId错误,equipmentId:{}", value);
                             resDto.setMsg("上传equipmentId错误");
@@ -217,6 +228,13 @@ public class UploadPhotoController {
                     in = item.getInputStream();
                     item.delete();
                 }
+            }
+            if (flag == 0) {
+                log.error("未上传equipmentId字段");
+                resDto.setMsg("未上传equipmentId字段");
+                resDto.setResult(1);
+                resDto.setResultTime(DateUtil.getCurDateStrMiao_());
+                return resDto.dto2map();
             }
             //文件路径
             log.info("fileUpload02[]上传的文件路径:" + path);
