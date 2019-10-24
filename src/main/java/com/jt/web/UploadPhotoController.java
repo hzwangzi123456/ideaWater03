@@ -1,5 +1,7 @@
 package com.jt.web;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.common.SysConf;
 import com.common.util.DateUtil;
 import com.common.util.FileUtils;
@@ -171,7 +173,9 @@ public class UploadPhotoController {
             log.debug("fileUpload02[]使用ServletFileUpload解析器解析上传数据");
             List<FileItem> list = upload.parseRequest(request);
             InputStream in = null;
-            String filename = null;
+
+            //上传数据日志整理
+            JSONObject jsonObject = new JSONObject();
             int flag = 0;
             for (FileItem item : list) {
                 //如果fileitem中封装的是普通输入项的数据
@@ -180,7 +184,7 @@ public class UploadPhotoController {
                     //解决普通输入项的数据的中文乱码问题
                     String value = item.getString("UTF-8");
                     //value = new String(value.getBytes("iso8859-1"),"UTF-8");
-                    log.info("fileUpload02[]fileitem中封装的是普通输入项的数据 name:{},value:{}", name, value);
+                    jsonObject.put(name.trim(),value.trim());
                     if ("id".equals(name)) {
                         model.setPicId(value);
                     } else if ("voltage".equals(name)) {
@@ -212,23 +216,30 @@ public class UploadPhotoController {
                         }
                     }
                 } else {//如果fileitem中封装的是上传文件
-                    //得到上传的文件名称，
-                    filename = item.getName();
-                    model.setOldFilename(filename.trim());
-                    log.info("fileUpload02[]上传的文件名称:" + filename);
-                    if (filename == null || filename.trim().equals("")) {
-                        continue;
+                    //得到上传的文件名称
+                    jsonObject.put("文件名",item.getName().trim());
+                    if (StringUtils.isBlank(item.getName())) {
+                        log.error("fileUpload02[]上传的文件名称为空");
+                        resDto.setMsg("上传的文件名称为空");
+                        resDto.setResult(1);
+                        resDto.setResultTime(DateUtil.getCurDateStrMiao_());
+                        return resDto.dto2map();
+                    } else {
+                        model.setOldFilename(item.getName().trim());
+                        log.info("fileUpload02[]上传的文件名称:" + item.getName());
+
+                        //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
+                        //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
+
+                        //获取item中的上传文件的输入流
+                        in = item.getInputStream();
+                        item.delete();
                     }
-                    String[] strs = filename.split("\\.");
-                    String extendName = strs[strs.length - 1];
-                    //注意：不同的浏览器提交的文件名是不一样的，有些浏览器提交上来的文件名是带有路径的，如：  c:\a\b\1.txt，而有些只是单纯的文件名，如：1.txt
-                    //处理获取到的上传文件的文件名的路径部分，只保留文件名部分
-                    filename = filename.substring(filename.lastIndexOf("\\") + 1);
-                    //获取item中的上传文件的输入流
-                    in = item.getInputStream();
-                    item.delete();
                 }
             }
+
+            log.info("上传数据:{}",jsonObject.toJSONString());
+
             if (flag == 0) {
                 log.error("未上传equipmentId字段");
                 resDto.setMsg("未上传equipmentId字段");
@@ -236,11 +247,20 @@ public class UploadPhotoController {
                 resDto.setResultTime(DateUtil.getCurDateStrMiao_());
                 return resDto.dto2map();
             }
+
+            String filename = model.getOldFilename();
+            filename = filename.substring(filename.lastIndexOf("\\") + 1);
+            String[] strs = filename.split("\\.");
+            String extendName = strs[strs.length - 1];
+
+            String newfilename = UuidUtil.get32UUID() + "." + extendName;
+            model.setFilePath((path + newfilename).trim());
+
             //文件路径
-            log.info("fileUpload02[]上传的文件路径:" + path);
-            model.setFilePath(path);
+            log.info("fileUpload02[]上传的文件路径:" + model.getFilePath());
+
             //创建一个文件输出流
-            FileOutputStream out = new FileOutputStream((path + filename).trim());
+            FileOutputStream out = new FileOutputStream(model.getFilePath());
             //创建一个缓冲区
             byte buffer[] = new byte[1024];
             //判断输入流中的数据是否已经读完的标识
@@ -257,8 +277,8 @@ public class UploadPhotoController {
             //删除处理文件上传时生成的临时文件
 
             log.info("fileUpload02[]文件上传成功！");
-            model.setFilePath((path + model.getOldFilename()).trim());
-            log.info("文件路径：" + model.getFilePath());
+
+
             model.setDate(DateUtil.getCurDateStrMiao_());
             //入库
             Boolean aBoolean = service.addPhoto(model);
