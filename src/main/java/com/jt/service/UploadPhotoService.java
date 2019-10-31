@@ -1,7 +1,7 @@
 package com.jt.service;
 
-import com.jt.bean.Picture;
-import com.jt.bean.PictureVo;
+import com.jt.bean.PictureVO;
+import com.jt.entity.PictureDO;
 
 import java.util.List;
 
@@ -14,14 +14,16 @@ public interface UploadPhotoService {
 
     /**
      * 插入上传照片
+     *
      * @param model
      * @return
      */
-    Boolean addPhoto(Picture model);
+    Boolean addPhoto ( PictureDO model );
 
     /**
      * 得到所有照片
+     *
      * @return
      */
-    List<PictureVo> getPhoto();
+    List < PictureVO > getPhoto ();
 }

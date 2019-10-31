@@ -1,6 +1,6 @@
 package com.jt.dto;
 
-import com.jt.bean.PictureVo;
+import com.jt.bean.PictureVO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -30,7 +30,7 @@ public class GetPhotoResDto implements Serializable {
     /**
      * 查询结果
      */
-    private List<PictureVo> lists;
+    private List< PictureVO > lists;
 
     /**
      * dto转map

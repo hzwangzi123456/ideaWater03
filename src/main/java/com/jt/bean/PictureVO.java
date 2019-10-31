@@ -6,34 +6,25 @@ import java.io.Serializable;
 
 /**
  * @author wangzi
- * @date 19/4/11 上午10:53.
- * 照片实体类
+ * @date 19/5/11 上午11:43.
  */
 @Data
-public class Picture implements Serializable {
-
-    private static final long serialVersionUID = 2310326755273850224L;
+public class PictureVO {
 
     /**
-     * 业务id
-     *
+     * 图片url地址
      */
-    private int id;
+    private String url;
 
     /**
-     * 原文件名
+     * 设备id
      */
-    private String oldFilename;
+    private Long equipmentId;
 
     /**
-     * 照片路径
+     * 设备类型
      */
-    private String filePath;
-
-    /**
-     * 上传id参数
-     */
-    private String picId;
+    private Integer equipmentType;
 
     /**
      * 图片上传时间 举例:yyyy-MM-dd HH:mm:ss

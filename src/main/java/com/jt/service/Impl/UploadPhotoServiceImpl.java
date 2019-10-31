@@ -1,16 +1,18 @@
 package com.jt.service.Impl;
 
-import com.jt.bean.Picture;
-import com.jt.bean.PictureVo;
-import com.jt.dao.UploadPhotoDao;
+import com.common.util.BeanMapper;
+import com.constant.IsDeleteEnum;
+import com.constant.StatusEnum;
+import com.jt.bean.PictureVO;
+import com.jt.dao.mybatis.PictureDOMapper;
+import com.jt.entity.PictureDO;
 import com.jt.service.UploadPhotoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.testng.collections.Lists;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,12 +24,15 @@ import java.util.List;
 public class UploadPhotoServiceImpl implements UploadPhotoService {
 
     @Autowired
-    private UploadPhotoDao dao;
+    private PictureDOMapper pictureDOMapper;
 
     @Override
-    public Boolean addPhoto(Picture model) {
-        int i = dao.addPhoto(model);
-        if (i == 1) {
+    public Boolean addPhoto ( PictureDO model ) {
+        model.setStatus ( StatusEnum.VALID.getCode () );
+        model.setIsDelete ( IsDeleteEnum.NO.getCode () );
+        int insert = pictureDOMapper.insert ( model );
+
+        if ( insert == 1 ) {
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;
@@ -35,31 +40,28 @@ public class UploadPhotoServiceImpl implements UploadPhotoService {
     }
 
     @Override
-    public List<PictureVo> getPhoto() {
-        ArrayList<PictureVo> pictureVos = new ArrayList<>();
-        List<Picture> lists = dao.getPhoto();
-        if ( CollectionUtils.isEmpty(lists)) {
-            log.error("图片集合为空");
+    public List < PictureVO > getPhoto () {
+
+        List < PictureDO > pictureDOS = pictureDOMapper.findByStatusAndIsDelete (
+                StatusEnum.VALID.getCode () ,
+                IsDeleteEnum.NO.getCode ()
+        );
+
+        if ( CollectionUtils.isEmpty ( pictureDOS ) ) {
+            log.error ( "图片集合为空" );
             return null;
         }
 
-        for (Picture p:lists) {
-            PictureVo vo = new PictureVo();
-            vo.setUrl("");
-            vo.setDate("");
-            vo.setVoltage("");
-            vo.setTemp("");
-            vo.setHumi("");
+        List < PictureVO > pictureVos = Lists.newArrayList ();
+        for ( PictureDO p : pictureDOS ) {
+            PictureVO vo = BeanMapper.map ( p , PictureVO.class );
+            vo.setDate ( p.getCreateTime ().toString () );
 
-            String filePath = p.getFilePath();
-            String[] split = filePath.split(File.separator);
-            if (split.length != 0) {
-                vo.setUrl("http://116.62.78.62:8060/pictures/" + split[split.length-1]);
-                vo.setDate(p.getDate());
-                vo.setHumi(p.getHumi());
-                vo.setTemp(p.getTemp());
-                vo.setVoltage(p.getVoltage());
-                pictureVos.add(vo);
+            String filePath = p.getFilePath ();
+            String[] split = filePath.split ( "\\" );
+            if ( split.length != 0 ) {
+                vo.setUrl ( "http://116.62.78.62:8060/pictures/" + split[ split.length - 1 ] );
+                pictureVos.add ( vo );
             }
         }
         return pictureVos;
