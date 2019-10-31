@@ -20,7 +20,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 
     @Override
-    public EquipmentDO getByEquIdandType ( long equipId , Integer equipmentType ) {
+    public EquipmentDO getByEquIdandType ( String equipId , Integer equipmentType ) {
 
         List < EquipmentDO > equipmentDOS = equipmentDaoMapper.findByStatusAndIsDeleteAndEquipmentIdAndEquipmentType (
                 StatusEnum.VALID.getCode () ,

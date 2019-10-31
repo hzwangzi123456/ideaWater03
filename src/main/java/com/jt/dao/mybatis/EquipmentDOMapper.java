@@ -20,7 +20,7 @@ public interface EquipmentDOMapper {
 
     List<EquipmentDO> findByStatusAndIsDeleteAndEquipmentId(@Param("status")Integer status,@Param("isDelete")Integer isDelete,@Param("equipmentId")Long equipmentId);
 
-    List<EquipmentDO> findByStatusAndIsDeleteAndEquipmentIdAndEquipmentType(@Param("status")Integer status,@Param("isDelete")Integer isDelete,@Param("equipmentId")Long equipmentId,@Param("equipmentType")Integer equipmentType);
+    List<EquipmentDO> findByStatusAndIsDeleteAndEquipmentIdAndEquipmentType(@Param("status")Integer status,@Param("isDelete")Integer isDelete,@Param("equipmentId")String equipmentId,@Param("equipmentType")Integer equipmentType);
 
 
 }

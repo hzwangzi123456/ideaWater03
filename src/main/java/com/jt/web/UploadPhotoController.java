@@ -91,8 +91,8 @@ public class UploadPhotoController {
 
             //上传数据日志整理
             JSONObject jsonObject = new JSONObject ();
+            int flagId = 0;
             int flagequipmentId = 0;
-            int flagequipmentType = 0;
             for ( FileItem item : list ) {
                 //如果fileitem中封装的是普通输入项的数据
                 if ( item.isFormField () ) {
@@ -101,10 +101,37 @@ public class UploadPhotoController {
                     String value = item.getString ( "UTF-8" );
                     //value = new String(value.getBytes("iso8859-1"),"UTF-8");
                     jsonObject.put ( name.trim () , value.trim () );
-                    if ( "equipmentId".equals ( name ) ) {
+                    if ( "id".equals ( name ) ) {//设备id
                         if ( StringUtils.isBlank ( value ) ) {
-                            log.error ( "上传equipmentId错误,equipmentId为空" );
-                            resDto.setMsg ( "上传equipmentId错误,equipmentId为空" );
+                            log.error ( "上传id错误,id为空" );
+                            resDto.setMsg ( "上传id错误,id为空" );
+                            resDto.setResult ( 1 );
+                            resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
+                            return resDto.dto2map ();
+                        }
+
+                        model.setEquipmentId ( value.trim () );
+
+                        flagId = 1;
+                    } else if ( "voltage".equals ( name ) ) {
+                        model.setVoltage ( value );
+                    } else if ( "temp".equals ( name ) ) {
+                        model.setTemp ( value );
+                    } else if ( "humi".equals ( name ) ) {
+                        model.setHumi ( value );
+                    } else if ( "equipmentId".equals ( name ) ) {//设备类型
+                        flagequipmentId = 1;
+                        if ( StringUtils.isEmpty ( value ) ) {
+                            log.error ( "上传equipmentId错误,equipmentId为null" );
+                            resDto.setMsg ( "上传equipmentId错误,equipmentId为null" );
+                            resDto.setResult ( 1 );
+                            resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
+                            return resDto.dto2map ();
+                        }
+
+                        if ( StringUtils.isBlank ( value.trim () ) ) {
+                            log.error ( "上传equipmentId错误,equipmentId为空字符串" );
+                            resDto.setMsg ( "上传equipmentId错误,equipmentId为空字符串" );
                             resDto.setResult ( 1 );
                             resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
                             return resDto.dto2map ();
@@ -118,45 +145,10 @@ public class UploadPhotoController {
                             return resDto.dto2map ();
                         }
 
-                        model.setEquipmentId ( Long.valueOf ( value.trim () ) );
-
-                        flagequipmentId = 1;
-                    } else if ( "voltage".equals ( name ) ) {
-                        model.setVoltage ( value );
-                    } else if ( "temp".equals ( name ) ) {
-                        model.setTemp ( value );
-                    } else if ( "humi".equals ( name ) ) {
-                        model.setHumi ( value );
-                    } else if ( "equipmentType".equals ( name ) ) {
-                        flagequipmentType = 1;
-                        if ( StringUtils.isEmpty ( value ) ) {
-                            log.error ( "上传equipmentType错误,equipmentType为null" );
-                            resDto.setMsg ( "上传equipmentId错误,equipmentId为null" );
-                            resDto.setResult ( 1 );
-                            resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
-                            return resDto.dto2map ();
-                        }
-
-                        if ( StringUtils.isBlank ( value.trim () ) ) {
-                            log.error ( "上传equipmentType错误,equipmentType为空字符串" );
-                            resDto.setMsg ( "上传equipmentId错误,equipmentId为空字符串" );
-                            resDto.setResult ( 1 );
-                            resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
-                            return resDto.dto2map ();
-                        }
-
-                        if ( ! StringUtils.isNumeric ( value.trim () ) ) {
-                            log.error ( "上传equipmentType错误,equipmentType不为数字" );
-                            resDto.setMsg ( "上传equipmentId错误,equipmentId不为数字" );
-                            resDto.setResult ( 1 );
-                            resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
-                            return resDto.dto2map ();
-                        }
-
                         Integer equipmentType = Integer.valueOf ( value.trim () );
                         if ( EquipmentTypeEnum.isNotInEnum ( equipmentType ) ) {
-                            log.error ( "上传equipmentType错误,equipmentType不存在" );
-                            resDto.setMsg ( "上传equipmentType错误,equipmentType不存在" );
+                            log.error ( "上传equipmentId错误,equipmentId不存在" );
+                            resDto.setMsg ( "上传equipmentId错误,equipmentId不存在" );
                             resDto.setResult ( 1 );
                             resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
                             return resDto.dto2map ();
@@ -183,17 +175,17 @@ public class UploadPhotoController {
                 }
             }
 
-            if ( flagequipmentType == 0 ) {
-                log.error ( "未上传equipmentType字段" );
-                resDto.setMsg ( "未上传equipmentType字段" );
+            if ( flagequipmentId == 0 ) {
+                log.error ( "未上传equipmentId字段" );
+                resDto.setMsg ( "未上传equipmentId字段" );
                 resDto.setResult ( 1 );
                 resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
                 return resDto.dto2map ();
             }
 
-            if ( flagequipmentId == 0 ) {
-                log.error ( "未上传flagequipmentId字段" );
-                resDto.setMsg ( "未上传flagequipmentId字段" );
+            if ( flagId == 0 ) {
+                log.error ( "未上传id字段" );
+                resDto.setMsg ( "未上传id字段" );
                 resDto.setResult ( 1 );
                 resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
                 return resDto.dto2map ();
@@ -201,8 +193,8 @@ public class UploadPhotoController {
 
             equipmentDO = equipmentService.getByEquIdandType ( model.getEquipmentId () , model.getEquipmentType () );
             if ( equipmentDO == null ) {
-                log.error ( "UploadPhotoController[]fileUpload02[]该设备id不存在[]equipmentId:{}" , model.getEquipmentId () );
-                resDto.setMsg ( "该设备id不存在" );
+                log.error ( "UploadPhotoController[]fileUpload02[]该设备[]上传id:{}，上传类型:{}" , model.getEquipmentId () , model.getEquipmentType () );
+                resDto.setMsg ( "该设备不存在" );
                 resDto.setResult ( 1 );
                 resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
                 return resDto.dto2map ();
@@ -259,6 +251,7 @@ public class UploadPhotoController {
             resDto.setMsg ( "内部错误" );
             resDto.setResult ( 1 );
             resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
+            return resDto.dto2map ();
         }
 
 

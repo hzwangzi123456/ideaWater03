@@ -33,7 +33,7 @@ public class UploadPhotoResDto implements Serializable {
     /**
      * 上传周期（秒）默认1800秒 30 * 60
      */
-    private int uploadPeriod = 30 * 60;
+    private Integer uploadPeriod;
 
     /**
      * 是否开启翻转，1：不开启，2：开启

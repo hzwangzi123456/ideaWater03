@@ -9,5 +9,5 @@ public interface EquipmentService {
      * 根据id查询
      * @return
      */
-    EquipmentDO getByEquIdandType ( long equipId , Integer integer );
+    EquipmentDO getByEquIdandType ( String equipId , Integer integer );
 }

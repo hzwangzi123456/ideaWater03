@@ -14,7 +14,7 @@ public class EquipmentDO {
     /**
      * 设备id
      */
-    private Long equipmentId;
+    private String equipmentId;
 
     /**
      * 设备类型1：粮仓，2：天牛

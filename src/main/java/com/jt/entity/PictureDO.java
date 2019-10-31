@@ -19,7 +19,7 @@ public class PictureDO {
     /**
      * 设备id
      */
-    private Long equipmentId;
+    private String equipmentId;
 
     /**
      * 设备类型
