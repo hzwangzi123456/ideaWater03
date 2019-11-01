@@ -1,6 +1,7 @@
 package com.jt.service.Impl;
 
 import com.common.util.BeanMapper;
+import com.constant.EquipmentTypeEnum;
 import com.constant.IsDeleteEnum;
 import com.constant.StatusEnum;
 import com.jt.bean.PictureVO;
@@ -40,11 +41,12 @@ public class UploadPhotoServiceImpl implements UploadPhotoService {
     }
 
     @Override
-    public List < PictureVO > getPhoto () {
+    public List < PictureVO > getPhoto (EquipmentTypeEnum equipMentType) {
 
-        List < PictureDO > pictureDOS = pictureDOMapper.findByStatusAndIsDelete (
+        List < PictureDO > pictureDOS = pictureDOMapper.findByStatusAndIsDeleteAndEquipmentType (
                 StatusEnum.VALID.getCode () ,
-                IsDeleteEnum.NO.getCode ()
+                IsDeleteEnum.NO.getCode () ,
+                equipMentType.getCode ()
         );
 
         if ( CollectionUtils.isEmpty ( pictureDOS ) ) {
@@ -54,14 +56,29 @@ public class UploadPhotoServiceImpl implements UploadPhotoService {
 
         List < PictureVO > pictureVos = Lists.newArrayList ();
         for ( PictureDO p : pictureDOS ) {
-            PictureVO vo = BeanMapper.map ( p , PictureVO.class );
-            vo.setDate ( p.getCreateTime ().toString () );
+
+            PictureVO pictureVO = new PictureVO ();
+            pictureVO.setEquipmentId(p.getEquipmentId ());
+            pictureVO.setEquipmentType(p.getEquipmentType ());
+            pictureVO.setDate(p.getCreateTime ().toString ());
+            pictureVO.setVoltage(p.getVoltage ());
+            pictureVO.setTemp(p.getTemp ());
+            pictureVO.setHumi(p.getHumi ());
+
+
+            //PictureVO vo = BeanMapper.map ( p , PictureVO.class );
 
             String filePath = p.getFilePath ();
-            String[] split = filePath.split ( "\\" );
+            String[] split = filePath.split ( "\\\\" );
+            String filename = split[split.length - 1];
             if ( split.length != 0 ) {
-                vo.setUrl ( "http://116.62.78.62:8060/pictures/" + split[ split.length - 1 ] );
-                pictureVos.add ( vo );
+                if (EquipmentTypeEnum.isLC ( p.getEquipmentType () )) {
+                    pictureVO.setUrl ( "http://116.62.78.62:8060/pictures1/" + filename );
+                }
+                if (EquipmentTypeEnum.isTN ( p.getEquipmentType () )) {
+                    pictureVO.setUrl ( "http://116.62.78.62:8060/pictures2/" + filename );
+                }
+                pictureVos.add ( pictureVO );
             }
         }
         return pictureVos;

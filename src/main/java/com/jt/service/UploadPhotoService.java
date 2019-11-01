@@ -1,5 +1,6 @@
 package com.jt.service;
 
+import com.constant.EquipmentTypeEnum;
 import com.jt.bean.PictureVO;
 import com.jt.entity.PictureDO;
 
@@ -25,5 +26,5 @@ public interface UploadPhotoService {
      *
      * @return
      */
-    List < PictureVO > getPhoto ();
+    List < PictureVO > getPhoto ( EquipmentTypeEnum equipMentType);
 }

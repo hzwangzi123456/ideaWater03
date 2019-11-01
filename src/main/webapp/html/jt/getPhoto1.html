@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
+<h1>设备类型：粮仓</h1>
+
 <table border="1">
     <thead>
     <tr>
@@ -26,7 +28,9 @@
         doAjax(
                 PROJECT_NAME
                 + "UploadPhotoController/getPhoto.do",
-                {},
+                {
+                    equipType:1
+                },
                 function(data) {
                     var resdata = strToJson(data);
                     if (!judgeAjaxData(resdata)) {

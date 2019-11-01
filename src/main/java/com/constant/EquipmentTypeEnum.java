@@ -43,6 +43,20 @@ public enum EquipmentTypeEnum {
         }
     }
 
+    public static boolean isLC(Integer integer) {
+        if (null == integer) {
+            return false;
+        }
+        return LC.getCode () == integer;
+    }
+
+    public static boolean isTN(Integer integer) {
+        if (null == integer) {
+            return false;
+        }
+        return TN.getCode () == integer;
+    }
+
     /**
      * 该数字是否是此枚举类里的值
      *

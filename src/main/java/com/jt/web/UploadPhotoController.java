@@ -19,7 +19,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author wangzi
@@ -193,7 +197,7 @@ public class UploadPhotoController {
 
             equipmentDO = equipmentService.getByEquIdandType ( model.getEquipmentId () , model.getEquipmentType () );
             if ( equipmentDO == null ) {
-                log.error ( "UploadPhotoController[]fileUpload02[]该设备[]上传id:{}，上传类型:{}" , model.getEquipmentId () , model.getEquipmentType () );
+                log.error ( "UploadPhotoController[]fileUpload02[]该设备不存在[]上传id:{}，上传类型:{}" , model.getEquipmentId () , model.getEquipmentType () );
                 resDto.setMsg ( "该设备不存在" );
                 resDto.setResult ( 1 );
                 resDto.setResultTime ( DateUtil.getCurDateStrMiao_ () );
@@ -203,18 +207,19 @@ public class UploadPhotoController {
             log.info ( "上传数据:{}" , jsonObject.toJSONString () );
 
 
-
-
-
             path = equipmentDO.getPicDir ();
             String filename = model.getOldFileName ();
             filename = filename.substring ( filename.lastIndexOf ( "\\" ) + 1 );
             String[] strs = filename.split ( "\\." );
             String extendName = strs[ strs.length - 1 ];
 
-            String newfilename = UuidUtil.get32UUID () + "." + extendName;
+            //设备id-设备类型-时间-5位随机数
+            String newfilename = equipmentDO.getEquipmentId () +
+                    "-" + equipmentDO.getEquipmentType () +
+                    "-" + DateUtil.getCurDateStrHaomiao () +
+                    "-" + UuidUtil.get32UUID ().substring ( 0 , 5 ) +
+                    "." + extendName;
             model.setFilePath ( ( path + newfilename ).trim () );
-
 
 
             log.info ( "fileUpload02[]上传的文件路径:" + model.getFilePath () );
@@ -255,7 +260,6 @@ public class UploadPhotoController {
         }
 
 
-
         //返回成功结果
         resDto.setResult ( 0 );
         resDto.setMsg ( "上传成功" );
@@ -266,16 +270,36 @@ public class UploadPhotoController {
         return resDto.dto2map ();
     }
 
-    @RequestMapping ( value = "/getPhoto.do" )
-    public Map getPhoto () {
+    @RequestMapping (method = RequestMethod.POST ,value = "/getPhoto.do" )
+    public Map getPhoto (Integer equipType) {
+        if (equipType == null) {
+            GetPhotoResDto resDto = new GetPhotoResDto ();
+            resDto.setResult ( 0 );
+            resDto.setMsg ( "上传设备类型为空" );
+            log.error("UploadPhotoController[]getPhoto[]上传设备类型为空");
+
+            resDto.setLists ( null );
+            return resDto.dto2map ();
+        }
+
+        if (EquipmentTypeEnum.isNotInEnum ( equipType )) {
+            GetPhotoResDto resDto = new GetPhotoResDto ();
+            resDto.setResult ( 0 );
+            resDto.setMsg ( "上传设备类型不存在" );
+            log.error("UploadPhotoController[]getPhoto[]上传设备类型不存在[]equipType:{}",equipType);
+
+            resDto.setLists ( null );
+            return resDto.dto2map ();
+        }
+
         GetPhotoResDto resDto = new GetPhotoResDto ();
         resDto.setResult ( 0 );
         resDto.setMsg ( "调用成功" );
         resDto.setLists ( null );
 
-        List < PictureVO > vos = service.getPhoto ();
+        List < PictureVO > vos = service.getPhoto (EquipmentTypeEnum.fromNumber ( equipType ));
 
-        log.debug ("UploadPhotoController[]getPhoto[]返回结果:{}",vos);
+        System.out.println ("UploadPhotoController[]getPhoto[]返回结果:" + vos );
         resDto.setLists ( vos );
         return resDto.dto2map ();
     }

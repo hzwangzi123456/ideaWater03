@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>设备类型：天牛</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>时间</th>
+        <th>地址</th>
+        <th>电压</th>
+        <th>温度</th>
+        <th>湿度</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script src="../../js/jquery-3.2.1.js"></script>
+<script src="../../jsUtil/PublicBefore.js"></script>
+<script>
+    $(function() {
+        doAjax(
+                PROJECT_NAME
+                + "UploadPhotoController/getPhoto.do",
+                {
+                    equipType:2
+                },
+                function(data) {
+                    var resdata = strToJson(data);
+                    if (!judgeAjaxData(resdata)) {
+                        return;
+                    }
+                    console.log("result:" + resdata.result);
+                    console.log("msg:" + resdata.msg);
+                    var list = resdata.list;
+                    var html = '';
+                    $('tbody').html('');
+                    for ( var i = 0; i < list.length; i++) {
+                        if (i <= 3) {
+                            console.log(list[i]);
+                        }
+                        html += '<tr>';
+                        var j = i + 1;
+                        html += '<td>' + j + '</td>';
+                        html += '<td>' + list[i].date + '</td> ';
+                        html += '<td><a href="' + list[i].url + '">'+ list[i].url +'</a></td>';
+                        html += '<td>' + list[i].voltage + '</td> ';
+                        html += '<td>' + list[i].temp + '</td> ';
+                        html += '<td>' + list[i].humi + '</td> ';
+                        html += '</tr>';
+                    }
+                    $('tbody').append(html);
+                });
+    });
+</script>
+</body>
+</html>
