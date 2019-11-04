@@ -299,7 +299,6 @@ public class UploadPhotoController {
 
         List < PictureVO > vos = service.getPhoto (EquipmentTypeEnum.fromNumber ( equipType ));
 
-        System.out.println ("UploadPhotoController[]getPhoto[]返回结果:" + vos );
         resDto.setLists ( vos );
         return resDto.dto2map ();
     }
