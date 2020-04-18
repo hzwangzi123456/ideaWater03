@@ -30,6 +30,7 @@ public class YascmfDatasBoImpl implements YascmfDatasBo {
 	@Override
 	public List<YascmfDatas> findYascmfDatasByTime(String instrumentId,
 												   String start, String end) throws SysRuntimeException {
+		System.out.println("");
 		return yascmfDatasDao.findYascmfDatasByTime(instrumentId, start, end);
 	}
 

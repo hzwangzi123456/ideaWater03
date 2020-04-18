@@ -150,9 +150,9 @@
     <select id="findYascmfDatasByTime" resultType="YascmfDatasVO"> 
 		SELECT <include refid="publicOutCol"/> FROM yasi.yascmf_datas 
 		 <![CDATA[
-		WHERE instrument_id = #{0}
-		AND date_time > #{1}
-		AND date_time < #{2}
+		WHERE instrument_id = #{instrumentId}
+		AND date_time > #{startTime}
+		AND date_time < #{endTime}
 		]]>
 		ORDER BY date_time ASC;
     </select>

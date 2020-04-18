@@ -1,6 +1,7 @@
 package com.yasi.dao;
 
 import com.yasi.vo.YascmfDatas;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,11 +25,9 @@ public interface YascmfDatasDao {
      * find YascmfDatas by Times
      *
      * @param instrumentId
-     * @param start
-     * @param end
      * @return YascmfDatas List
      */
-    List<YascmfDatas> findYascmfDatasByTime(String instrumentId, String start, String end);
+    List<YascmfDatas> findYascmfDatasByTime(@Param("instrumentId") String instrumentId, @Param("startTime") String startTime,@Param("endTime") String endTime);
 
     /**
      * find YascmfDatasCounts by pojo
