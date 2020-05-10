@@ -19,6 +19,8 @@
         <result column="date_time" property="dateTime" jdbcType="VARCHAR" />
         <result column="instrument_id" property="instrumentId" jdbcType="VARCHAR" />
         <result column="location" property="location" jdbcType="VARCHAR" />
+        <result column="water_level" property="waterLevel" jdbcType="INTEGER" />
+        <result column="ammonia" property="ammonia" jdbcType="INTEGER" />
     </resultMap>
 
     <sql id="tb">
@@ -30,17 +32,18 @@
       #{ph,jdbcType=INTEGER}, #{ntu,jdbcType=INTEGER}, #{dissolvedOxygen,jdbcType=INTEGER},
       #{flow,jdbcType=INTEGER}, #{ctState,jdbcType=INTEGER}, #{phState,jdbcType=INTEGER},
       #{ntuState,jdbcType=INTEGER}, #{doState,jdbcType=INTEGER}, #{flState,jdbcType=INTEGER},
-      #{dateTime,jdbcType=VARCHAR}, #{instrumentId,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}
+      #{dateTime,jdbcType=VARCHAR}, #{instrumentId,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR},
+        #{waterLevel,jdbcType=INTEGER},#{ammonia,jdbcType=INTEGER}
     </sql>
 
     <sql id="cols_all">
     id,conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
-    ntu_state, do_state, fl_state, date_time, instrument_id, location
+    ntu_state, do_state, fl_state, date_time, instrument_id, location , water_level , ammonia
     </sql>
 
     <sql id="insert_all">
     conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
-    ntu_state, do_state, fl_state, date_time, instrument_id, location
+    ntu_state, do_state, fl_state, date_time, instrument_id, location, water_level , ammonia
     </sql>
 
     <sql id="publicSet">
@@ -57,7 +60,9 @@
         fl_state = #{flState},
         date_time = #{dateTime},
         instrument_id = #{instrumentId},
-        location = #{location}
+        location = #{location},
+        water_level = #{waterLevel},
+        ammonia = #{ammonia}
     </sql>
 
     <!-- 主键条件 -->
@@ -109,6 +114,12 @@
         </if>
         <if test="location != null">
             AND location = #{location,jdbcType=VARCHAR}
+        </if>
+        <if test="waterLevel != null">
+            AND water_level = #{waterLevel,jdbcType=INTEGER}
+        </if>
+        <if test="ammonia != null">
+            AND ammonia = #{ammonia,jdbcType=INTEGER}
         </if>
     </sql>
 

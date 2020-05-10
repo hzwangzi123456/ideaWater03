@@ -86,4 +86,14 @@ public class NineSkyData implements Serializable {
      * 位置
      */
     private String location;
+
+    /**
+     * 水位
+     */
+    private Integer waterLevel;
+
+    /**
+     * 氨氮
+     */
+    private Integer ammonia;
 }
