@@ -35,6 +35,14 @@ public class NineSkyDataServiceImpl implements NineSkyDataService {
         nineSkyResData.setUploadPeriod(30);
         nineSkyResData.setResultTime("");
 
+        //对未上传数据字段进行兼容
+        if ( module.getWaterLevel() == null ) {
+            module.setWaterLevel(0);
+        }
+        if ( module.getAmmonia() == null ) {
+            module.setAmmonia(0);
+        }
+
         try {
             Integer insert = mapper.insert(module);
             if (insert == 1) {
