@@ -3,11 +3,13 @@ package com.yasi.service;
 import com.common.system.SysRuntimeException;
 import com.common.util.CollectionUtil;
 import com.common.util.DateUtil;
+import com.common.util.StringUtil;
 import com.yasi.dao.NineSkyDataMapper;
 import com.yasi.dto.NineSkyDataGetDto;
 import com.yasi.dto.NineSkyDataGetResDto;
 import com.yasi.model.NineSkyData;
 import com.yasi.dto.NineSkyResData;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,14 @@ public class NineSkyDataServiceImpl implements NineSkyDataService {
         }
         if ( module.getAmmonia() == null ) {
             module.setAmmonia(0);
+        }
+
+        if ( StringUtils.isBlank( module.getLongitude() ) ) {
+            module.setLongitude("");
+        }
+
+        if ( StringUtils.isBlank( module.getDimensionality() ) ) {
+            module.setDimensionality("");
         }
 
         try {

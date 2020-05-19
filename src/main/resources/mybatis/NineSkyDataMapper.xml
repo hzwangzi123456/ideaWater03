@@ -21,6 +21,8 @@
         <result column="location" property="location" jdbcType="VARCHAR" />
         <result column="water_level" property="waterLevel" jdbcType="INTEGER" />
         <result column="ammonia" property="ammonia" jdbcType="INTEGER" />
+        <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+        <result column="dimensionality" property="dimensionality" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="tb">
@@ -33,17 +35,20 @@
       #{flow,jdbcType=INTEGER}, #{ctState,jdbcType=INTEGER}, #{phState,jdbcType=INTEGER},
       #{ntuState,jdbcType=INTEGER}, #{doState,jdbcType=INTEGER}, #{flState,jdbcType=INTEGER},
       #{dateTime,jdbcType=VARCHAR}, #{instrumentId,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR},
-        #{waterLevel,jdbcType=INTEGER},#{ammonia,jdbcType=INTEGER}
+        #{waterLevel,jdbcType=INTEGER},#{ammonia,jdbcType=INTEGER},#{longitude,jdbcType=VARCHAR}
+        ,#{dimensionality,jdbcType=VARCHAR}
     </sql>
 
     <sql id="cols_all">
     id,conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
-    ntu_state, do_state, fl_state, date_time, instrument_id, location , water_level , ammonia
+    ntu_state, do_state, fl_state, date_time, instrument_id, location , water_level , ammonia,longitude
+    ,dimensionality
     </sql>
 
     <sql id="insert_all">
     conductivity, temperature, ph, ntu, dissolved_oxygen, flow, ct_state, ph_state,
-    ntu_state, do_state, fl_state, date_time, instrument_id, location, water_level , ammonia
+    ntu_state, do_state, fl_state, date_time, instrument_id, location, water_level , ammonia,longitude
+    ,dimensionality
     </sql>
 
     <sql id="publicSet">
@@ -62,7 +67,9 @@
         instrument_id = #{instrumentId},
         location = #{location},
         water_level = #{waterLevel},
-        ammonia = #{ammonia}
+        ammonia = #{ammonia},
+        longitude = #{longitude},
+        dimensionality = #{dimensionality}
     </sql>
 
     <!-- 主键条件 -->
@@ -120,6 +127,12 @@
         </if>
         <if test="ammonia != null">
             AND ammonia = #{ammonia,jdbcType=INTEGER}
+        </if>
+        <if test="longitude != null and longitude != ''">
+            AND longitude = #{longitude}
+        </if>
+        <if test="dimensionality != null and dimensionality != ''">
+            AND dimensionality = #{dimensionality}
         </if>
     </sql>
 

@@ -96,4 +96,14 @@ public class NineSkyData implements Serializable {
      * 氨氮
      */
     private Integer ammonia;
+
+    /**
+     * 经度
+     */
+    private String longitude;
+
+    /**
+     * 维度
+     */
+    private String dimensionality;
 }
