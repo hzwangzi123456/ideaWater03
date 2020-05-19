@@ -61,3 +61,31 @@ CREATE TABLE `t_jt_picture`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COMMENT = '图片上传';
+
+
+DROP TABLE IF EXISTS `nineskydata`;
+CREATE TABLE `nineskydata` (
+   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+   `conductivity` int(11) DEFAULT NULL COMMENT '导电性',
+   `temperature` int(11) DEFAULT NULL COMMENT '温度',
+   `ph` int(11) DEFAULT NULL COMMENT 'ph',
+   `ntu` int(11) DEFAULT NULL COMMENT '浊度\n',
+   `dissolved_oxygen` int(11) DEFAULT NULL COMMENT '溶解氧',
+   `flow` int(11) DEFAULT NULL COMMENT '巴歇尔槽明渠流量流量',
+   `ct_state` int(11) DEFAULT NULL COMMENT '电导率、温度传感器电源状态位',
+   `ph_state` int(11) DEFAULT NULL COMMENT 'ph传感器电源状态位',
+   `ntu_state` int(11) DEFAULT NULL COMMENT '浊度传感器电源状态位',
+   `do_state` int(11) DEFAULT NULL COMMENT '溶解氧传感器电源状态位',
+   `fl_state` int(11) DEFAULT NULL COMMENT '流量传感器电源状态位',
+   `date_time` varchar(255) DEFAULT NULL COMMENT '时间 举例：2018-01-01 23:59:59',
+   `timestamp` varchar(255) DEFAULT NULL COMMENT '时间戳',
+   `instrument_id` varchar(255) DEFAULT NULL COMMENT '设备id',
+   `location` varchar(255) DEFAULT NULL COMMENT '位置',
+   `alert` varchar(255) DEFAULT NULL,
+   `water_level` int(20) NOT NULL DEFAULT '0' COMMENT '水位',
+   `ammonia` int(20) NOT NULL DEFAULT '0' COMMENT '氨氮',
+   `longitude` varchar(1024) NOT NULL DEFAULT '' COMMENT '经度',
+   `dimensionality` varchar(1024) NOT NULL DEFAULT '' COMMENT '维度',
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `nineskydata_id_uindex` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=898201 DEFAULT CHARSET=utf8;
