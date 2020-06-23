@@ -1,6 +1,14 @@
 package test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.common.util.CollectionUtil;
 import com.common.util.DateUtil;
+import com.hlj.dto.DownLoadDto;
+import com.hlj.dto.Student;
+import com.hlj.dto.TestDto;
+import com.hlj.service.ReadService;
 import com.yasi.enums.RecordType;
 import com.yasi.model.AttendanceRecord02;
 import com.yasi.service.AttendanceRecord02Service;
@@ -9,8 +17,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.testng.collections.Lists;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * @author wangzi
@@ -22,6 +36,56 @@ public class AttendanceRecord02ServiceTest {
 
     @Autowired
     private AttendanceRecord02Service attendanceRecord02Service;
+
+    @Autowired
+    private ReadService readService;
+
+    @Test
+    public void test3() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+        Class<Student> studentClass = Student.class;
+
+        Method[] methods = studentClass.getDeclaredMethods();
+        if ( CollectionUtil.isNotEmpty( methods ) ) {
+            for ( Method a : methods ) {
+                if ( a.getName().equals( "sout" ) ) {
+                    System.out.println("找到了");
+                    a.setAccessible(true);
+                    Object invoke = a.invoke(studentClass.newInstance());
+                    System.out.println(invoke);
+                }
+            }
+        }
+    }
+
+    @Test
+    public void test2() {
+        TestDto downLoadDto = new TestDto();
+        downLoadDto.setId(1);
+        downLoadDto.setName("wz");
+        downLoadDto.setCreateTime( new Timestamp( System.currentTimeMillis() ) );
+
+        List<TestDto> testDtos = Lists.newArrayList();
+        testDtos.add( downLoadDto );
+
+        String s = JSON.toJSONStringWithDateFormat(testDtos, "yyyy-MM-dd HH:mm:ss" ,  SerializerFeature.PrettyFormat , SerializerFeature.WriteDateUseDateFormat);
+        System.out.println( s );
+
+        testDtos = JSON.parseArray(s, TestDto.class);
+        System.out.println( testDtos.toString() );
+
+        System.out.println( testDtos.get( 0 ).getCreateTime().getTime() );
+    }
+
+
+    @Test
+    public void test() {
+        TestDto downLoadDto = new TestDto();
+        downLoadDto.setId(1);
+        downLoadDto.setName(null);
+        downLoadDto.setCreateTime( new Timestamp( System.currentTimeMillis() ) );
+
+        readService.test( downLoadDto );
+    }
 
     @Test
     public void createTest() throws ParseException {

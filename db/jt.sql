@@ -89,3 +89,21 @@ CREATE TABLE `nineskydata` (
    PRIMARY KEY (`id`),
    UNIQUE KEY `nineskydata_id_uindex` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=898201 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `granary_data`;
+create table granary_data (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    instrument_id VARCHAR(255) NOT NULL DEFAULT '' COMMENT '设备id',
+    hepatic_gas int(11) NOT NULL DEFAULT 0 COMMENT '硫化氢',
+    co_gas int(11) NOT NULL DEFAULT 0 COMMENT '一氧化碳',
+    co2_gas int(11) NOT NULL DEFAULT 0 COMMENT '二氧化碳',
+    oxygen_content int(11) NOT NULL DEFAULT 0 COMMENT '含氧量',
+    temperature int(11) NOT NULL DEFAULT 0 COMMENT '温度',
+    humidity int(11) NOT NULL DEFAULT 0 COMMENT '湿度',
+    battery int(11) NOT NULL DEFAULT 0 COMMENT '电量',
+    status int(2) NOT NULL DEFAULT 1 COMMENT '状态',
+    is_delete int(2) NOT NULL DEFAULT 0 COMMENT '删除状态',
+    create_time varchar(255) COMMENT '创建时间',
+      PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT ='粮仓数据表';

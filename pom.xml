@@ -243,6 +243,19 @@
             <version>1.6.11</version>
         </dependency>
 
+        <!-- aop aspect注解导包-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+
         <!-- springmvc导出Excel-->
         <dependency>
             <groupId>org.apache.poi</groupId>

@@ -12,4 +12,7 @@ public class SysConf {
 
     @Value("#{sysconf.uploadperiod}")
     private Integer uploadPeriod;
+
+    @Value("#{sysconf.granaryDataCheckPeriod}")
+    private Integer granaryDataCheckPeriod;
 }

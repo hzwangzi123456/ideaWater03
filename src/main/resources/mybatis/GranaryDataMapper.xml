@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.dao.mybatis.GranaryDataMapper">
+  <resultMap id="BaseResultMap" type="com.jt.entity.GranaryDataDO">
+    <!--@mbg.generated-->
+    <!--@Table granary_data-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="instrument_id" jdbcType="VARCHAR" property="instrumentId" />
+    <result column="hepatic_gas" jdbcType="INTEGER" property="hepaticGas" />
+    <result column="co_gas" jdbcType="INTEGER" property="coGas" />
+    <result column="co2_gas" jdbcType="INTEGER" property="co2Gas" />
+    <result column="oxygen_content" jdbcType="INTEGER" property="oxygenContent" />
+    <result column="temperature" jdbcType="INTEGER" property="temperature" />
+    <result column="humidity" jdbcType="INTEGER" property="humidity" />
+    <result column="battery" jdbcType="INTEGER" property="battery" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, instrument_id, hepatic_gas, co_gas, co2_gas, oxygen_content, temperature, humidity, 
+    battery, `status`, is_delete, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from granary_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from granary_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.jt.entity.GranaryDataDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into granary_data (instrument_id, hepatic_gas, co_gas, 
+      co2_gas, oxygen_content, temperature, 
+      humidity, battery, create_time)
+    values (#{instrumentId,jdbcType=VARCHAR}, #{hepaticGas,jdbcType=INTEGER}, #{coGas,jdbcType=INTEGER}, 
+      #{co2Gas,jdbcType=INTEGER}, #{oxygenContent,jdbcType=INTEGER}, #{temperature,jdbcType=INTEGER}, 
+      #{humidity,jdbcType=INTEGER}, #{battery,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.jt.entity.GranaryDataDO" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into granary_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="instrumentId != null">
+        instrument_id,
+      </if>
+      <if test="hepaticGas != null">
+        hepatic_gas,
+      </if>
+      <if test="coGas != null">
+        co_gas,
+      </if>
+      <if test="co2Gas != null">
+        co2_gas,
+      </if>
+      <if test="oxygenContent != null">
+        oxygen_content,
+      </if>
+      <if test="temperature != null">
+        temperature,
+      </if>
+      <if test="humidity != null">
+        humidity,
+      </if>
+      <if test="battery != null">
+        battery,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="instrumentId != null">
+        #{instrumentId,jdbcType=VARCHAR},
+      </if>
+      <if test="hepaticGas != null">
+        #{hepaticGas,jdbcType=INTEGER},
+      </if>
+      <if test="coGas != null">
+        #{coGas,jdbcType=INTEGER},
+      </if>
+      <if test="co2Gas != null">
+        #{co2Gas,jdbcType=INTEGER},
+      </if>
+      <if test="oxygenContent != null">
+        #{oxygenContent,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        #{temperature,jdbcType=INTEGER},
+      </if>
+      <if test="humidity != null">
+        #{humidity,jdbcType=INTEGER},
+      </if>
+      <if test="battery != null">
+        #{battery,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jt.entity.GranaryDataDO">
+    <!--@mbg.generated-->
+    update granary_data
+    <set>
+      <if test="instrumentId != null">
+        instrument_id = #{instrumentId,jdbcType=VARCHAR},
+      </if>
+      <if test="hepaticGas != null">
+        hepatic_gas = #{hepaticGas,jdbcType=INTEGER},
+      </if>
+      <if test="coGas != null">
+        co_gas = #{coGas,jdbcType=INTEGER},
+      </if>
+      <if test="co2Gas != null">
+        co2_gas = #{co2Gas,jdbcType=INTEGER},
+      </if>
+      <if test="oxygenContent != null">
+        oxygen_content = #{oxygenContent,jdbcType=INTEGER},
+      </if>
+      <if test="temperature != null">
+        temperature = #{temperature,jdbcType=INTEGER},
+      </if>
+      <if test="humidity != null">
+        humidity = #{humidity,jdbcType=INTEGER},
+      </if>
+      <if test="battery != null">
+        battery = #{battery,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jt.entity.GranaryDataDO">
+    <!--@mbg.generated-->
+    update granary_data
+    set instrument_id = #{instrumentId,jdbcType=VARCHAR},
+      hepatic_gas = #{hepaticGas,jdbcType=INTEGER},
+      co_gas = #{coGas,jdbcType=INTEGER},
+      co2_gas = #{co2Gas,jdbcType=INTEGER},
+      oxygen_content = #{oxygenContent,jdbcType=INTEGER},
+      temperature = #{temperature,jdbcType=INTEGER},
+      humidity = #{humidity,jdbcType=INTEGER},
+      battery = #{battery,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

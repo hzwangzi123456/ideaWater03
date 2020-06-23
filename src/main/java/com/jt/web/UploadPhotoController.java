@@ -3,12 +3,16 @@ package com.jt.web;
 import com.alibaba.fastjson.JSONObject;
 import com.common.SysConf;
 import com.common.util.DateUtil;
+import com.common.util.StringUtil;
 import com.common.util.UuidUtil;
 import com.constant.EquipmentTypeEnum;
+import com.google.common.collect.Maps;
 import com.jt.bean.PictureVO;
+import com.jt.dao.mybatis.GranaryDataMapper;
 import com.jt.dto.GetPhotoResDto;
 import com.jt.dto.UploadPhotoResDto;
 import com.jt.entity.EquipmentDO;
+import com.jt.entity.GranaryDataDO;
 import com.jt.entity.PictureDO;
 import com.jt.service.EquipmentService;
 import com.jt.service.UploadPhotoService;
@@ -59,6 +63,9 @@ public class UploadPhotoController {
 
     @Autowired
     private SysConf sysConf;
+
+    @Autowired
+    private GranaryDataMapper mapper;
 
 
     @RequestMapping ( value = "/fileUpload02.do" )
@@ -301,5 +308,104 @@ public class UploadPhotoController {
 
         resDto.setLists ( vos );
         return resDto.dto2map ();
+    }
+
+    @RequestMapping (method = RequestMethod.POST ,value = "/insertGranaryData.do" , produces = "application/json;charset=utf-8" )
+    public Map insertGranaryData(@RequestBody GranaryDataDO granaryDataDO ) {
+        log.info("UploadPhotoController[]insertGranaryData[]入参 req:{}" , granaryDataDO );
+
+
+        Map check = check(granaryDataDO);
+        if ( check != null ) {
+            return check;
+        }
+
+        granaryDataDO.setCreateTime( DateUtil.getCurDateStrHaomiao_() );
+
+        mapper.insert(granaryDataDO);
+
+
+        Map<String , Object> res = Maps.newHashMap();
+        res.put( "checkPeriod" , sysConf.getGranaryDataCheckPeriod() );
+        res.put( "result" , 0 );
+        res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+        res.put( "message" , "成功" );
+        log.info("UploadPhotoController[]insertGranaryData[]出参 resp:{}" , res );
+
+        return res;
+    }
+
+    private Map check(GranaryDataDO granaryDataDO) {
+
+
+
+        if ( StringUtils.isBlank( granaryDataDO.getInstrumentId() ) ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "instrumentId-设备id为空" );
+            return res;
+        }
+
+
+        if ( null == granaryDataDO.getHepaticGas() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "hepaticGas-硫化氢为null" );
+            return res;
+        }
+
+        if ( null == granaryDataDO.getCoGas() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "一氧化碳为null" );
+            return res;
+        }
+
+
+        if ( null == granaryDataDO.getCo2Gas() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "二氧化碳为null" );
+            return res;
+        }
+
+        if ( null == granaryDataDO.getOxygenContent() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "含氧量为null" );
+            return res;
+        }
+
+
+        if ( null == granaryDataDO.getTemperature() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "温度为null" );
+            return res;
+        }
+
+        if ( null == granaryDataDO.getHumidity() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "湿度为null" );
+            return res;
+        }
+
+        if ( null == granaryDataDO.getBattery() ) {
+            Map<String , Object> res = Maps.newHashMap();
+            res.put( "result" , 1 );
+            res.put( "resultTime" , DateUtil.getCurDateStrHaomiao_() );
+            res.put( "message" , "电量为null" );
+            return res;
+        }
+
+         return null;
     }
 }
